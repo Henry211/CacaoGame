@@ -19,14 +19,14 @@ body{
 
 #txtLogin{
     color:#ECF0F1;
-    font-size:22px;
+    font-size:24px;
     margin-left: 140px;
     font-family: 'Times New Roman', Times, serif;
 }
 #txtDato{
     color:#ECF0F1;
     line-height:80px;
-    font-size:22px;
+    font-size:18px;
     margin-left:40px;
 }
 
@@ -35,5 +35,5 @@ body{
     border-radius: 15px;
     padding:5px 5px 0px 10px;
     margin-left: 60px;
-    font-size: 18px;
+    font-size: 15px;
 }
