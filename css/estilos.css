@@ -4,10 +4,10 @@
     color:#D0D3D4;
     font-size:25px;
     left: 470px;
-    top: 70px;
-    width:340px;
+    top: 50px;
+    width:370px;
     border-radius: 40px;
-    height: 400px;
+    height: 450px;
     box-shadow:40px 20px 60px #9C640C;
     background-image: url(../img/degrad.jpg);
 }
@@ -16,18 +16,25 @@ body{
 	background-image: url(../img/fondo.jpg);
 }
 
-#txtNombre{
-    color:#D0D3D4;
-    font-size:25px;
-    padding:20px 90px 20px 70px;
-}
-#txtFecha{
-    color:#D0D3D4;
+
+#txtLogin{
+    color:#ECF0F1;
     font-size:22px;
-    padding:30px 20px 90px 70px;
+    margin-left: 140px;
+    font-family: 'Times New Roman', Times, serif;
 }
-#txtColor{
-    color:#D0D3D4;
+#txtDato{
+    color:#ECF0F1;
+    line-height:80px;
     font-size:22px;
-    padding:30px 20px 20px 70px;
+    margin-left:40px;
+}
+
+#fieldName{
+    background: #b4b6b8;
+    border-radius: 15px;
+    padding:5px 5px 0px 10px;
+    margin-left: 60px;
+    font-size: 18px;
+    
 }
