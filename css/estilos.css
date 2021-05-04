@@ -1,14 +1,33 @@
 
 #loginBox{
     position:relative;
-    left: 550px;
-    top: 100px;
-    border:2px solid #969393;
-    width:150px;
-    color:black;
-    box-shadow:0px 8px 0px #46017c;
+    color:#D0D3D4;
+    font-size:25px;
+    left: 470px;
+    top: 70px;
+    width:340px;
+    border-radius: 40px;
+    height: 400px;
+    box-shadow:40px 20px 60px #9C640C;
+    background-image: url(../img/degrad.jpg);
 }
 
 body{
 	background-image: url(../img/fondo.jpg);
+}
+
+#txtNombre{
+    color:#D0D3D4;
+    font-size:25px;
+    padding:20px 90px 20px 70px;
+}
+#txtFecha{
+    color:#D0D3D4;
+    font-size:22px;
+    padding:30px 20px 90px 70px;
+}
+#txtColor{
+    color:#D0D3D4;
+    font-size:22px;
+    padding:30px 20px 20px 70px;
 }
