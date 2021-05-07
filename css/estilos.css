@@ -1,0 +1,18 @@
+.tablero{
+    padding: 0px;
+    margin: auto;
+    width: 600px;
+    height: 500px;
+    background-color: #ffb;
+    border: 8px groove yellowgreen;
+}
+.header{
+    padding: 0px;
+    margin: auto;
+    width: 200px;
+    height:25px;
+    background-color: yellowgreen;
+}
+*{ 
+font:Arial;
+     }
