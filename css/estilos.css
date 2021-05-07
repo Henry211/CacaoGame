@@ -1,11 +1,4 @@
-.tablero{
-    padding: 0px;
-    margin: auto;
-    width: 600px;
-    height: 500px;
-    background-color: #ffb;
-    border: 8px groove yellowgreen;
-}
+
 .header{
     padding: 0px;
     margin: auto;
@@ -13,6 +6,29 @@
     height:25px;
     background-color: yellowgreen;
 }
+/*
 *{ 
 font:Arial;
      }
+     */
+
+     #cajadatos {
+        position: relative;
+        border: 5px solid #ccc;
+        padding: 10px;
+        margin: auto;
+        width: 90%;
+        height: 380px;
+        overflow: auto;
+    }
+    #cajaMain{
+        position: relative;
+        border: 1px solid #ccc;
+        padding: 10px;  
+        height: auto; 
+        margin: auto;
+        width: 600px;
+        background-color: #ffb;
+        border: 8px groove yellowgreen;
+    }
+
