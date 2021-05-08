@@ -37,4 +37,25 @@ font:Arial;
         text-align: center;
         border: 1px groove yellowgreen;
     }
-
+   #marcador1{
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;  
+    height: 80px; 
+    margin: auto;
+    width: 200px;
+    background-color: #ffb;
+    border: 8px groove yellowgreen;
+    float: right;
+   }
+   #marcador2{
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;  
+    height: 80px; 
+    margin: auto;
+    width: 200px;
+    background-color: rgb(33, 40, 46);
+    border: 8px groove rgb(202, 247, 112);
+    float: right;
+   }
