@@ -16,10 +16,11 @@ font:Arial;
         position: relative;
         border: 5px solid #ccc;
         padding: 10px;
-        margin: auto;
-        width: 90%;
-        height: 380px;
+        margin:auto;
+        width: 95%;
+        height: 460px;
         overflow: auto;
+        top:-80px;
     }
     #cajaMain{
         position: relative;
@@ -27,7 +28,7 @@ font:Arial;
         padding: 10px;  
         height: auto; 
         margin: auto;
-        width: 600px;
+        width: 700px;
         background-color: #ffb;
         border: 8px groove yellowgreen;
     }
@@ -36,7 +37,24 @@ font:Arial;
         height: 68px;
         text-align: center;
         border: 1px groove yellowgreen;
+        
     }
+.fill{
+        background-image: url('http://source.unsplash.com/random/70x130');
+        cursor:pointer;
+        position:relative;
+        height: 70px;
+        width:130px;
+}
+
+.empty{
+    display: inline-block;
+    height: 80px;
+    width: 80px;
+    border: 3px salmon solid;
+    background-color: whitesmoke;
+}
+
    #marcador1{
     position: relative;
     border: 1px solid #ccc;
@@ -56,6 +74,9 @@ font:Arial;
     margin: auto;
     width: 200px;
     background-color: rgb(33, 40, 46);
-    border: 8px groove rgb(202, 247, 112);
+    border: 8px groove yellowgreen;
     float: right;
+
+    top:140px;
+    left:238px;
    }
