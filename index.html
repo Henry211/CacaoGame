@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US"></html>
 <head>
+    <meta charset="UTF-8">
 	<title>Juego</title>
 	<link rel="stylesheet" type="text/css" href="css/estilos.css">
 </head>
 
     <h1><center>CACAO</center></h1>
+    
     <body background="IMG/fondo.jpg"> 
+    
+
         <section class="wrapper"> 
             <aside id="marcador1">
                     <h2><br>Marcador1</h2>
@@ -22,22 +26,23 @@
     <div id="cajadatos">
     <table>
         <th>
-            <div id="casilla">
-                <img src="img/logo.jpg" width="90">
+            <div id="casilla" class ="empty">
+                <div class="fill" draggable="true"></div>
             </div>
         </th>
         <th>
-            <div id="casilla">
-            *
-        </th>
-        <th>
-            <div id="casilla">
-             *  
+            <div id="casilla" class="empty">
+                
             </div>
         </th>
         <th>
-            <div id="casilla">
-              * 
+            <div id="casilla" class="empty">
+                
+            </div>
+        </th>
+        <th>
+            <div id="casilla" class="empty">
+                
             </div>
         </th>
         <tr>
@@ -74,7 +79,7 @@
 
 </div>
 
-
+<script src="js/script.js"></script>
 
 </body>
 </html> 
