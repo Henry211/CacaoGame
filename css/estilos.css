@@ -33,22 +33,22 @@ font:Arial;
         border: 8px groove yellowgreen;
     }
     #casilla{
-        width: 130px;
+        width: 80px;
         height: 68px;
         text-align: center;
         border: 1px groove yellowgreen;
-        
+        margin: 2px;
     }
 .fill{
-        background-image: url('http://source.unsplash.com/random/70x130');
+        background-image: url('http://source.unsplash.com/random/68x80');
         cursor:pointer;
         position:relative;
-        height: 70px;
-        width:130px;
+        height: 68px;
+        width:80px;
 }
 
 .empty{
-    display: inline-block;
+    
     height: 80px;
     width: 80px;
     border: 3px salmon solid;
