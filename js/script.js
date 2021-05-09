@@ -1,3 +1,7 @@
+import Tablero from './tablero.js'
+
+const tablero = new Tablero()
+
 const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
 
