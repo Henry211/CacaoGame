@@ -3,12 +3,11 @@
 
 var items = [
     [0, 4, 0, 4, 0, 4, 0],
-    [0, 4, 0, 4, 4, 0, 0],
-    [4, 0, 7, 4, 0, 0, 0],
+    [0, 4, 0, 0, 0, 0, 0],
+    [4, 0, 7, 4, 0, 0, 4],
     [0, 4, 0, 5, 4, 0, 0],
-    [0, 0, 0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 4, 0, 0],
+    [4, 0, 4, 0, 0, 0, 4]
   ];
 
 const fill = document.querySelector('.fill');
@@ -84,13 +83,12 @@ function getItemsXY(x,y){
 }
 /// IMPRIMIR MINA ()
 function printMinas(){
-    for(var i = 0;i<7;i++){
-        for(var j = 0;j<6;j++){
+    for(var i = 0;i<6;i++){
+        for(var j = 0;j<7;j++){
             var valor = items[i][j];
-            console.log(valor);
-            var x="2";
-            var y="3";
-            var txt = ""+x+y;
+            
+            var txt = ""+i+j;
+            console.log(txt);
             if(valor == 4){
                 document.getElementById(txt).src="./IMG/Mina2.png";
                 document.getElementById(txt).style.height='65px';
@@ -99,6 +97,7 @@ function printMinas(){
         }
     }
 }
+
 
 /*  //CODIGO JAVA
     private void cargarMapa(Integer matrixMapa[][], int numeroMapa, Image textura){
