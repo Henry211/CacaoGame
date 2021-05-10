@@ -1,14 +1,15 @@
 //import Tablero from "./tablero.js"
 //const tablero = new Tablero()
 
-
-const map = new Map([
-    ['1','1','0','3'],
-    ['0','1','0','0'],
-    ['0','1','2','2'],
-    ['1','4','2','3']
-    ])
-Array.from(map);
+var items = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 7, 4, 0, 0, 0],
+    [0, 0, 0, 5, 4, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+  ];
 
 const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
@@ -56,10 +57,19 @@ function dragDrop(){
 function verDatosClick(){
     var x = document.getElementById("button");
     // document.getElementById("demo").innerHTML = x;
-    //importarScript("tablero.js");
+
+    //importarScript("tablero.js");    ==IMPORT==
     //const tablero = new Tablero()
-    cargarTablero();
-    console.log(getMapData(2));
+    
+      console.log(items[1][0]); // 1
+      console.log(getItemsXY(2,2)); // 2
+  /*    console.log(items[1][0]); // 3
+      console.log(items[1][1]); // 4
+      console.log(items[2][0]); // 5
+      console.log(items[2][1]); // 6*/
+      
+      console.log(items);
+      console.log(items[1][0]);
 
     //var img = document.querySelectorAll('.empty');
     //img = tablero.getElementById(3);
@@ -68,3 +78,45 @@ function verDatosClick(){
 function getMapData(id){
     return this.map[id][id];
 }
+
+function getItemsXY(x,y){
+    return this.items[x][y];
+}
+
+/*  //CODIGO JAVA
+    private void cargarMapa(Integer matrixMapa[][], int numeroMapa, Image textura){
+        grid = new GridPane(); 
+        grid.getChildren().clear();
+
+        colocarPersonaje(numeroMapa);
+        
+        matrixMapa = evaluaBaseDeDatos(matrixMapa);
+        
+        setMatrizLógica(matrixMapa);
+        
+        imprimirEstrellas();       
+        imprimirMuros(textura);       
+        imprimirCajas();
+        
+        eventosJava(textura);
+        
+        grid.setLayoutX(150);
+        grid.setLayoutY(130);
+        anchorPane.getChildren().add(grid);   
+    }
+
+    //---------------------------------------------
+
+    private void setMatrizLógica(Integer matriz[][]){
+        mapa = new Mapa();
+        int elemento;
+        for(int i=0;i<8;i++){
+            for(int j=0;j<12;j++){
+                elemento = matriz[i][j];
+                mapa.cargarElemento(i,j,elemento);
+            }
+        }
+    }
+    //------------------------------------------------
+    
+*/

@@ -33,8 +33,10 @@ class Tablero {
 }
 
 class Ficha {
-    constructor(tipo){
-        this.tipo = tipo
+    constructor(tipo,row,column){
+        this.tipo = tipo;
+        this.row = row;
+        this.column = column;
     }
 }
 
