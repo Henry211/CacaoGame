@@ -1,9 +1,10 @@
-//import Tablero from "./tablero.js"
+//import Tablero from "./tablero"
 
 //const tablero = new Tablero()
 
 const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
+var x = document.getElementById("button");
 
 //Fill Listeners
 
@@ -42,4 +43,10 @@ function dragLeave(){
 function dragDrop(){
     this.className = 'empty';
     this.append(fill);
+}
+
+function verDatosClick(){
+    var x = document.getElementById("button");
+    // document.getElementById("demo").innerHTML = x;
+    console.log(x);
 }

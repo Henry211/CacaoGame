@@ -3,9 +3,11 @@ const TIPOS =["lago","meaple","mina","cacao"]
 var imgArray = new Array();
 
 imgArray[0] = new Image();
-imgArray[0].stc = 'images/IMG/Mina1.jpg';
+imgArray[0].stc = '../IMG/Mina1.jpg';
+imgArray[1] = new Image();
+imgArray[1].stc = '../IMG/Mina1.jpg';
 
-export default class Tablero {
+class Tablero {
     constructor(fichas){
         this.fichas = fichas
     }
@@ -23,7 +25,23 @@ function refreshTablero(){
     })
 }
 
-function cargarTablero(element)
+function cargarTablero()
 {
-    for(var i = 0; i< imgArray.length; i++) imgArray[i] = new Image();
+    for(var i = 3; i< imgArray.length; i++) imgArray[i] = new Image();
+    console.log(i)
+}
+
+function getNextElement(elemet){
+    var img = document.getElementById(element);
+
+    for(var i = 0; i < imgArray.length; i++){
+        if(imgArray[i].src == img.src){ //   << check this
+            if(i == imgArray.length){   // máx
+                document.getElementById(element).src = imgArray[0].src;
+                break;
+            }
+            document.getElementById(element).src = imgArray[i+1].src;
+            break;
+        }
+    }
 }
