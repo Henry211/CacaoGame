@@ -3,10 +3,10 @@
 
 var items = [
     [0, 4, 0, 4, 0, 4, 0],
-    [0, 4, 0, 0, 0, 0, 0],
-    [4, 0, 7, 4, 0, 0, 4],
-    [0, 4, 0, 5, 4, 0, 0],
-    [0, 0, 0, 0, 4, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 7, 0, 0, 0, 4],
+    [0, 4, 0, 5, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
     [4, 0, 4, 0, 0, 0, 4]
   ];
 
@@ -18,6 +18,7 @@ var x = document.getElementById("button");
 
 fill.addEventListener('dragstart', dragStart);
 fill.addEventListener('dragend', dragEnd);
+
 
 // Loop through empties and call drag events
 for(const empty of empties){
@@ -35,7 +36,7 @@ function dragStart(){
 }
 
 function dragEnd(){
-    this.className = 'fill';
+    this.className = 'empty';
 }
 
 function dragOver(e){
@@ -46,7 +47,7 @@ function dragEnter(e){
     this.className += 'hovered';
 }
 function dragLeave(){
-    this.className ='empty';
+    this.className ='fill';
 }
 function dragDrop(){
     this.className = 'empty';
@@ -60,15 +61,14 @@ function verDatosClick(){
     //importarScript("tablero.js");    ==IMPORT==
     //const tablero = new Tablero()
     
-      console.log(items[1][0]); // 1
-      console.log(getItemsXY(2,2)); // 2
   /*    console.log(items[1][0]); // 3
       console.log(items[2][1]); // */
-      
       console.log(items);
-      console.log(items[1][0]);
+     
 
-      printMinas();
+      mostrarMazo1();
+      mostrarMazo2();
+      //printMinas();
 
     //var img = document.querySelectorAll('.empty');
     //img = tablero.getElementById(3);
@@ -81,7 +81,21 @@ function getMapData(id){
 function getItemsXY(x,y){
     return this.items[x][y];
 }
-/// IMPRIMIR MINA ()
+
+function mostrarMazo1(){
+    document.getElementById("mazo1").src="./IMG/Mina1.png";
+    document.getElementById("mazo1").style.height='65px';
+    document.getElementById("mazo1").style.width='80px';
+    document.getElementById("mazo1").className="fill";
+}
+function mostrarMazo2(){
+    document.getElementById("mazo2").src="./IMG/Mina2.png";
+    document.getElementById("mazo2").style.height='65px';
+    document.getElementById("mazo2").style.width='80px';
+}
+
+
+/// IMPRIMIR MINA () == 4
 function printMinas(){
     for(var i = 0;i<6;i++){
         for(var j = 0;j<7;j++){
@@ -89,7 +103,7 @@ function printMinas(){
             
             var txt = ""+i+j;
             console.log(txt);
-            if(valor == 4){
+            if(valor == 5){
                 document.getElementById(txt).src="./IMG/Mina2.png";
                 document.getElementById(txt).style.height='65px';
                 document.getElementById(txt).style.width='80px';

@@ -39,18 +39,11 @@ font:Arial;
         border: 1px groove yellowgreen;
         margin: 2px;
     }
-.fill{
-        background-image: url('http://source.unsplash.com/random/68x80');
-        cursor:pointer;
-        position:relative;
-        height: 68px;
-        width:80px;
-}
 
-.empty{
+#empty{
     
     height: 80px;
-    width: 80px;
+    width: 800px;
     border: 3px salmon solid;
     background-color: whitesmoke;
 }
@@ -77,9 +70,25 @@ font:Arial;
     border: 8px groove yellowgreen;
     float: right;
 
-    top:140px;
+    top:220px;
     left:238px;
    }
+
+   #mazo1{
+       position: relative;
+       margin: auto;
+       top: 0px;
+       width:100px;
+       height: 80px;
+   }
+
+   #mazo2{
+    position: relative;
+    margin: auto;
+    top: 0px;
+    width:100px;
+    height: 80px;
+}
 
    .button{
        position: relative;
