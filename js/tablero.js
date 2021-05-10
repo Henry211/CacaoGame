@@ -1,12 +1,31 @@
-const TIPOS =["lago","meaple","mina","cacao"]
+
 
 var imgArray = new Array();
 
 imgArray[0] = new Image();
-imgArray[0].stc = '../IMG/Mina1.jpg';
+imgArray[0].stc = '../IMG/Mina1.png';
 imgArray[1] = new Image();
-imgArray[1].stc = '../IMG/Mina1.jpg';
+imgArray[1].stc = '../IMG/Mina2.png';
+imgArray[2] = new Image();
+imgArray[2].stc = '../IMG/MayaSun.png';
+imgArray[3] = new Image();
+imgArray[3].stc = '../IMG/Lago.png';
+imgArray[4] = new Image();
+imgArray[4].stc = '../IMG/Semillas2.png';
+imgArray[5] = new Image();
+imgArray[5].stc = '../IMG/Mercado2.png';
+/*
+const map = new Map([
+                    ['1','1','0','3'],
+                    ['0','1','0','0'],
+                    ['0','1','2','2'],
+                    ['1','4','2','3']
+                    ])
 
+const filteredItems = items.filter((item) =>{
+    return item;
+})
+*/
 class Tablero {
     constructor(fichas){
         this.fichas = fichas
@@ -19,6 +38,10 @@ class Ficha {
     }
 }
 
+function getMapData(id){
+    return this.map[id][id];
+}
+
 function refreshTablero(){
     return TIPOS.map(tipo => {
         return new Ficha(tipo)
@@ -28,7 +51,21 @@ function refreshTablero(){
 function cargarTablero()
 {
     for(var i = 3; i< imgArray.length; i++) imgArray[i] = new Image();
-    console.log(i)
+
+}
+function getElementById(id){
+    for(var i = 3; i< imgArray.length; i++){
+        if(i == id){
+            return imgArray[i].src
+        }
+    }
+}
+function getType(id){
+    for(var i = 3; i< imgArray.length; i++){
+        if(i = id){
+            return imgArray[i].TIPOS;
+        }
+    }
 }
 
 function getNextElement(elemet){
@@ -45,3 +82,4 @@ function getNextElement(elemet){
         }
     }
 }
+

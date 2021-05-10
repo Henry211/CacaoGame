@@ -1,6 +1,14 @@
-//import Tablero from "./tablero"
-
+//import Tablero from "./tablero.js"
 //const tablero = new Tablero()
+
+
+const map = new Map([
+    ['1','1','0','3'],
+    ['0','1','0','0'],
+    ['0','1','2','2'],
+    ['1','4','2','3']
+    ])
+Array.from(map);
 
 const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
@@ -48,5 +56,15 @@ function dragDrop(){
 function verDatosClick(){
     var x = document.getElementById("button");
     // document.getElementById("demo").innerHTML = x;
-    console.log(x);
+    //importarScript("tablero.js");
+    //const tablero = new Tablero()
+    cargarTablero();
+    console.log(getMapData(2));
+
+    //var img = document.querySelectorAll('.empty');
+    //img = tablero.getElementById(3);
+}
+
+function getMapData(id){
+    return this.map[id][id];
 }
