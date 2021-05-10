@@ -2,10 +2,10 @@
 //const tablero = new Tablero()
 
 var items = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 7, 4, 0, 0, 0],
-    [0, 0, 0, 5, 4, 0, 0],
+    [0, 4, 0, 4, 0, 4, 0],
+    [0, 4, 0, 4, 4, 0, 0],
+    [4, 0, 7, 4, 0, 0, 0],
+    [0, 4, 0, 5, 4, 0, 0],
     [0, 0, 0, 0, 1, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0]
@@ -64,12 +64,12 @@ function verDatosClick(){
       console.log(items[1][0]); // 1
       console.log(getItemsXY(2,2)); // 2
   /*    console.log(items[1][0]); // 3
-      console.log(items[1][1]); // 4
-      console.log(items[2][0]); // 5
-      console.log(items[2][1]); // 6*/
+      console.log(items[2][1]); // */
       
       console.log(items);
       console.log(items[1][0]);
+
+      printMinas();
 
     //var img = document.querySelectorAll('.empty');
     //img = tablero.getElementById(3);
@@ -81,6 +81,23 @@ function getMapData(id){
 
 function getItemsXY(x,y){
     return this.items[x][y];
+}
+/// IMPRIMIR MINA ()
+function printMinas(){
+    for(var i = 0;i<7;i++){
+        for(var j = 0;j<6;j++){
+            var valor = items[i][j];
+            console.log(valor);
+            var x="2";
+            var y="3";
+            var txt = ""+x+y;
+            if(valor == 4){
+                document.getElementById(txt).src="./IMG/Mina2.png";
+                document.getElementById(txt).style.height='65px';
+                document.getElementById(txt).style.width='80px';
+            }
+        }
+    }
 }
 
 /*  //CODIGO JAVA
@@ -118,5 +135,5 @@ function getItemsXY(x,y){
         }
     }
     //------------------------------------------------
-    
+
 */
