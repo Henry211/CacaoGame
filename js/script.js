@@ -10,9 +10,11 @@ var items = [
     [4, 0, 4, 0, 0, 0, 4]
   ];
 
+var baraja[] = {};
+
 const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
-var x = document.getElementById("button");
+var  x = document.getElementById("button");
 
 //Fill Listeners
 
@@ -63,9 +65,8 @@ function verDatosClick(){
     
   /*    console.log(items[1][0]); // 3
       console.log(items[2][1]); // */
-      console.log(items);
+      //console.log(items);
      
-
       mostrarMazo1();
       mostrarMazo2();
       //printMinas();
@@ -83,17 +84,16 @@ function getItemsXY(x,y){
 }
 
 function mostrarMazo1(){
-    document.getElementById("mazo1").src="./IMG/Mina1.png";
+    document.getElementById("mazo1").src= Rand_mina();
     document.getElementById("mazo1").style.height='65px';
     document.getElementById("mazo1").style.width='80px';
     document.getElementById("mazo1").className="fill";
 }
 function mostrarMazo2(){
-    document.getElementById("mazo2").src="./IMG/Mina2.png";
+    document.getElementById("mazo2").src=Rand_mina();
     document.getElementById("mazo2").style.height='65px';
     document.getElementById("mazo2").style.width='80px';
 }
-
 
 /// IMPRIMIR MINA () == 4
 function printMinas(){
@@ -112,6 +112,25 @@ function printMinas(){
     }
 }
 
+function  Rand_mina(){
+var random = Math.floor(Math.random()*10)+1;
+console.log(random);
+
+    switch(random){
+
+     case 1: return  "./IMG/Mina1.png"; break;
+     case 2: return  "./IMG/Mina2.png"; break;
+     case 3: return  "./IMG/Lago.png"; break;
+     case 4: return  "./IMG/Cacao1.png"; break;
+     case 6: return  "./IMG/Semillas2.png"; break;
+     case 7: return  "./IMG/Meaples2.png"; break;
+     case 8: return  "./IMG/Templos.png"; break;
+     case 9: return  "./IMG/Mercado2.png"; break;
+     case 10: return  "./IMG/Mercado3.png"; break;
+     case 11: return  "./IMG/Mercado1.png"; break;
+     default: return  "./IMG/degrad.jpg"; break;
+    }
+}
 
 /*  //CODIGO JAVA
     private void cargarMapa(Integer matrixMapa[][], int numeroMapa, Image textura){
