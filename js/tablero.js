@@ -4,16 +4,28 @@ var imgArray = new Array();
 
 imgArray[0] = new Image();
 imgArray[0].stc = '../IMG/Mina1.png';
+
 imgArray[1] = new Image();
 imgArray[1].stc = '../IMG/Mina2.png';
+
 imgArray[2] = new Image();
 imgArray[2].stc = '../IMG/MayaSun.png';
+
 imgArray[3] = new Image();
 imgArray[3].stc = '../IMG/Lago.png';
+
 imgArray[4] = new Image();
 imgArray[4].stc = '../IMG/Semillas2.png';
+
 imgArray[5] = new Image();
 imgArray[5].stc = '../IMG/Mercado2.png';
+
+var person = prompt("Please enter your name", "Naruto Uzumaki");
+
+//if (person != null) {
+  //document.getElementById("marcador1").innerHTML =
+  //"Hello " + person + "! How are you today?";
+//}
 /*
 const map = new Map([
                     ['1','1','0','3'],
