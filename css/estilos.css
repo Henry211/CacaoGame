@@ -6,11 +6,6 @@
     height:25px;
     background-color: yellowgreen;
 }
-/*
-*{ 
-font:Arial;
-     }
-     */
 
      #cajadatos {
         position: relative;
@@ -20,7 +15,7 @@ font:Arial;
         width: 95%;
         height: 460px;
         overflow: auto;
-        top:-80px;
+        top:-5px;
     }
     #cajaMain{
         position: relative;
@@ -63,6 +58,7 @@ font:Arial;
     background-color: #ffb;
     border: 8px groove yellowgreen;
     float: right;
+    
    }
    #marcador2{
     position: relative;
@@ -74,11 +70,34 @@ font:Arial;
     background-color: rgb(33, 40, 46);
     border: 8px groove yellowgreen;
     float: right;
-
-    top:220px;
-    left:238px;
+    left: 20px;
    }
-
+   #marcador3{
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;  
+    height: 80px; 
+    margin: auto;
+    width: 200px;
+    background-color: darkolivegreen;
+    border: 8px groove yellowgreen;
+    float: right;
+    top: 90px;
+    left: 20px;
+   }
+   #marcador4{
+    position: relative;
+    border: 1px solid rgb(204, 204, 204);
+    padding: 10px;  
+    height: 80px; 
+    margin: auto;
+    width: 200px;
+    background-color: rgb(252, 255, 85);
+    border: 8px groove yellowgreen;
+    float: right;
+    top: 180px;
+    left: 20px;
+   }
    #mazo1{
        position: relative;
        margin: auto;
@@ -94,12 +113,28 @@ font:Arial;
     width:100px;
     height: 80px;
 }
-
+#mazo3{
+    position: relative;
+    margin: auto;
+    top: 0px;
+    width:100px;
+    height: 80px;
+}
+#mazo4{
+    position: relative;
+    margin: auto;
+    top: 0px;
+    width:100px;
+    height: 80px;
+}
    .button{
        position: relative;
+       border-radius: 25px;
        left:430px;
-        top:-5px;
+        top:-3px;
        background-color: darkred;
+       width:150px;
+       height: 30px;
    }
 
   
