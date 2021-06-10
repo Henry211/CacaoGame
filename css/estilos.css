@@ -40,12 +40,12 @@
         height: 68px;
         width:80px;
 }
-.fill2{
+ .fill2{
     cursor:pointer;
     position:relative;
     height: 68px;
     width:80px;
-}
+}/*
 .fill3{
     cursor:pointer;
     position:relative;
@@ -57,7 +57,7 @@
     position:relative;
     height: 68px;
     width:80px;
-}
+} */
 
 .empty{
     

@@ -1,5 +1,15 @@
 //import Tablero from "./tablero.js"
 //const tablero = new Tablero()
+var URLS  = [];
+//lleno un array de acuerdo al maso de juego de maples de cada jugador
+URLS.unshift("./IMG/Meaples2.png","./IMG/Meaples2.png","./IMG/Meaples2.png","./IMG/Meaples2.png");
+URLS.unshift("./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png");
+URLS.unshift("./IMG/Meaples3.png","./IMG/Meaples3.png");
+var mano1 = [];
+var mano2 = [];
+var mano3 = [];
+var mano4 = [];
+
 class Pieza{
     constructor(url, id){
         this.url = url;
@@ -9,7 +19,7 @@ class Pieza{
         document.getElementById(id).src=url;
         document.getElementById(id).style.height='65px';
         document.getElementById(id).style.width='80px';
-        //document.getElementById(id).className="fill";
+        //document.getElementById(id).className="fill1";
     }
 
 }
@@ -19,17 +29,11 @@ class Jugador{
         this.monedas = monedas;
         this.remancio = remancio;
     }
+        
     cargarMazos(tamano){
-        var URLS  = [];
+       
         var meaple = new Pieza();
-        var mano1 = [];
-        var mano2 = [];
-        var mano3 = [];
-        var mano4 = [];
-//lleno un array de acuerdo al maso de juego de maples de cada jugador
-        URLS.unshift("./IMG/Meaples2.png","./IMG/Meaples2.png","./IMG/Meaples2.png","./IMG/Meaples2.png");
-        URLS.unshift("./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png");
-        URLS.unshift("./IMG/Meaples3.png","./IMG/Meaples3.png");
+        
            if(tamano =="2"){
               for(let i = 0; i<11; i++){
                  let rand1 = Math.floor(Math.random()*11);
@@ -51,8 +55,7 @@ class Jugador{
                   setTimeout(meaple.asignaImagen(mano2[i], "mazo2"), 10000);
                   let rand3 =  Math.floor(Math.random()*11);
                   mano3[i] = URLS[rand3];
-                  setTimeout(meaple.asignaImagen(mano3[i], "mazo3"), 10000);
-                  
+                  setTimeout(meaple.asignaImagen(mano3[i], "mazo3"), 10000);   
               }
           }
            if(tamano == "4"){
@@ -73,29 +76,13 @@ class Jugador{
            }
       }
     remplazar(){     
-       // if(dragEnd == true){
-          // for(let i =0; i<11; i++){
-                window.alert("Entro al dragend");  
-                var remplazo = new Pieza();
-                remplazo.asignaImagen("./IMG/Meaples3.png","mazo1");
-          // }
-           
-            
-            // // for(let i=0; i<11; ){
-            //     if(m1 != 10){
-            //                  m1[i] = m1[i+1];
-            //                  remplazo.asignaImagen(m1[i], "mazo1");
-            //                  m2[i] = m2[i+1]
-            //                  remplazo.asignaImagen(m2[i], "mazo2");
-            //              }else{
-            //                  m1[i]= m1[i-1];
-            //                  remplazo.asignaImagen(m1[i], "mazo1");
-            //                  m2[i]= mano2[i+1];
-            //                  remplazo.asignaImagen(m2[i], "mazo2");
-            //                 }
-            // //}
-              
-      //  } 
+            window.alert("Entro al dragend");  
+            var remplazo = new Pieza();
+            let ram = Math.floor(Math.random()*11);    
+            remplazo.asignaImagen(mano1[ram],"mazo11");
+            setTimeout(remplazo.asignaImagen(mano2[ram],"mazo22"),10000); 
+            setTimeout(remplazo.asignaImagen(mano3[ram],"mazo33"),100000);
+            setTimeout(remplazo.asignaImagen(mano4[ram],"mazo44"),1000000);                
       }
 
 
@@ -129,16 +116,19 @@ for(const empty of empties){
 
 //Drag functions
 
-function dragStart(){
+function dragStart(res){
     this.className += ' hold';
-    //setTimeout(() => (this.className = 'invisible'), 0);
-  
+   // setTimeout(() => (this.className = 'invisible'), 0);
+  if( res== true){
+    var p = new Jugador();
+    p.remplazar()
+  }
 }
 
 function dragEnd(){
     this.className = 'empty';
-    var p = new Jugador();
-    p.remplazar()
+
+    dragStart(true)
    
 }
 
@@ -164,18 +154,6 @@ function verDatosClick(){
     jugador.cargarMazos(cant);   
 }
            
-            
-
-function getMapData(id){
-    return this.map[id][id];
-}
-
-function getItemsXY(x,y){
-    return this.items[x][y];
-}
-
-
-
 function  cantidadJugadores(){
         console.log(window);
         var jug = window.prompt("Digite la cantidad de Jugadores");
