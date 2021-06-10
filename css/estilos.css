@@ -34,11 +34,29 @@
         border: 1px groove yellowgreen;
         margin: 2px;
     }
-.fill{
+.fill1{
         cursor:pointer;
         position:relative;
         height: 68px;
         width:80px;
+}
+.fill2{
+    cursor:pointer;
+    position:relative;
+    height: 68px;
+    width:80px;
+}
+.fill3{
+    cursor:pointer;
+    position:relative;
+    height: 68px;
+    width:80px;
+}
+.fill4{
+    cursor:pointer;
+    position:relative;
+    height: 68px;
+    width:80px;
 }
 
 .empty{

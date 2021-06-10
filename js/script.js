@@ -9,19 +9,96 @@ class Pieza{
         document.getElementById(id).src=url;
         document.getElementById(id).style.height='65px';
         document.getElementById(id).style.width='80px';
-        document.getElementById(id).className="fill";
+        //document.getElementById(id).className="fill";
     }
 
 }
 class Jugador{
-    constructor(cacao, monedas, meaples, remancio){
+    constructor(cacao, monedas, remancio){
         this.cacao = cacao;
         this.monedas = monedas;
-        this.meaples = meaples;
         this.remancio = remancio;
     }
-    
-    
+    cargarMazos(tamano){
+        var URLS  = [];
+        var meaple = new Pieza();
+        var mano1 = [];
+        var mano2 = [];
+        var mano3 = [];
+        var mano4 = [];
+//lleno un array de acuerdo al maso de juego de maples de cada jugador
+        URLS.unshift("./IMG/Meaples2.png","./IMG/Meaples2.png","./IMG/Meaples2.png","./IMG/Meaples2.png");
+        URLS.unshift("./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png","./IMG/Meaples1.png");
+        URLS.unshift("./IMG/Meaples3.png","./IMG/Meaples3.png");
+           if(tamano =="2"){
+              for(let i = 0; i<11; i++){
+                 let rand1 = Math.floor(Math.random()*11);
+                 mano1[i] = URLS[rand1];
+                 meaple.asignaImagen(mano1[i], "mazo1");
+                 let rand2 = Math.floor(Math.random()*11);
+                 mano2[i] = URLS[rand2];
+                 setTimeout(meaple.asignaImagen(mano2[i], "mazo2"), 10000);  
+                }
+              }
+          
+           if(tamano == "3"){
+               for(let i = 0; i<11; i++){
+                  let rand1 = Math.floor(Math.random()*11);
+                  mano1[i] = URLS[rand1];
+                  meaple.asignaImagen(mano1[i], "mazo1");
+                  let rand2 = Math.floor(Math.random()*11);
+                  mano2[i] = URLS[rand2];
+                  setTimeout(meaple.asignaImagen(mano2[i], "mazo2"), 10000);
+                  let rand3 =  Math.floor(Math.random()*11);
+                  mano3[i] = URLS[rand3];
+                  setTimeout(meaple.asignaImagen(mano3[i], "mazo3"), 10000);
+                  
+              }
+          }
+           if(tamano == "4"){
+              for(let i = 0; i<11; i++){
+                  let rand1 = Math.floor(Math.random()*11);
+                  mano1[i] = URLS[rand1];
+                  meaple.asignaImagen(mano1[i], "mazo1");
+                  let rand2 = Math.floor(Math.random()*11);
+                  mano2[i] = URLS[rand2];
+                  setTimeout(meaple.asignaImagen(mano2[i], "mazo2"), 10000);
+                  let rand3 =  Math.floor(Math.random()*11);
+                  mano3[i] = URLS[rand3];
+                  setTimeout(meaple.asignaImagen(mano3[i], "mazo3"), 10000);
+                  let rand4 =  Math.floor(Math.random()*11);
+                  mano4[i] = URLS[rand4];
+                  setTimeout(meaple.asignaImagen(mano4[i] , "mazo4"), 10000);
+              }     
+           }
+      }
+    remplazar(){     
+       // if(dragEnd == true){
+          // for(let i =0; i<11; i++){
+                window.alert("Entro al dragend");  
+                var remplazo = new Pieza();
+                remplazo.asignaImagen("./IMG/Meaples3.png","mazo1");
+          // }
+           
+            
+            // // for(let i=0; i<11; ){
+            //     if(m1 != 10){
+            //                  m1[i] = m1[i+1];
+            //                  remplazo.asignaImagen(m1[i], "mazo1");
+            //                  m2[i] = m2[i+1]
+            //                  remplazo.asignaImagen(m2[i], "mazo2");
+            //              }else{
+            //                  m1[i]= m1[i-1];
+            //                  remplazo.asignaImagen(m1[i], "mazo1");
+            //                  m2[i]= mano2[i+1];
+            //                  remplazo.asignaImagen(m2[i], "mazo2");
+            //                 }
+            // //}
+              
+      //  } 
+      }
+
+
 }
 var items = [
     [0, 4, 0, 4, 0, 4, 0],
@@ -32,7 +109,7 @@ var items = [
     [4, 0, 4, 0, 0, 0, 4]
   ];
 
-const fill = document.querySelector('.fill');
+const fill = document.querySelector('.fill1');
 const empties = document.querySelectorAll('.empty');
 var x = document.getElementById("button");
 
@@ -54,11 +131,15 @@ for(const empty of empties){
 
 function dragStart(){
     this.className += ' hold';
-    setTimeout(() => (this.className = 'invisible'), 0);
+    //setTimeout(() => (this.className = 'invisible'), 0);
+  
 }
 
 function dragEnd(){
     this.className = 'empty';
+    var p = new Jugador();
+    p.remplazar()
+   
 }
 
 function dragOver(e){
@@ -69,7 +150,7 @@ function dragEnter(e){
     this.className += 'hovered';
 }
 function dragLeave(){
-    this.className ='fill';
+    this.className ='fill1';
 }
 function dragDrop(){
     this.className = 'empty';
@@ -79,7 +160,8 @@ function dragDrop(){
 function verDatosClick(){
     var x = document.getElementById("button");
     let cant = cantidadJugadores();
-    cargarMazos(cant);   
+    var jugador = new Jugador(); 
+    jugador.cargarMazos(cant);   
 }
            
             
@@ -92,74 +174,8 @@ function getItemsXY(x,y){
     return this.items[x][y];
 }
 
-function cargarMazos(tamano){
-    
-  var URLS  = ["./IMG/Meaples1.png","./IMG/Meaples2.png","./IMG/Meaples3.png"];
-  var meaple = new Pieza();
-  var mano1 = [];
-  var mano2 = [];
-  var mano3 = [];
-  var mano4 = [];
-     if(tamano=="2"){
-        for(let i = 0; i<11; i++){
-          
-           let rand1 = Math.floor(Math.random()*3);
-           mano1[i] = URLS[rand1];
-           meaple.asignaImagen(mano1[i], "mazo1");
-           let rand2 = Math.floor(Math.random()*3);
-           mano2[i] = URLS[rand2];
-           setTimeout(meaple.asignaImagen(mano2[i], "mazo2"), 10000);
-        }
-    }
-     if(tamano == "3"){
-         for(let i = 0; i<11; i++){
-            let rand1 = Math.floor(Math.random()*3);
-            mano1[i] = URLS[rand1];
-            meaple.asignaImagen(mano1[i], "mazo1");
-            let rand2 = Math.floor(Math.random()*3);
-            mano2[i] = URLS[rand2];
-            setTimeout(meaple.asignaImagen(mano2[i], "mazo2"), 10000);
-            let rand3 =  Math.floor(Math.random()*3);
-            mano3[i] = URLS[rand3];
-            setTimeout(meaple.asignaImagen(mano3[i], "mazo3"), 10000);
-            
-        }
-    }
-     if(tamano == "4"){
-        for(let i = 0; i<11; i++){
-            let rand1 = Math.floor(Math.random()*3);
-            mano1[i] = URLS[rand1];
-            meaple.asignaImagen(mano1[i], "mazo1");
-            let rand2 = Math.floor(Math.random()*3);
-            mano2[i] = URLS[rand2];
-            setTimeout(meaple.asignaImagen(mano2[i], "mazo2"), 10000);
-            let rand3 =  Math.floor(Math.random()*3);
-            mano3[i] = URLS[rand3];
-            setTimeout(meaple.asignaImagen(mano3[i], "mazo3"), 10000);
-            let rand4 =  Math.floor(Math.random()*3);
-            mano4[i] = URLS[rand4];
-            setTimeout(meaple.asignaImagen(mano4[i] , "mazo4"), 10000);
-        }     
-     }
-}
 
 
-/// IMPRIMIR MINA () == 4
-function printMinas(){
-    for(var i = 0;i<6;i++){
-        for(var j = 0;j<7;j++){
-            var valor = items[i][j];
-            
-            var txt = ""+i+j;
-            console.log(txt);
-            if(valor == 5){
-                document.getElementById(txt).src="./IMG/Mina2.png";
-                document.getElementById(txt).style.height='65px';
-                document.getElementById(txt).style.width='80px';
-            }
-        }
-    }
-}
 function  cantidadJugadores(){
         console.log(window);
         var jug = window.prompt("Digite la cantidad de Jugadores");
@@ -174,12 +190,12 @@ function  cantidadJugadores(){
                  salir = true;
                  return jug;
                  }
-            if(jug = "3"){
+            if(jug =="3"){
                  document.getElementById("marcador4").style.display = "none";
                  salir = true;
                  return jug;
             }
-            
+            return jug;
          }
 
 }
