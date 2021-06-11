@@ -15,7 +15,7 @@
         width: 95%;
         height: 460px;
         overflow: auto;
-        top:-5px;
+        top:-70px;
     }
     #cajaMain{
         position: relative;
@@ -65,6 +65,53 @@
     width: 80px;
     background-color: whitesmoke;
 }
+
+
+#LocetasUno{
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;  
+    height: 80px; 
+    margin: auto;
+    width: 100px;
+    background-color: #ffb;
+    border: 8px groove yellowgreen;
+    float: right;
+    right: 850px;
+    top:30px;
+}
+#LocetasDos{
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;  
+    height: 80px; 
+    margin: auto;
+    width: 100px;
+    background-color: #ffb;
+    border: 8px groove yellowgreen;
+    float: right;
+    right: 715px;
+    top:150px;
+}
+#espacioLocetas{
+    cursor:pointer;
+    position:relative;
+    height: 68px;
+    width:80px;
+}
+#LocId1{
+    position: relative;
+    margin: auto;
+    width:100px;
+    height: 80px;
+}
+#LocId2{
+    position: relative;
+    margin: auto;
+    width:100px;
+    height: 80px;
+}
+
 
    #marcador1{
     position: relative;
