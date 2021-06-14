@@ -39,31 +39,28 @@
         position:relative;
         height: 68px;
         width:80px;
+        background-color: chartreuse;
 }
- .fill2{
+.fill2{
     cursor:pointer;
     position:relative;
     height: 68px;
     width:80px;
+    background-color: gold;
 }
 .fill3{
     cursor:pointer;
     position:relative;
     height: 68px;
     width:80px;
+    background-color: red;
 }
 .fill4{
     cursor:pointer;
     position:relative;
     height: 68px;
     width:80px;
-}
-
-.empty{
-    
-    height: 68px;
-    width: 80px;
-    background-color: whitesmoke;
+    background-color: orangered;
 }
 
 
