@@ -15,6 +15,11 @@ var mano4 = [];
 var LocetasURL  = [];
 var losetasUno = [];      
 var losetasDos = [];
+//---------Cambios Henry
+var losetasMazo = [];   //Aquí están en orden
+const losetasObjects = [];//--desoreden
+var cont1 = 10;
+
     
 //Las clases Contenedoras no son totalmente necesarias, puede que se necesiten más adelante
 class contenedorMazoMeaples{
@@ -58,9 +63,7 @@ class Pieza{
     }
     setValorLógico(value){//valor que representará a la ficha en la matriz lógica
         this.value = value;
-    }
-
-                     
+    }                    
       
 }//clase jugador
 class Jugador{
@@ -178,7 +181,8 @@ function inicializarTablero(){
     var contenedor = new Pieza();
     for(let i = 0; i<57; i++){
         i = evaluaIndice(i);
-        contenedor.asignaImagen("./IMG/contenedor.png",i);
+
+        contenedor.asignaImagen("./IMG/contenedor.png",i);//solo pinta..
         i = evaluaIndice(i);
     }
 }
@@ -246,40 +250,62 @@ function evaluaIndice(indice){
     }
     return indice;
 }
-  function cargarMazos(cantidad){
+
+function cargarMazos(cantidad){
     for(let i = 0; i<28; i++){
         if(i<6){
+            //inicializar locetasMazo con Fichas
+            let card = new Pieza("./IMG/Cacao1.png",1);
+            losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Cacao1.png");
         }
         if(i>=6 && i<8){
+            let card = new Pieza("./IMG/Semillas2.png",2);
+            losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Semillas2.png");
         }
         if(i>=8 && i<15){
             if(i<10){
+                let card = new Pieza("./IMG/Mercado2.png",3);
+                losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado2.png");
             }
             if(i>=10 && i<14){
+                let card = new Pieza("./IMG/Mercado3.png",4);
+                losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado3.png");
             }
             if(i==14){
+                let card = new Pieza("./IMG/Mercado4.png",5);
+                losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado4.png");
             }
         }
         if(i>=15 && i<18){
             if(i<17){
+                let card = new Pieza("./IMG/Mina1.png",6);
+                losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mina1.png");
             }
             else{
+                let card = new Pieza("./IMG/Mina2.png",7);
+                losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mina2.png");
             }
         }
         if(i>=18 && i<21){
+            let card = new Pieza("./IMG/Lago.png",8);
+            losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Lago.png");
         }
         if(i>=21 && i<23){
+            let card = new Pieza("./IMG/MayaSun.png",9);
+                losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/MayaSun.png");
         }
         if(i>=23){   
+            let card = new Pieza("./IMG/Templos.png",10);
+            losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Templos.png");
        }
     }
@@ -287,27 +313,30 @@ function evaluaIndice(indice){
       switch(cantidad) {
           case "2": //llena los 2 mazos con 11 locetas c/u
               for(let i = 0; i<11; i++){ 
-                  //-----------------------------
-                  //Locetas
-                  let rand1 = Math.floor(Math.random()*28);
-                  losetasUno[i] = LocetasURL[rand1];
-                  pieza.asignaImagen(losetasUno[i], "LocId1");//set datos a PIEZA
-                  contenedorLosetasUno.setPieza(pieza);//set pieza a CONTENEDOR
-                  let rand2 = Math.floor(Math.random()*28);
-                  losetasDos[i] = LocetasURL[rand2];
-                  pieza.asignaImagen(losetasDos[i], "LocId2");//set datos a PIEZA
-                  contenedorLosetasDos.setPieza(pieza);//set pieza a CONTENEDOR
-                    //-----------------------------
-                    //meaples       (hay que usar las imágenes adecuadas en meaples)
-                    rand1 = Math.floor(Math.random()*11);
-                    rand2 = Math.floor(Math.random()*11);
+                        //-----------------------------
+                        //Locetas
+                        let rand1 = Math.floor(Math.random()*28);
+                        losetasUno[i] = LocetasURL[rand1];
+ /*CAMBIOS*/            losetasObjects[i] = losetasMazo[rand1];//OBJETOS
+                        pieza.asignaImagen(losetasUno[i], "LocId1");//  set a parte Gráfica
+ /*CAMBIOS*/            contenedorLosetasUno.setPieza(losetasObjects[i]);
+ /*CAMBIOS*/            //console.log(losetasObjects[i].url);
+                        //contenedorLosetasUno.setPieza(pieza);//set pieza a CONTENEDOR
+                        let rand2 = Math.floor(Math.random()*28);
+                        losetasDos[i] = LocetasURL[rand2];
+                        pieza.asignaImagen(losetasDos[i], "LocId2");
+                        contenedorLosetasDos.setPieza(pieza);
+                            //-----------------------------
+                            //meaples       (hay que usar las imágenes adecuadas en meaples)
+                            rand1 = Math.floor(Math.random()*11);
+                            rand2 = Math.floor(Math.random()*11);
 
-                  mano1[i] = URLS[rand1];
-                  pieza.asignaImagen(mano1[i], "mazo1");//set datos a PIEZA
-                  contenedorMeaplesUno.setPieza(pieza);//set pieza a CONTENEDOR
-                  mano2[i] = URLS[rand2];
-                 pieza.asignaImagen(mano2[i], "mazo2");//set datos a PIEZA
-                 setTimeout(contenedorMeaplesDos.setPieza(pieza), 10000);//set pieza a CONTENEDOR
+                        mano1[i] = URLS[rand1];
+                        pieza.asignaImagen(mano1[i], "mazo1");//set datos a PIEZA
+                        contenedorMeaplesUno.setPieza(pieza);//set pieza a CONTENEDOR
+                        mano2[i] = URLS[rand2];
+                        pieza.asignaImagen(mano2[i], "mazo2");//set datos a PIEZA
+                        setTimeout(contenedorMeaplesDos.setPieza(pieza), 10000);//set pieza a CONTENEDOR
               }
             break;
           case "3":
@@ -375,21 +404,29 @@ function evaluaIndice(indice){
         }
   }
   function eventosClick(){ 
+    
     //EVENTOS 'click' PARA LOS DOS MAZOS (ojo, en uno se usa la clase 'contenedora' y en el otro no // esto como una prueba, ya que posteriormente estas imágenes deben poder identificarse con un valor entero, para poder asignar el valor a la matriz lógica)
     var auxPieza = new Pieza();
-    var int;
+    var int = 28;
     //MAZO 1 LOCETAS
     var imageLosetas1 = document.getElementById('LocId1');//get imagen del tablero
     let piezaAux = new Pieza();
-        piezaAux.setImage(imageLosetas1);//Set la imagen en una pieza
-        piezaAux.setValorLógico(2); // '2' es un ejemplo, suponiendo que ese sea su valor lógico
-        contenedorLosetasUno.setPieza(piezaAux);//Set la pieza en el contenendor
-        contenedorLosetasUno.ficha.img.addEventListener("click", function (e) {
-        contenedorLosetasUno.setEstado(true);
-        document.getElementById("LocetasUno").style.backgroundColor = 'red'; 
-        auxPieza.url = imageLosetas1.src;
-        int = 2;//VALOR LÓGICO DE LA FICHA ('2' es un ejemplo)
-    });
+    piezaAux = losetasObjects[0];
+    piezaAux.setImage(imageLosetas1);//Set la imagen en una pieza
+    //console.log("signal");
+    //console.log(piezaAux.url.toString());
+    //piezaAux.setValorLógico(2); // '2' es un ejemplo, suponiendo que ese sea su valor lógico
+    contenedorLosetasUno.setPieza(piezaAux);//Set la pieza en el contenendor
+    console.log(contenedorLosetasUno.ficha.url);
+    contenedorLosetasUno.ficha.img.addEventListener("click", function (e) {
+        //--Crear MUX que analice valor y realice cambios en otro método--
+            contenedorLosetasUno.setEstado(true);
+            document.getElementById("LocetasUno").style.backgroundColor = 'red'; 
+            //auxPieza = losetasObjects[cont1];
+            
+            //auxPieza.url = imageLosetas1.src;
+            listenForGrid(auxPieza,int);
+        });
     //MAZO 2 LOCETAS
     var imageLosetas2 = document.getElementById('LocId2');
     imageLosetas2.addEventListener("click", function (e) {
@@ -432,20 +469,22 @@ function evaluaIndice(indice){
             auxPieza.url = imageMeaples4.src;
             int = 2;//VALOR LÓGICO DE LA FICHA ('2' es un ejemplo)
         });
-    listenForContenedores(auxPieza,int);
+    //listenForGrid(auxPieza,int);
 }
 
-function listenForContenedores(pieza,valorLogico){
+function listenForGrid(pieza,valorLogico){
    let rem = new Jugador();
     for(let i = 0; i<57; i++){
-        i = evaluaIndice(i);
+        i = evaluaIndice(i);     
         let imagen = document.getElementById(i);
         imagen.addEventListener("click", function (e) {
             //SI LA LOCETA ESTÁ SELECCIONADA
             if(contenedorLosetasUno.selected){//Aqui se debe leer el valorLógico y guardarlo en la matriz según corresponda la posición
                 //Debería pasarsele una Ficha, no la dirección de una imagen.
-                document.getElementById(i).src = contenedorLosetasUno.ficha.url;
-                document.getElementById(i).src = pieza.url;
+                document.getElementById(i).src = losetasObjects[cont1].url;
+                cont1 = cont1 - 1;
+                //document.getElementById(i).src = pieza.url;
+                console.log(pieza.url);
                 //document.getElementById('LocId1').src = "./IMG/Templos.png";
                 document.getElementById("LocetasUno").style.backgroundColor = 'black'; 
                 contenedorLosetasUno.setEstado(false);
@@ -483,6 +522,7 @@ function listenForContenedores(pieza,valorLogico){
                 rem.remplazar(4);
             }
         });
+        //i = evaluaIndice(i);
     }
     
 }
