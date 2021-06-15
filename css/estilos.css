@@ -189,14 +189,25 @@
     width:100px;
     height: 80px;
 }
+
    .button{
        position: relative;
        border-radius: 25px;
-       left:430px;
+       left:280px;
         top:-3px;
-       background-color: darkred;
+       background-color: #CB4335;
        width:150px;
        height: 30px;
    }
+   .btnGiro{
+        position: relative;
+        border-radius: 25px;
+        left:430px;
+        top:-3px;
+       background-color: #CB4335;
+       width:70px;
+       height: 30px;
+   }
+  
 
   

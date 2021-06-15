@@ -17,9 +17,17 @@ var losetasUno = [];
 var losetasDos = [];
 //---------Cambios Henry
 var losetasMazo = [];   //Aquí están en orden
+var meaplesMazo = [];
 const losetasObjects1 = [];//--desoreden
 const losetasObjects2 = [];
-var cont1 = 10;
+const meaplesObjects1 = [];
+const meaplesObjects2 = [];
+
+var cont1 = 10; //--losetas1
+var cont3 = 10; //--meales2
+let grados = 0;
+var primerClick = true;
+var casilla;
 
     
 //Las clases Contenedoras no son totalmente necesarias, puede que se necesiten más adelante
@@ -45,6 +53,16 @@ class contenedorMazoLosetas{
     }
     setEstado(selected){
         this.selected = selected;
+    }
+}
+//--clase MEAPLE--
+class Meaple{
+    constructor(top,down,left,right,player){
+        this.top = top;
+        this.down = down;
+        this.left = left;
+        this.rigth = rigth;
+        this.player = player;
     }
 }
 //clase de cada ficha
@@ -79,7 +97,8 @@ class Jugador{
         let remplazo = new Pieza(); 
         if(vali == 1){
            remplazo.asignaImagen(mano1[ram],"mazo1");//reemplaza en la mano de cada jugador y la pone en la nueva imagen
-             vali = 0;
+           reemplazo.setValorLógico(11); 
+           vali = 0;
           }  
           if(vali == 2){
         setTimeout(remplazo.asignaImagen(mano2[ram],"mazo2"),10000);
@@ -143,6 +162,17 @@ function printMatrix(xData,yData){
         matrizText = matrizText +"\n";
     }
     console.log(matrizText);
+}
+
+function girar(casilla){
+    const btn = document.getElementById("btnGiro");
+
+    btn.addEventListener("click", () => {
+        grados = grados + 90;
+        document.getElementById(casilla).style.transform = `rotate(${grados}deg)`;
+        //---PROBLEMA---
+        //-cada elemento conserva la función permanentemente-//
+    });
 }
 
 //metodo para el botton
@@ -337,27 +367,33 @@ function cargarMazos(cantidad){
               for(let i = 0; i<11; i++){ 
                         //-----------------------------
                         //Locetas
-                        let rand1 = Math.floor(Math.random()*28);
+                            let rand1 = Math.floor(Math.random()*28);
+                            let rand2 = Math.floor(Math.random()*28);
+
                         losetasUno[i] = LocetasURL[rand1];
  /*CAMBIOS*/            losetasObjects1[i] = losetasMazo[rand1];//OBJETOS
                         //pieza.asignaImagen(losetasUno[i], "LocId1");//  set a parte Gráfica
  /*CAMBIOS*/            contenedorLosetasUno.setPieza(losetasObjects1[i]);
  /*CAMBIOS*/            //console.log(losetasObjects[i].url);
                         //contenedorLosetasUno.setPieza(pieza);//set pieza a CONTENEDOR
-                        let rand2 = Math.floor(Math.random()*28);
                         losetasDos[i] = LocetasURL[rand2];
+                        losetasObjects2[i] = losetasMazo[rand1];//OBJETOS
+ /*CAMBIOS*/            contenedorLosetasDos.setPieza(losetasObjects2[i]);
                         pieza.asignaImagen(losetasDos[i], "LocId2");
                         contenedorLosetasDos.setPieza(pieza);
-                            //-----------------------------
-                            //meaples       (hay que usar las imágenes adecuadas en meaples)
+                        //-----------------------------
+                        //meaples       
                             rand1 = Math.floor(Math.random()*11);
                             rand2 = Math.floor(Math.random()*11);
                         
-                        losetasObjects2[i] = losetasMazo[rand1];//OBJETOS
- /*CAMBIOS*/            contenedorLosetasDos.setPieza(losetasObjects2[i]);
+                        meaplesObjects1[i] = mano1[rand1];
+                        contenedorMeaplesUno.setPieza(meaplesObjects1[i]);
                         mano1[i] = URLS[rand1];
                         pieza.asignaImagen(mano1[i], "mazo1");//set datos a PIEZA
                         contenedorMeaplesUno.setPieza(pieza);//set pieza a CONTENEDOR
+
+                        meaplesObjects2[i] = mano1[rand2];
+                        contenedorMeaplesUno.setPieza(meaplesObjects2[i]);
                         mano2[i] = URLS[rand2];
                         pieza.asignaImagen(mano2[i], "mazo2");//set datos a PIEZA
                         setTimeout(contenedorMeaplesDos.setPieza(pieza), 10000);//set pieza a CONTENEDOR
@@ -435,18 +471,23 @@ function cargarMazos(cantidad){
     //MAZO 1 LOCETAS
     var imageLosetas1 = document.getElementById('LocId1');//get imagen del tablero
     let piezaAux = new Pieza();
-    piezaAux = losetasObjects1[10];
+    //piezaAux = losetasObjects1[cont1];
     piezaAux.setImage(imageLosetas1);//Set la imagen en una pieza
     //console.log("signal");
     //console.log(piezaAux.url.toString());
     //piezaAux.setValorLógico(2); // '2' es un ejemplo, suponiendo que ese sea su valor lógico
     piezaAux.asignaImagen(losetasObjects1[cont1].url, "LocId1");//  set a parte Gráfica
+    piezaAux.setValorLógico(losetasObjects1[cont1].value);
     contenedorLosetasUno.setPieza(piezaAux);//Set la pieza en el contenendor
     console.log(contenedorLosetasUno.ficha.url);
     contenedorLosetasUno.ficha.img.addEventListener("click", function (e) {
         //--Crear MUX que analice valor y realice cambios en otro método--
+            if(!primerClick){
+                document.getElementById(casilla).style.transform = 'flat';
+            }
             contenedorLosetasUno.setEstado(true);
             document.getElementById("LocetasUno").style.backgroundColor = 'red'; 
+            primerClick = false;
             //auxPieza = losetasObjects[cont1];
             //listenForGrid(auxPieza,int);
         });
@@ -460,8 +501,14 @@ function cargarMazos(cantidad){
     });
     //MAZO 1 MEAPLES
     var imageMeaples1 = document.getElementById('mazo1');//get imagen del tablero
+    piezaAux = new Pieza();
+    //piezaAux = meaplesObjects1[cont3];
+
     piezaAux.setImage(imageMeaples1);//Set la imagen en una pieza
+    piezaAux.asignaImagen(meaplesObjects1[cont3].url, "mazo1");//  set a parte Gráfica
+    piezaAux.setValorLógico(meaplesObjects1[cont1].value);
     contenedorMeaplesUno.setPieza(piezaAux);//Set la pieza en el contenendor
+
     contenedorMeaplesUno.ficha.img.addEventListener("click", function (e) {
             contenedorMeaplesUno.setEstado(true);
             document.getElementById("MeaplesUno").style.backgroundColor ='Chartreuse' ; 
@@ -508,6 +555,8 @@ function listenForGrid(pieza,valorLogico){
             if(contenedorLosetasUno.selected){//Aqui se debe leer el valorLógico y guardarlo en la matriz según corresponda la posición
                 //Debería pasarsele una Ficha, no la dirección de una imagen.
                 document.getElementById(i).src = losetasObjects1[cont1].url;
+                girar(i);
+                casilla = i;
                 cont1 = cont1 - 1;
                 console.log(i.toString());
                 //prepareToSlice(i);
