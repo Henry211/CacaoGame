@@ -17,7 +17,8 @@ var losetasUno = [];
 var losetasDos = [];
 //---------Cambios Henry
 var losetasMazo = [];   //Aquí están en orden
-const losetasObjects = [];//--desoreden
+const losetasObjects1 = [];//--desoreden
+const losetasObjects2 = [];
 var cont1 = 10;
 
     
@@ -120,8 +121,29 @@ var matrizLogica = [
     [0, 0, 2, 0, 8, 0, 0],
     [0, 0, 0, 5, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0]
   ];
+  
+function setLogic(xData,yData){
+    for(let x=0; x<7; x++){
+        for(let y=0; y<7; y++){
+            if(x == xData && y == yData){
+                matrizLogica[x][y] = 4;
+            }
+        }
+    }
+}
+function printMatrix(xData,yData){
+    var matrizText = "";
+    for(let x=0; x<7; x++){
+        for(let y=0; y<7; y++){
+            matrizText = matrizText + matrizLogica[x][y];
+        }
+        matrizText = matrizText +"\n";
+    }
+    console.log(matrizText);
+}
 
 //metodo para el botton
 function verDatosClick(){
@@ -317,9 +339,9 @@ function cargarMazos(cantidad){
                         //Locetas
                         let rand1 = Math.floor(Math.random()*28);
                         losetasUno[i] = LocetasURL[rand1];
- /*CAMBIOS*/            losetasObjects[i] = losetasMazo[rand1];//OBJETOS
-                        pieza.asignaImagen(losetasUno[i], "LocId1");//  set a parte Gráfica
- /*CAMBIOS*/            contenedorLosetasUno.setPieza(losetasObjects[i]);
+ /*CAMBIOS*/            losetasObjects1[i] = losetasMazo[rand1];//OBJETOS
+                        //pieza.asignaImagen(losetasUno[i], "LocId1");//  set a parte Gráfica
+ /*CAMBIOS*/            contenedorLosetasUno.setPieza(losetasObjects1[i]);
  /*CAMBIOS*/            //console.log(losetasObjects[i].url);
                         //contenedorLosetasUno.setPieza(pieza);//set pieza a CONTENEDOR
                         let rand2 = Math.floor(Math.random()*28);
@@ -330,7 +352,9 @@ function cargarMazos(cantidad){
                             //meaples       (hay que usar las imágenes adecuadas en meaples)
                             rand1 = Math.floor(Math.random()*11);
                             rand2 = Math.floor(Math.random()*11);
-
+                        
+                        losetasObjects2[i] = losetasMazo[rand1];//OBJETOS
+ /*CAMBIOS*/            contenedorLosetasDos.setPieza(losetasObjects2[i]);
                         mano1[i] = URLS[rand1];
                         pieza.asignaImagen(mano1[i], "mazo1");//set datos a PIEZA
                         contenedorMeaplesUno.setPieza(pieza);//set pieza a CONTENEDOR
@@ -411,11 +435,12 @@ function cargarMazos(cantidad){
     //MAZO 1 LOCETAS
     var imageLosetas1 = document.getElementById('LocId1');//get imagen del tablero
     let piezaAux = new Pieza();
-    piezaAux = losetasObjects[0];
+    piezaAux = losetasObjects1[10];
     piezaAux.setImage(imageLosetas1);//Set la imagen en una pieza
     //console.log("signal");
     //console.log(piezaAux.url.toString());
     //piezaAux.setValorLógico(2); // '2' es un ejemplo, suponiendo que ese sea su valor lógico
+    piezaAux.asignaImagen(losetasObjects1[cont1].url, "LocId1");//  set a parte Gráfica
     contenedorLosetasUno.setPieza(piezaAux);//Set la pieza en el contenendor
     console.log(contenedorLosetasUno.ficha.url);
     contenedorLosetasUno.ficha.img.addEventListener("click", function (e) {
@@ -423,9 +448,7 @@ function cargarMazos(cantidad){
             contenedorLosetasUno.setEstado(true);
             document.getElementById("LocetasUno").style.backgroundColor = 'red'; 
             //auxPieza = losetasObjects[cont1];
-            
-            //auxPieza.url = imageLosetas1.src;
-            listenForGrid(auxPieza,int);
+            //listenForGrid(auxPieza,int);
         });
     //MAZO 2 LOCETAS
     var imageLosetas2 = document.getElementById('LocId2');
@@ -469,7 +492,10 @@ function cargarMazos(cantidad){
             auxPieza.url = imageMeaples4.src;
             int = 2;//VALOR LÓGICO DE LA FICHA ('2' es un ejemplo)
         });
-    //listenForGrid(auxPieza,int);
+    listenForGrid(auxPieza,int);//al final asuxPieza no es necesario
+}
+function prepareToSlice(string){
+    string = string + "  "; //agrega 2 espacios
 }
 
 function listenForGrid(pieza,valorLogico){
@@ -481,8 +507,16 @@ function listenForGrid(pieza,valorLogico){
             //SI LA LOCETA ESTÁ SELECCIONADA
             if(contenedorLosetasUno.selected){//Aqui se debe leer el valorLógico y guardarlo en la matriz según corresponda la posición
                 //Debería pasarsele una Ficha, no la dirección de una imagen.
-                document.getElementById(i).src = losetasObjects[cont1].url;
+                document.getElementById(i).src = losetasObjects1[cont1].url;
                 cont1 = cont1 - 1;
+                console.log(i.toString());
+                //prepareToSlice(i);
+                var x = i.toString().slice(0,-1);
+                var y = i.toString().slice(1);
+                console.log("x-- " + x);
+                 console.log("y-- " + y);
+                setLogic(x,y);
+                printMatrix();
                 //document.getElementById(i).src = pieza.url;
                 console.log(pieza.url);
                 //document.getElementById('LocId1').src = "./IMG/Templos.png";
