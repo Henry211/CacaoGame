@@ -70,9 +70,9 @@ class Meaple{   // logic = 12
 }
 //clase de cada ficha
 class Pieza{
-    constructor(url, id){
+    constructor(url, value){
         this.url = url;
-        this.id = id;
+        this.value = value;
     }//asigna la imagen del url que recibe al id que recibe
     asignaImagen(url, id){
         document.getElementById(id).src=url;
@@ -83,7 +83,7 @@ class Pieza{
     setImage(img){
         this.img = img;
     }
-    setValorLógico(value){//valor que representará a la ficha en la matriz lógica
+    setValorLogico(value){//valor que representará a la ficha en la matriz lógica
         this.value = value;
     }                    
       
@@ -403,7 +403,6 @@ function cargarMazos(cantidad){
                         //-----------------------------
                         //Locetas
                             let rand1 = Math.floor(Math.random()*28);
-                            let rand2 = Math.floor(Math.random()*28);
                             //se repiten las cartas con el rand, hay que eliminarlas al sacarlas (SPLICE)
                         //losetasUno[i] = LocetasURL[rand1];
  /*CAMBIOS*/            losetasObjects1[i] = losetasMazo[rand1];//OBJETOS
@@ -512,7 +511,8 @@ function cargarMazos(cantidad){
     //console.log(piezaAux.url.toString());
     //piezaAux.setValorLógico(2); // '2' es un ejemplo, suponiendo que ese sea su valor lógico
     piezaAux.asignaImagen(losetasObjects1[cont1].url, "LocId1");//  set a parte Gráfica
-    piezaAux.setValorLógico(losetasObjects1[cont1].value);
+    piezaAux.setValorLogico(losetasObjects1[cont1].value);
+    console.log("VALUE = " + losetasObjects1[cont1].value);
     contenedorLosetasUno.setPieza(piezaAux);//Set la pieza en el contenendor
     console.log(contenedorLosetasUno.ficha.url);
     contenedorLosetasUno.ficha.img.addEventListener("click", function (e) {
@@ -524,10 +524,14 @@ function cargarMazos(cantidad){
             contenedorLosetasUno.setEstado(true);
             document.getElementById("LocetasUno").style.backgroundColor = 'red'; 
             //auxPieza = losetasObjects[cont1];
-            //listenForGrid(auxPieza,int);
+            listenForGrid(auxPieza,int);
         });
     //MAZO 2 LOCETAS
     var imageLosetas2 = document.getElementById('LocId2');
+    piezaAux.setImage(imageLosetas2);//Set la imagen en una pieza
+    piezaAux.asignaImagen(losetasObjects1[cont1].url, "LocId1");//  set a parte Gráfica
+    piezaAux.setValorLogico(losetasObjects1[cont1].value);
+    contenedorLosetasDos.setPieza(piezaAux);//Set la pieza en el contenendor
     imageLosetas2.addEventListener("click", function (e) {
             contenedorLosetasDos.setEstado(true);
             document.getElementById("LocetasDos").style.backgroundColor = 'red'; 
@@ -540,7 +544,7 @@ function cargarMazos(cantidad){
     //piezaAux = meaplesObjects1[cont3];
     piezaAux.setImage(imageMeaples1);//Set la imagen en una pieza
     piezaAux.asignaImagen(meaplesObjects1[cont3].url, "mazo1");//  set a parte Gráfica
-    piezaAux.setValorLógico(meaplesObjects1[cont3].value);
+    piezaAux.setValorLogico(meaplesObjects1[cont3].value);
     contenedorMeaplesUno.setPieza(piezaAux);//Set la pieza en el contenendor
 
     contenedorMeaplesUno.ficha.img.addEventListener("click", function (e) {
@@ -573,7 +577,7 @@ function cargarMazos(cantidad){
             auxPieza.url = imageMeaples4.src;
             int = 2;//VALOR LÓGICO DE LA FICHA ('2' es un ejemplo)
         });
-    listenForGrid(auxPieza,int);//al final asuxPieza no es necesario
+    //listenForGrid(auxPieza,int);//al final asuxPieza no es necesario
 }
 function prepareToSlice(string){
     string = string + "  "; //agrega 2 espacios
@@ -598,8 +602,8 @@ function listenForGrid(pieza,valorLogico){
                 var y = i.toString().slice(1);
                 //console.log("x-- " + x);
                 //console.log("y-- " + y);
-                setLogic(x,y,4);
-                //printMatrix();
+                setLogic(x,y,losetasObjects1[cont1].valorLogico);
+                printMatrix();
                 //document.getElementById(i).src = pieza.url;
                 console.log(pieza.url);
                 //document.getElementById('LocId1').src = "./IMG/Templos.png";
@@ -607,7 +611,11 @@ function listenForGrid(pieza,valorLogico){
                 contenedorLosetasUno.setEstado(false);
                 rem.RemplazarLocetas(1);
             }if(contenedorLosetasDos.selected){
-                document.getElementById(i).src = pieza.url;
+                document.getElementById(i).src = losetasObjects1[cont1].url;
+                cont1 = cont1 - 1;
+                var x = i.toString().slice(0,-1);
+                var y = i.toString().slice(1);
+                setLogic(x,y,4);
                 //document.getElementById('LocId2').src = "./IMG/Templos.png";
                 document.getElementById("LocetasDos").style.backgroundColor = 'black'; 
                 contenedorLosetasDos.setEstado(false);
