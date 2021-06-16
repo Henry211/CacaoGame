@@ -137,6 +137,16 @@ var contenedorMeaplesUno = new contenedorMazoMeaples(pieza,false);
 var contenedorMeaplesDos = new contenedorMazoMeaples(pieza,false);
 var contenedorMeaplesTres = new contenedorMazoMeaples(pieza,false);
 var contenedorMeaplesCuatro = new contenedorMazoMeaples(pieza,false);
+
+var matrizMeaples = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+  ];
 var matrizLogica = [
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -147,11 +157,11 @@ var matrizLogica = [
     [0, 0, 0, 0, 0, 0, 0]
   ];
 
-  function setObjectMatrix(xData,yData,objeto){
+  function setMeapleMatrix(xData,yData,id){
     for(let x=0; x<7; x++){
         for(let y=0; y<7; y++){
             if(x == xData && y == yData){
-                //matrizMeaples[x][y] = objeto;
+                matrizMeaples[x][y] = id;
             }
         }
     }
@@ -167,7 +177,17 @@ function setLogic(xData,yData,int){
         }
     }
 }
-function printMatrix(xData,yData){
+function printMeapleMatrix(){
+    var matrizText = "";
+    for(let x=0; x<7; x++){
+        for(let y=0; y<7; y++){
+            matrizText = matrizText + matrizMeaples[x][y];
+        }
+        matrizText = matrizText +"\n";
+    }
+    console.log(matrizText);
+}
+function printMatrix(){
     var matrizText = "";
     for(let x=0; x<7; x++){
         for(let y=0; y<7; y++){
@@ -602,7 +622,7 @@ function listenForGrid(pieza,valorLogico){
                 var y = i.toString().slice(1);
                 //console.log("x-- " + x);
                 //console.log("y-- " + y);
-                setLogic(x,y,losetasObjects1[cont1].valorLogico);
+                setLogic(x,y,2);
                 printMatrix();
                 //document.getElementById(i).src = pieza.url;
                 console.log(pieza.url);
@@ -634,9 +654,9 @@ function listenForGrid(pieza,valorLogico){
                 console.log("x-- " + x);
                 console.log("y-- " + y);
                 console.log("Lados: top-"+ meaplesObjects1[cont3].top + " down-" + meaplesObjects1[cont3].down + " left-" + meaplesObjects1[cont3].left + " right-" +meaplesObjects1[cont3].right);
-                setLogic(x,y,cont3);
+                setMeapleMatrix(x,y,cont3);
                 //setObjectMatrix(x,y,meaplesObjects1[cont3]);
-                printMatrix();
+                printMeapleMatrix();
 
                 document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
                 contenedorMeaplesUno.setEstado(false);
