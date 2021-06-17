@@ -67,6 +67,17 @@ class Meaple{   // logic = 12
         this.url = url;
         this.player = player;
     }
+    /*girarDerecha(){
+        let auxLeft = this.left;
+        let auxTop = this.top;
+        let auxRigth = this.right;
+        let auxLeft = this.left;
+        let auxDown = this.down;
+        this.top = this.left;
+        this.right = auxTop;
+        this.down = auxRigth;
+        this.left = auxDown;
+    }*/
 }
 //clase de cada ficha
 class Loseta{
@@ -195,15 +206,24 @@ function printMatrix(){
     console.log(matrizText);
 }
 
-function girar(casilla){
+function girar(){
     const btn = document.getElementById("btnGiro");
 
     btn.addEventListener("click", () => {
         grados = grados + 90;
         document.getElementById(casilla).style.transform = `rotate(${grados}deg)`;
-        //---PROBLEMA---
-        //-cada elemento conserva la función permanentemente-//
+        if(grados == 270){
+            grados = 0;
+        }
     });
+}
+
+function girarClick(){
+    grados = grados + 90;
+        document.getElementById(casilla).style.transform = `rotate(${grados}deg)`;
+        if(grados == 360){
+            grados = 0;
+        }
 }
 
 //metodo para el botton
@@ -608,8 +628,8 @@ function listenForGrid(){
             if(contenedorMeaplesUno.selected){
                 //document.getElementById(i).src = pieza.url;
                 document.getElementById(i).src = meaplesObjects1[cont3].url;
-                girar(i);
                 casilla = i;
+                girar();
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
                 console.log("Lados: top-"+ meaplesObjects1[cont3].top + " down-" + meaplesObjects1[cont3].down + " left-" + meaplesObjects1[cont3].left + " right-" +meaplesObjects1[cont3].right);
@@ -664,22 +684,22 @@ function validarMeaplesCercanos(x,y){
         if(matrizMeaples[xAbajo][y] != 0){  //  ABAJO
             mep = matrizMeaples[xAbajo][y];
             beneficios = parseInt(meaplesObjects1[mep].top);
-            console.log("Cabeza x " + beneficios.toString());
+            document.getElementById("Cabezas2").textContent = meaplesObjects1[mep].top;
         }
         if(matrizMeaples[xArriba][y] != 0){ //  ARRIBA
             mep = matrizMeaples[xArriba][y];
             beneficios = parseInt(meaplesObjects1[mep].down);
-            console.log("Cabeza x " + beneficios.toString());
+            document.getElementById("Cabezas2").textContent = meaplesObjects1[mep].down;
         }
         if(matrizMeaples[x][yIzquierda] != 0){  //  IZQUIERDA
             mep = matrizMeaples[x][yIzquierda];
             beneficios = parseInt(meaplesObjects1[mep].right);
-            console.log("Cabeza x " + beneficios.toString());
+            document.getElementById("Cabezas2").textContent = meaplesObjects1[mep].right;
         }
         if(matrizMeaples[x][yDerecha] != 0){ //  DERECHA
             mep = matrizMeaples[x][yDerecha];
             beneficios = parseInt(meaplesObjects1[mep]);
-            console.log("Cabeza x " + beneficios.toString());
+            document.getElementById("Cabezas2").textContent = meaplesObjects1[mep].left;
         }
 }
 
