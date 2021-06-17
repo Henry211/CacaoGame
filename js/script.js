@@ -585,6 +585,9 @@ function listenForGrid(){
                 document.getElementById(i).src = losetasObjects1[cont1].url;
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
+                //--VALIDACIONES--
+                validarMeaplesCercanos(x,y);
+                //----------------
                 setLogic(x,y,2);// --valor lógico 2 ---
                 printMatrix();
                 document.getElementById("LocetasUno").style.backgroundColor = 'black'; 
@@ -649,6 +652,44 @@ function listenForGrid(){
     }
     
 }
+
+function validarMeaplesCercanos(x,y){
+    let xAbajo = parseInt(x) + 1;
+    let xArriba = parseInt(x) -1;
+    let yDerecha = parseInt(y) +1;
+    let yIzquierda = parseInt(y) -1;
+    let mep;
+    var beneficios;
+
+        if(matrizMeaples[xAbajo][y] != 0){  //  ABAJO
+            mep = matrizMeaples[xAbajo][y];
+            beneficios = parseInt(meaplesObjects1[mep].top);
+            console.log("Cabeza x " + beneficios.toString());
+        }
+        if(matrizMeaples[xArriba][y] != 0){ //  ARRIBA
+            mep = matrizMeaples[xArriba][y];
+            beneficios = parseInt(meaplesObjects1[mep].down);
+            console.log("Cabeza x " + beneficios.toString());
+        }
+        if(matrizMeaples[x][yIzquierda] != 0){  //  IZQUIERDA
+            mep = matrizMeaples[x][yIzquierda];
+            beneficios = parseInt(meaplesObjects1[mep].right);
+            console.log("Cabeza x " + beneficios.toString());
+        }
+        if(matrizMeaples[x][yDerecha] != 0){ //  DERECHA
+            mep = matrizMeaples[x][yDerecha];
+            beneficios = parseInt(meaplesObjects1[mep]);
+            console.log("Cabeza x " + beneficios.toString());
+        }
+}
+
+
+
+
+
+
+
+
            //metodo que define la cantidad de jugadores
 function  cantidadJugadores(){
         console.log(window);
