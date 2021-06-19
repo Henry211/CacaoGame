@@ -30,7 +30,7 @@ var cont3 = 10; //--meales2
 let grados = 0;
 var primerClick = true;
 var casilla;
-
+var colocarEncima = false;
     
 //Las clases Contenedoras no son totalmente necesarias, puede que se necesiten más adelante
 class contenedorMazoMeaples{
@@ -67,17 +67,16 @@ class Meaple{   // logic = 12
         this.url = url;
         this.player = player;
     }
-    /*girarDerecha(){
+    girarDerecha(){
         let auxLeft = this.left;
         let auxTop = this.top;
         let auxRigth = this.right;
-        let auxLeft = this.left;
         let auxDown = this.down;
         this.top = this.left;
         this.right = auxTop;
         this.down = auxRigth;
         this.left = auxDown;
-    }*/
+    }
 }
 //clase de cada ficha
 class Loseta{
@@ -205,7 +204,7 @@ function printMatrix(){
     }
     console.log(matrizText);
 }
-
+/*
 function girar(){
     const btn = document.getElementById("btnGiro");
 
@@ -216,10 +215,16 @@ function girar(){
             grados = 0;
         }
     });
-}
+}*/
 
 function girarClick(){
     grados = grados + 90;
+        var x = casilla.toString().slice(0,-1);
+        var y = casilla.toString().slice(1);
+        var num = matrizMeaples[x][y];
+        var meapAux = meaplesObjects1[num];
+        meapAux.girarDerecha()
+
         document.getElementById(casilla).style.transform = `rotate(${grados}deg)`;
         if(grados == 360){
             grados = 0;
@@ -228,12 +233,10 @@ function girarClick(){
 
 //metodo para el botton
 function verDatosClick(){
-    var x = document.getElementById("button");
+    //var x = document.getElementById("button");
     let cant = cantidadJugadores();
     var jugador = new Jugador(); 
-    //jugador.cargarMazos(cant);   
-    inicializarTablero();//llena tablero de imágenes en negro (para setear la nuev imagen)
-    //cargarMeaples(cant);   
+    inicializarTablero();//llena tablero de imágenes en negro (para setear la nuev imagen) 
     cargarMazos(cant);  //cargar meaples y locetas en un mismo método
     eventosClick();
     actualizarTablero();//imprimir tablero deacuerdo a matriz lógica
@@ -534,7 +537,6 @@ function cargarMazos(cantidad){
     contenedorLosetasUno.ficha.img.addEventListener("click", function (e) {
             contenedorLosetasUno.setEstado(true);
             document.getElementById("LocetasUno").style.backgroundColor = 'red'; 
-            listenForGrid();
         });
 
     //MAZO 2 LOCETAS
@@ -547,7 +549,6 @@ function cargarMazos(cantidad){
     contenedorLosetasDos.ficha.img.addEventListener("click", function (e) {
             contenedorLosetasDos.setEstado(true);
             document.getElementById("LocetasDos").style.backgroundColor = 'red'; 
-            listenForGrid();
     });
     
     //MAZO 1 MEAPLES
@@ -561,7 +562,6 @@ function cargarMazos(cantidad){
     contenedorMeaplesUno.ficha.img.addEventListener("click", function (e) {
             contenedorMeaplesUno.setEstado(true);
             document.getElementById("MeaplesUno").style.backgroundColor ='Chartreuse' ; 
-            listenForGrid();
     });
     
     //MAZO 2 MEAPLES
@@ -574,7 +574,6 @@ function cargarMazos(cantidad){
     contenedorMeaplesDos.ficha.img.addEventListener("click", function (e) {
             contenedorMeaplesDos.setEstado(true);
             document.getElementById("MeaplesDos").style.backgroundColor ='Chartreuse' ; 
-            listenForGrid();
     });
     //Mazo 3 meaples
     var imageMeaples3 = document.getElementById('mazo3');
@@ -592,7 +591,8 @@ function cargarMazos(cantidad){
             auxPieza.url = imageMeaples4.src;
             int = 2;//VALOR LÓGICO DE LA FICHA ('2' es un ejemplo)
         });
-    //listenForGrid(auxPieza,int);//al final asuxPieza no es necesario
+        
+    listenForGrid();
 }
 
 function listenForGrid(){
@@ -628,21 +628,32 @@ function listenForGrid(){
             if(contenedorMeaplesUno.selected){
                 //document.getElementById(i).src = pieza.url;
                 document.getElementById(i).src = meaplesObjects1[cont3].url;
-                casilla = i;
-                girar();
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
-                console.log("Lados: top-"+ meaplesObjects1[cont3].top + " down-" + meaplesObjects1[cont3].down + " left-" + meaplesObjects1[cont3].left + " right-" +meaplesObjects1[cont3].right);
-                setMeapleMatrix(x,y,cont3);
-                printMeapleMatrix();
-
-                document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
-                contenedorMeaplesUno.setEstado(false);
-                cont3 = cont3 - 1;
-                rem.remplazar(1,meaplesObjects1[cont3].url);
+                if(validarEspacioVacio(x,y)){
+                    console.log("Lados: top-"+ meaplesObjects1[cont3].top + " down-" + meaplesObjects1[cont3].down + " left-" + meaplesObjects1[cont3].left + " right-" +meaplesObjects1[cont3].right);
+                    casilla = i;
+                    setMeapleMatrix(x,y,cont3);
+                    printMeapleMatrix();
+                    document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
+                    contenedorMeaplesUno.setEstado(false);
+                    cont3 = cont3 - 1;
+                    rem.remplazar(1,meaplesObjects1[cont3].url);
+                }if(colocarEncima){
+                    console.log("Lados: top-"+ meaplesObjects1[cont3].top + " down-" + meaplesObjects1[cont3].down + " left-" + meaplesObjects1[cont3].left + " right-" +meaplesObjects1[cont3].right);
+                    casilla = i;
+                    setMeapleMatrix(x,y,cont3);
+                    printMeapleMatrix();
+                    document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
+                    contenedorMeaplesUno.setEstado(false);
+                    cont3 = cont3 - 1;
+                    rem.remplazar(1,meaplesObjects1[cont3].url);
+                }else{
+                    console.log("CASILLA OCUPADA");
+                }
             }if(contenedorMeaplesDos.selected){
                 document.getElementById(i).src = meaplesObjects1[cont3].url;
-                girar(i);
+                //girar(i);
                 casilla = i;
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
@@ -703,7 +714,18 @@ function validarMeaplesCercanos(x,y){
         }
 }
 
-
+function validarEspacioVacio(x,y){
+    var xVar = parseInt(x);
+    var yVar = parseInt(y);
+    var id = matrizMeaples[xVar][yVar];
+    
+    if(id == 0){
+        return true;
+    }else{
+        console.log("ID de casilla = "+ id);
+        return false;
+    }
+}
 
 
 
