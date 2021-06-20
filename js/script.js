@@ -31,6 +31,10 @@ let grados = 0;
 var primerClick = true;
 var casilla;
 var colocarEncima = false;
+
+var cabezas;
+var cacaos=0;
+var monedas=0;
     
 //Las clases Contenedoras no son totalmente necesarias, puede que se necesiten más adelante
 class contenedorMazoTrabajadores{
@@ -80,9 +84,10 @@ class LosetaTrabajador{   // logic = 12
 }
 //clase de cada ficha
 class LosetaSelva{
-    constructor(url, value){
+    constructor(url, value, tipo){
         this.url = url;
         this.value = value;
+        this.tipo = tipo;
     }//asigna la imagen del url que recibe al id que recibe
     asignaImagen(url, ide){
         document.getElementById(ide).src=url;
@@ -146,38 +151,41 @@ var contenedorTrabajadoresTres = new contenedorMazoTrabajadores(pieza,false);
 var contenedorTrabajadoresCuatro = new contenedorMazoTrabajadores(pieza,false);
 
 var matrizTrabajadores = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 var matrizSelvas = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 2, 0, 8, 0, 0],
-    [0, 0, 0, 5, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
   function setTrabajadoresMatrix(xData,yData,id){
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             if(x == xData && y == yData){
                 matrizTrabajadores[x][y] = id;
             }
         }
     }
-    //console.log("Top: " + matrizMeaples[1][1].top + "Down: " + matrizMeaples[1][1].down);
   }
   
 function setLogic(xData,yData,int){
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             if(x == xData && y == yData){
                 matrizSelvas[x][y] = int;
             }
@@ -186,8 +194,8 @@ function setLogic(xData,yData,int){
 }
 function printTrabajadoresMatrix(){
     var matrizText = "";
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             matrizText = matrizText + matrizTrabajadores[x][y];
         }
         matrizText = matrizText +"\n";
@@ -196,8 +204,8 @@ function printTrabajadoresMatrix(){
 }
 function printMatrix(){
     var matrizText = "";
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             matrizText = matrizText + matrizSelvas[x][y];
         }
         matrizText = matrizText +"\n";
@@ -232,8 +240,8 @@ function verDatosClick(){
 }
 function actualizarTablero(){
     let srcImage;
-    for(let x=0; x<6; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             console.log(matrizSelvas.toString());
             switch(matrizSelvas[x][y]){
                 case 1: //Plantación Simple
@@ -274,7 +282,7 @@ function actualizarTablero(){
 }
 function inicializarTablero(){
     var contenedor = new LosetaSelva();
-    for(let i = 0; i<57; i++){
+    for(let i = 0; i<77; i++){
         i = evaluaIndice(i);
 
         contenedor.asignaImagen("./IMG/contenedor.png",i);//solo pinta..
@@ -306,19 +314,28 @@ function evaluaIndice(indice){
             indice = "06";
             break;
         case 7:
+            indice = "07";
+            break;
+        case 8:
             indice = 10;
             break;
-        case 17:
+        case 18:
             indice = 20;
             break;
-        case 27:
+        case 28:
             indice = 30;
             break;
-        case 37:
+        case 38:
             indice = 40;
             break;
-        case 47:
+        case 48:
             indice = 50;
+            break;
+        case 58:
+            indice = 60;
+            break;
+        case 68:
+            indice = 70;
             break;
         //-----------Casos de acomodo posterior
         case "00":
@@ -342,6 +359,9 @@ function evaluaIndice(indice){
         case "06":
             indice = 6;
             break;
+        case "07":
+            indice = 7;
+            break;
     }
     return indice;
 }
@@ -350,7 +370,7 @@ function cargarMazos(cantidad){
     for(let i = 0; i<28; i++){
         if(i<6){
             //inicializar locetasMazo con Fichas
-            let card = new LosetaSelva("./IMG/Cacao1.png",1);
+            let card = new LosetaSelva("./IMG/Semillas1.png",1,"PlantacionSimple");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Cacao1.png");
             //----
@@ -358,7 +378,7 @@ function cargarMazos(cantidad){
             meaplesMazo.unshift(meap);
         }
         if(i>=6 && i<8){
-            let card = new LosetaSelva("./IMG/Semillas2.png",2);
+            let card = new LosetaSelva("./IMG/Semillas2.png",2,"PlantacionDoble");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Semillas2.png");
             //----
@@ -367,7 +387,7 @@ function cargarMazos(cantidad){
         }
         if(i>=8 && i<15){
             if(i<10){
-                let card = new LosetaSelva("./IMG/Mercado2.png",3);
+                let card = new LosetaSelva("./IMG/Mercado2.png",3,"Mercado2");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado2.png");
                 //----
@@ -375,14 +395,14 @@ function cargarMazos(cantidad){
                 meaplesMazo.unshift(meap);
             }
             if(i>=10 && i<14){
-                let card = new LosetaSelva("./IMG/Mercado3.png",4);
+                let card = new LosetaSelva("./IMG/Mercado3.png",4,"Mercado3");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado3.png");
                 let meap = new LosetaTrabajador(1,0,0,3,"./IMG/Meaples3.png",1);
                 meaplesMazo.unshift(meap);
             }
             if(i==14){
-                let card = new LosetaSelva("./IMG/Mercado4.png",5);
+                let card = new LosetaSelva("./IMG/Mercado4.png",5,"Mercado4");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado4.png");
                 
@@ -390,7 +410,7 @@ function cargarMazos(cantidad){
         }
         if(i>=15 && i<18){
             if(i<17){
-                let card = new LosetaSelva("./IMG/Mina1.png",6);
+                let card = new LosetaSelva("./IMG/Mina1.png",6,"Mina1");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mina1.png");
 
@@ -398,23 +418,23 @@ function cargarMazos(cantidad){
                 meaplesMazo.unshift(meap);
             }
             else{
-                let card = new LosetaSelva("./IMG/Mina2.png",7);
+                let card = new LosetaSelva("./IMG/Mina2.png",7,"Mina2");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mina2.png");
             }
         }
         if(i>=18 && i<21){
-            let card = new LosetaSelva("./IMG/Lago.png",8);
+            let card = new LosetaSelva("./IMG/Lago.png",8,"Lago");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Lago.png");
         }
         if(i>=21 && i<23){
-            let card = new LosetaSelva("./IMG/MayaSun.png",9);
+            let card = new LosetaSelva("./IMG/MayaSun.png",9,"adoracionSol");
                 losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/MayaSun.png");
         }
         if(i>=23){   
-            let card = new LosetaSelva("./IMG/Templos.png",10);
+            let card = new LosetaSelva("./IMG/Templos.png",10,"Templos");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Templos.png");
        }
@@ -426,6 +446,7 @@ function cargarMazos(cantidad){
                     //-----------------------------
                     //Locetas
                     let rand1 = Math.floor(Math.random()*28);
+                    console.log("TIPO SELVA: " + losetasMazo[rand1].tipo.toString());
                     selvasObjects1[i] = losetasMazo[rand1];//OBJETOS                      
               }
               contenedorSelvasUno.setPieza(selvasObjects1[cont1]);
@@ -580,7 +601,7 @@ function cargarMazos(cantidad){
 
 function listenForGrid(){
    let rem = new Jugador();
-    for(let i = 0; i<57; i++){
+    for(let i = 0; i<72; i++){
         i = evaluaIndice(i);     
         let imagen = document.getElementById(i);
         imagen.addEventListener("click", function (e) {
@@ -589,7 +610,9 @@ function listenForGrid(){
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
                 //--VALIDACIONES--
-                validarMeaplesCercanos(x,y);
+                console.log("TIPO SELVA: " + selvasObjects1[cont1].tipo.toString());
+
+                validarMeaplesCercanos(x,y,selvasObjects1[cont1].tipo);
                 //----------------
                 setLogic(x,y,2);// --valor lógico 2 ---
                 printMatrix();
@@ -662,39 +685,35 @@ function listenForGrid(){
                 rem.remplazar(4);
             }
         });
-        //i = evaluaIndice(i);
+        i = evaluaIndice(i);
     }
     
 }
 
-function validarMeaplesCercanos(x,y){
+function validarMeaplesCercanos(x,y,tipoSelva){
     let xAbajo = parseInt(x) + 1;
-    let xArriba = parseInt(x) -1;
-    let yDerecha = parseInt(y) +1;
-    let yIzquierda = parseInt(y) -1;
+    let xArriba = parseInt(x) - 1;
+    let yDerecha = parseInt(y) + 1;
+    let yIzquierda = parseInt(y) - 1;
     let mep;
-    var beneficios;
+    var tipoSelva
 
         if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
             mep = matrizTrabajadores[xAbajo][y];
-            beneficios = parseInt(trabajadoresObjects1[mep].top);
-            document.getElementById("Cabezas2").textContent = trabajadoresObjects1[mep].top;
-        }
+            cabezas = parseInt(trabajadoresObjects1[mep].top);
+            switchTipos(tipoSelva,cabezas);        }
         if(matrizTrabajadores[xArriba][y] != 0){ //  ARRIBA
             mep = matrizTrabajadores[xArriba][y];
-            beneficios = parseInt(trabajadoresObjects1[mep].down);
-            document.getElementById("Cabezas2").textContent = trabajadoresObjects1[mep].down;
-        }
+            cabezas = parseInt(trabajadoresObjects1[mep].down);
+            switchTipos(tipoSelva,cabezas);        }
         if(matrizTrabajadores[x][yIzquierda] != 0){  //  IZQUIERDA
             mep = matrizTrabajadores[x][yIzquierda];
-            beneficios = parseInt(trabajadoresObjects1[mep].right);
-            document.getElementById("Cabezas2").textContent = trabajadoresObjects1[mep].right;
-        }
+            cabezas = parseInt(trabajadoresObjects1[mep].right);
+            switchTipos(tipoSelva,cabezas);        }
         if(matrizTrabajadores[x][yDerecha] != 0){ //  DERECHA
             mep = matrizTrabajadores[x][yDerecha];
-            beneficios = parseInt(trabajadoresObjects1[mep]);
-            document.getElementById("Cabezas2").textContent = trabajadoresObjects1[mep].left;
-        }
+            cabezas = parseInt(trabajadoresObjects1[mep]);
+            switchTipos(tipoSelva,cabezas);        }
 }
 
 function validarEspacioVacio(x,y){
@@ -710,7 +729,58 @@ function validarEspacioVacio(x,y){
     }
 }
 
-
+function switchTipos(tipo,jupas){
+    switch(tipo){
+        case "PlantacionSimple":
+            cacaos = cacaos + (1*jupas);
+            console.log("CACAOS : "+cacaos);
+            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            break;
+        case "PlantacionDoble":
+            cacaos = cacaos+ (2*jupas);
+            console.log("CACAOS : "+cacaos);
+            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            break;
+        case "Mercado2":
+            if(jupas <= cacaos){
+                monedas = monedas + (2*jupas);
+                console.log("MONEDAS : "+MONEDAs);
+                document.getElementById("Monedas2").textContent = monedas.toString();
+                cacaos = cacaos - jupas;
+                document.getElementById("Cacaos2").textContent = cacaos.toString();
+            }
+            break;
+        case "Mercado3":
+            if(jupas <= cacaos){
+            monedas = monedas + (3*jupas);
+            console.log("MONEDAS : "+monedas);
+            document.getElementById("Monedas2").textContent = monedas.toString();
+            cacaos = cacaos - jupas;
+            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            }
+            break;
+        case "Mercado4":
+            if(jupas <= cacaos){
+            monedas = monedas + (4*jupas);
+            console.log("MONEDAS : "+monedas);
+            document.getElementById("Monedas2").textContent = monedas.toString();
+            cacaos = cacaos - jupas;
+            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            }
+            break;
+        case "Mina1":
+            monedas = monedas + (1*jupas);
+            console.log("MONEDAS : "+monedas);
+            document.getElementById("Monedas2").textContent = monedas.toString();
+            break;
+        case "Mina2":
+            monedas = monedas + (2*jupas);
+            console.log("MONEDAS : "+monedas);
+            document.getElementById("Monedas2").textContent = monedas.toString();
+            break;
+    }
+    document.getElementById("Cabezas2").textContent = jupas.toString();
+}
 
 
 

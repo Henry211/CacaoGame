@@ -12,20 +12,21 @@
         border: 5px solid #ccc;
         padding: 10px;
         margin:auto;
-        width: 95%;
-        height: 460px;
+        width: 720px;
+        height: 600px;
         overflow: auto;
     }
     #cajaMain{
         position: relative;
         border: 1px solid #ccc;
         padding: 10px;  
-        height: auto; 
+        height: 630px; 
         margin: auto;
-        width: 700px;
+        width: 750px;
         background-color: #ffb;
         border: 8px groove yellowgreen;
-        top:-110px;
+        top:-370px;
+        left: -20px;
     }
     #casilla{
         width: 80px;
@@ -74,7 +75,7 @@
     background-color: #ffb;
     border: 8px groove yellowgreen;
     float: right;
-    right: 850px;
+    right: 920px;
     top:30px;
 }
 #LocetasDos{
@@ -87,7 +88,7 @@
     background-color: #ffb;
     border: 8px groove yellowgreen;
     float: right;
-    right: 715px;
+    right: 785px;
     top:150px;
 }
 #espacioLocetas{
@@ -193,7 +194,7 @@
    .button{
        position: relative;
        border-radius: 25px;
-       left:80px;
+       left:10px;
         top:-30px;
        background-color: #CB4335;
        width:150px;
@@ -202,8 +203,8 @@
    .btnGiro{
         position: relative;
         border-radius: 25px;
-        left:180px;
-        top:-50px;
+        left:-105px;
+        top:-70px;
        background-color: #CB4335;
        width:70px;
        height: 30px;
@@ -211,23 +212,56 @@
    #h3{
        color:black;
    }
-#Cabezas{
-    position: relative;
-    color:black;
-    size: 40px;
-    margin-right: 1200px;
-    top:250px;
-    background-color: black;
-}
-#Cabezas2{
-    position: relative;
-    color:black;
-    size: 40px;
-    left:100px;
-    top: 210px;
-    margin-right: 1200px;
-    background-color: black;
-}
-  
+                #Cabezas{
+                    position: relative;
+                    color:black;
+                    size: 40px;
+                    margin-right: 1200px;
+                    top:250px;
+                    background-color: black;
+                }
+                #Cabezas2{
+                    position: relative;
+                    color:black;
+                    size: 40px;
+                    left:100px;
+                    top: 200px;
+                    margin-right: 1200px;
+                    background-color: black;
+                }
+                #Monedas{
+                    position: relative;
+                    color:black;
+                    size: 40px;
+                    margin-right: 1200px;
+                    top:250px;
+                    background-color: black;
+                }
+                #Monedas2{
+                    position: relative;
+                    color:black;
+                    size: 40px;
+                    left:100px;
+                    top: 200px;
+                    margin-right: 1200px;
+                    background-color: black;
+                }
+                #Cacaos{
+                    position: relative;
+                    color:black;
+                    size: 40px;
+                    margin-right: 1200px;
+                    top:250px;
+                    background-color: black;
+                }
+                #Cacaos2{
+                    position: relative;
+                    color:black;
+                    size: 40px;
+                    left:100px;
+                    top: 200px;
+                    margin-right: 1200px;
+                    background-color: black;
+                }
 
   
