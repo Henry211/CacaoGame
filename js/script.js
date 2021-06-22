@@ -25,6 +25,7 @@ let grados = 0;
 var primerClick = true;
 var casilla;
 var colocarEncima = false;
+var jungleType;
 
 var cabezas;
 var cacaos=0;
@@ -239,37 +240,35 @@ function actualizarTablero(){
             console.log(matrizSelvas.toString());
             switch(matrizSelvas[x][y]){
                 case 1: //Plantación Simple
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Semillas1.png";
                     break;
                 case 2: //Plantación Doble
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Semillas2.png";
                     break;
                 case 3: //Mercado de 2
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado2.png";
                     break;
                 case 4: //Mercado de 3
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado3.png";
                     break;
                 case 5: //Mercado de 4
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado4.png";
                     break;
                 case 6: //Mina de 1
                     document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
                     break;
                 case 7: //Mina de 2
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina2.png";
                     break;
                 case 8: //Cenotes
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";  
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Lago.png";  
                     break;
                 case 9: //Centro de culto solar
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/MayaSun.png";
                     break;
                 case 10: //Templos
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
                     break;
-                //--------
-                //En el caso de "Meaples", se identifica con un case, pero se aplican métodos aparte para validar el tipo y los lados del meaple
             }            
         }
     }
@@ -628,7 +627,7 @@ function listenForGrid(){
                  //--VALIDACIONES--
                  validarMeaplesCercanos(x,y,selvasObjects1[cont1].tipo);
                  //----------------
-                 setLogic(x,y,2);// --valor lógico 2 ---
+                 setLogic(x,y,selvasObjects1[cont1].value);// --valor lógico 2 ---
                  printMatrix();
                  document.getElementById("LocetasUno").style.backgroundColor = 'black'; 
                  contenedorSelvasUno.setEstado(false);
@@ -640,9 +639,9 @@ function listenForGrid(){
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
                  //--VALIDACIONES--
-                 validarMeaplesCercanos(x,y,selvasObjects1[cont1].tipo);
+                 validarMeaplesCercanos(x,y,selvasObjects1[cont1].value);
                  //----------------
-                 setLogic(x,y,4);
+                 setLogic(x,y,selvasObjects1[cont1].value);
                  document.getElementById("LocetasDos").style.backgroundColor = 'black'; 
                  contenedorSelvasDos.setEstado(false);
                  cont1 = cont1 - 1;
@@ -655,7 +654,7 @@ function listenForGrid(){
                 var y = i.toString().slice(1);
                 if(validarEspacioVacio(x,y)){
                     //--VALIDACIONES--
-                    //validarMeaplesCercanos(x,y,selvasObjects1[cont1].tipo);
+                    validarSelvasCercanas(x,y,trabajadoresObjects1[cont3]);
                     //---------------
                     console.log("Lados: top-"+ trabajadoresObjects1[cont3].top + " down-" + trabajadoresObjects1[cont3].down + " left-" + trabajadoresObjects1[cont3].left + " right-" + trabajadoresObjects1[cont3].right);
                     casilla = i;
@@ -721,8 +720,77 @@ function listenForGrid(){
      }
      
  }
+ function getTipoSelvaWithId(id){
 
+    switch(id){
+        case 1:
+            jungleType = "PlantacionSimple";
+            break;
+        case 2:
+            jungleType = "PlantacionDoble";
+            break;
+        case 3:
+            jungleType = "Mercado2";
+            break;
+        case 4:
+            jungleType = "Mercado3";
+            break;
+        case 5:
+            jungleType = "Mercado4";
+            break;
+        case 6:
+            jungleType = "Mina1";
+            break;
+        case 7:
+            jungleType = "Mina2";
+            break;
+        case 8:
+            jungleType = "Lago";
+            break;
+        case 9:
+            jungleType = "MayaSun";
+            break;
+        case 10:
+            jungleType = "Templos";
+            break;
+    }
+ }
 
+ function validarSelvasCercanas(x,y,losetaMeaple){
+    let xAbajo = parseInt(x) + 1;
+    let xArriba = parseInt(x) - 1;
+    let yDerecha = parseInt(y) + 1;
+    let yIzquierda = parseInt(y) - 1;
+
+    if(matrizSelvas[xAbajo][y] != 0){   //validar hacia abajo de la losetaMeaple
+        selvaId = matrizSelvas[xAbajo][y]; 
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.down;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+    if(matrizSelvas[xArriba][y] != 0){
+        selvaId = matrizSelvas[xArriba][y];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.top;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+    if(matrizSelvas[x][yIzquierda] != 0){
+        selvaId = matrizSelvas[x][yIzquierda];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.left;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+    if(matrizSelvas[x][yDerecha] != 0){
+        selvaId = matrizSelvas[x][yIzquierda];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.right;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+ }
 
 function validarMeaplesCercanos(x,y,tipoSelva){
     let xAbajo = parseInt(x) + 1;
