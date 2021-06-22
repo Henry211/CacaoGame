@@ -705,7 +705,6 @@ function listenForGrid(){
                  //document.getElementById(i).src = pieza.url;
                  document.getElementById(i).src = trabajadoresObjects1[cont3].url;
                  casilla = i;
-                 girar();
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
                  console.log("Lados: top-"+ trabajadoresObjects1[cont3].top + " down-" + trabajadoresObjects1[cont3].down + " left-" + trabajadoresObjects1[cont3].left + " right-" +trabajadoresObjects1[cont3].right);
@@ -718,7 +717,6 @@ function listenForGrid(){
                  rem.remplazar(1,trabajadoresObjects1[cont3].url);
              }if(contenedorTrabajadoresDos.selected){
                  document.getElementById(i).src = trabajadoresObjects2[cont3].url;
-                 girar(i);
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
@@ -733,7 +731,6 @@ function listenForGrid(){
              }
              if(contenedorTrabajadores.selected){
                  document.getElementById(i).src = trabajadoresObjects3[cont3].url;
-                 girar(i);
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
@@ -747,7 +744,6 @@ function listenForGrid(){
              }
              if(contenedorTrabajadoresCuatro.selected){
                  document.getElementById(i).src = trabajadoresObjects4[cont3].url;
-                 girar(i);
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
@@ -772,7 +768,7 @@ function validarMeaplesCercanos(x,y,tipoSelva){
     let yDerecha = parseInt(y) + 1;
     let yIzquierda = parseInt(y) - 1;
     let mep;
-    var tipoSelva
+    var tipoSelva;
 
         if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
             mep = matrizTrabajadores[xAbajo][y];
