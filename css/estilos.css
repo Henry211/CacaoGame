@@ -20,7 +20,7 @@
         position: relative;
         border: 1px solid #ccc;
         padding: 10px;  
-        height: 630px; 
+        height: 640px; 
         margin: auto;
         width: 750px;
         background-color: rgb(65, 65, 60);
@@ -208,6 +208,15 @@
        background-color: #CB4335;
        width:70px;
        height: 30px;
+   }
+   .btnFinish{
+    position: relative;
+    border-radius: 25px;
+    left:845px;
+     top:-80px;
+    background-color: #CB4335;
+    width:150px;
+    height: 30px;
    }
    #h3{
        color:black;

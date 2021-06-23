@@ -169,8 +169,8 @@ var matrizSelvas = [
   ];
 
   function setTrabajadoresMatrix(xData,yData,id){
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             if(x == xData && y == yData){
                 matrizTrabajadores[x][y] = id;
             }
@@ -179,8 +179,8 @@ var matrizSelvas = [
   }
   
 function setLogic(xData,yData,int){
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             if(x == xData && y == yData){
                 matrizSelvas[x][y] = int;
             }
@@ -189,8 +189,8 @@ function setLogic(xData,yData,int){
 }
 function printTrabajadoresMatrix(){
     var matrizText = "";
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             matrizText = matrizText + matrizTrabajadores[x][y];
         }
         matrizText = matrizText +"\n";
@@ -199,8 +199,8 @@ function printTrabajadoresMatrix(){
 }
 function printMatrix(){
     var matrizText = "";
-    for(let x=0; x<7; x++){
-        for(let y=0; y<7; y++){
+    for(let x=0; x<8; x++){
+        for(let y=0; y<8; y++){
             matrizText = matrizText + matrizSelvas[x][y];
         }
         matrizText = matrizText +"\n";
@@ -215,12 +215,17 @@ function girarClick(){
         var y = casilla.toString().slice(1);
         var num = matrizTrabajadores[x][y];
         var meapAux = trabajadoresObjects1[num];//revisar con los otros trabajadores
-        meapAux.girarDerecha()
+        meapAux.girarDerecha();
+        validarSelvasCercanas(x,y,trabajadoresObjects1[num]);
 
         document.getElementById(casilla).style.transform = `rotate(${grados}deg)`;
         if(grados == 360){
             grados = 0;
         }
+}
+
+function terminarClick(){
+
 }
 
 //metodo para el botton
@@ -275,9 +280,8 @@ function actualizarTablero(){
 }
 function inicializarTablero(){
     var contenedor = new LosetaSelva();
-    for(let i = 0; i<77; i++){
+    for(let i = 0; i<78; i++){
         i = evaluaIndice(i);
-
         contenedor.asignaImagen("./IMG/contenedor.png",i);//solo pinta..
         i = evaluaIndice(i);
     }
@@ -616,7 +620,7 @@ function cargarMazos(cantidad){
   
 function listenForGrid(){
     let rem = new Jugador();
-     for(let i = 0; i<57; i++){
+     for(let i = 0; i<78; i++){
          i = evaluaIndice(i);     
          let imagen = document.getElementById(i);
          imagen.addEventListener("click", function (e) {
@@ -784,7 +788,7 @@ function listenForGrid(){
         switchTipos(jungleType,cabezas);
     }
     if(matrizSelvas[x][yDerecha] != 0){
-        selvaId = matrizSelvas[x][yIzquierda];
+        selvaId = matrizSelvas[x][yDerecha];
         getTipoSelvaWithId(selvaId);
         cabezas = losetaMeaple.right;
         console.log("Tipo Jungla: " + jungleType.toString());
