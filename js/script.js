@@ -21,6 +21,10 @@ var matrizMeaples;
 
 var cont1 = 27; //--losetas1
 var cont3 = 10; //--meaples2
+var cont4 = 10;
+var cont5 = 10;
+var cont6 = 10;
+
 let grados = 0;
 var primerClick = true;
 var casilla;
@@ -106,12 +110,14 @@ class Jugador{
       //metodo para remplazar la baraja a la hora de mover la ficha al tablero
       remplazar(vali,url){
         let remplazo = new LosetaSelva(); 
+      //  let sacar = Math.floor(Math.random*11);
         if(vali == 1){
-           remplazo.asignaImagen(url,"mazo1");//reemplaza en la mano de cada jugador y la pone en la nueva imagen
-           //reemplazo.setValorLógico(11); 
-           vali = 0;
-          }  
-          if(vali == 2){
+           
+            remplazo.asignaImagen(url,"mazo1");
+            vali = 0;
+        }
+          
+        if(vali == 2){
             setTimeout(remplazo.asignaImagen(url,"mazo2"),10000);
             vali = 0;
         }
@@ -225,11 +231,11 @@ function girarClick(){
 //metodo para el botton
 function verDatosClick(){
     //var x = document.getElementById("button");
-    let cant = cantidadJugadores();
+    var cant = cantidadJugadores();
     var jugador = new Jugador(); 
     inicializarTablero();//llena tablero de imágenes en negro (para setear la nuev imagen) 
     cargarMazos(cant);  //cargar meaples y locetas en un mismo método
-    eventosClick();
+    eventosClick(cant);
     actualizarTablero();//imprimir tablero deacuerdo a matriz lógica
 }
 function actualizarTablero(){
@@ -359,151 +365,136 @@ function evaluaIndice(indice){
     }
     return indice;
 }
+
+function desordenarTrabajadores(unArray){
+        var t = unArray.sort(function(a,b){return (Math.random()-0.10)});
+        return [...t];
+    }
+function desordenarSelvas(unArray){
+    var t = unArray.sort(function(a,b){return (Math.random()-0.27)});
+    return [...t];
+}
 function cargarMazos(cantidad){
     for(let i = 0; i<28; i++){
         if(i<6){
             //inicializar locetasMazo con Fichas
-            let card = new LosetaSelva("./IMG/Cacao1.png",1);
+            let card = new LosetaSelva("./IMG/Semillas1.png",1,"PlantacionSimple");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Cacao1.png");  
         }
         if(i>=6 && i<8){
-            let card = new LosetaSelva("./IMG/Semillas2.png",2);
+            let card = new LosetaSelva("./IMG/Semillas2.png",2, "PlantacionDoble");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Semillas2.png");
         }
         if(i>=8 && i<15){
             if(i<10){
-                let card = new LosetaSelva("./IMG/Mercado2.png",3);
+                let card = new LosetaSelva("./IMG/Mercado2.png",3,"Mercado2");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado2.png");      
             }
             if(i>=10 && i<14){
-                let card = new LosetaSelva("./IMG/Mercado3.png",4);
+                let card = new LosetaSelva("./IMG/Mercado3.png",4,"Mercado3");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado3.png");   
             }
             if(i==14){
-                let card = new LosetaSelva("./IMG/Mercado4.png",5);
+                let card = new LosetaSelva("./IMG/Mercado4.png",5,"Mercado4");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mercado4.png");  
             }
         }
         if(i>=15 && i<18){
             if(i<17){
-                let card = new LosetaSelva("./IMG/Mina1.png",6);
+                let card = new LosetaSelva("./IMG/Mina1.png",6,"Mina1");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mina1.png");
             }
             else{
-                let card = new LosetaSelva("./IMG/Mina2.png",7);
+                let card = new LosetaSelva("./IMG/Mina2.png",7,"Mina2");
                 losetasMazo.unshift(card);
                 LocetasURL.unshift("./IMG/Mina2.png");
             }
         }
         if(i>=18 && i<21){
-            let card = new LosetaSelva("./IMG/Lago.png",8);
+            let card = new LosetaSelva("./IMG/Lago.png",8,"Lago");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Lago.png");
         }
         if(i>=21 && i<23){
-            let card = new LosetaSelva("./IMG/MayaSun.png",9);
+            let card = new LosetaSelva("./IMG/MayaSun.png",9,"MayaSun");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/MayaSun.png");
         }
         if(i>=23){   
-            let card = new LosetaSelva("./IMG/Templos.png",10);
+            let card = new LosetaSelva("./IMG/Templos.png",10,"Templos");
             losetasMazo.unshift(card);
             LocetasURL.unshift("./IMG/Templos.png");
        }
     }
-      for(let i=0; i<11;i++){
+    // array trabajadores 
+    for(let i=0; i<11;i++){
         if(i<5){
             //----
-            if(cantidad ==2){
-                let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
-                let meap2 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
+            let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);   
+            if(cantidad == 2){ 
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
+                meaplesMazo2.unshift(meap1);
                 URLS.unshift("./IMG/Meaples1.png");
             }
             if(cantidad==3){
-                let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
-                let meap2 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
-                let meap3 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
-                meaplesMazo3.unshift(meap3);
+                meaplesMazo2.unshift(meap1);
+                meaplesMazo3.unshift(meap1);
                 URLS.unshift("./IMG/Meaples1.png");
             }
             if(cantidad ==4){
-                let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
-                let meap2 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
-                let meap3 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
-                let meap4 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples1.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
-                meaplesMazo3.unshift(meap3);
-                meaplesMazo4.unshift(meap4);
+                meaplesMazo2.unshift(meap1);
+                meaplesMazo3.unshift(meap1);
+                meaplesMazo4.unshift(meap1);
                 URLS.unshift("./IMG/Meaples1.png");
             }
         }
         if(i>=5 && i<9){
+            let meap1 = new LosetaTrabajador(1,1,0,2,"./IMG/Meaples2.png",1);
             if(cantidad ==2){
-                let meap1 = new LosetaTrabajador(1,1,0,2,"./IMG/Meaples2.png",1);
-                let meap2 = new LosetaTrabajador(1,1,0,2,"./IMG/Meaples2.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
+                meaplesMazo2.unshift(meap1);
                 URLS.unshift("./IMG/Meaples2.png");
             }
             if(cantidad==3){
-                let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples2.png",1);
-                let meap2 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples2.png",1);
-                let meap3 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples2.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
-                meaplesMazo3.unshift(meap3);
+                meaplesMazo2.unshift(meap1);
+                meaplesMazo3.unshift(meap1);
                 URLS.unshift("./IMG/Meaples2.png");
             }
             if(cantidad ==4){
-                let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples2.png",1);
-                let meap2 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples2.png",1);
-                let meap3 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples2.png",1);
-                let meap4 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples2.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
-                meaplesMazo3.unshift(meap3);
-                meaplesMazo4.unshift(meap4);
+                meaplesMazo2.unshift(meap1);
+                meaplesMazo3.unshift(meap1);
+                meaplesMazo4.unshift(meap1);
                 URLS.unshift("./IMG/Meaples2.png");
             }
         }
-        if(i<9){
+        if(i>=9){
+            let meap1 = new LosetaTrabajador(1,0,0,3,"./IMG/Meaples3.png",1);
             if(cantidad ==2){
-                let meap1 = new LosetaTrabajador(1,0,0,3,"./IMG/Meaples3.png",1);
-                let meap2 = new LosetaTrabajador(1,0,0,3,"./IMG/Meaples3.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
-
+                meaplesMazo2.unshift(meap1);
                 URLS.unshift("./IMG/Meaples3.png");
             }
             if(cantidad==3){
-                let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples3.png",1);
-                let meap2 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples3.png",1);
-                let meap3 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples3.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
-                meaplesMazo3.unshift(meap3);
+                meaplesMazo2.unshift(meap1);
+                meaplesMazo3.unshift(meap1);
                 URLS.unshift("./IMG/Meaples3.png");
             }
             if(cantidad ==4){
-                let meap1 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples3.png",1);
-                let meap2 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples3.png",1);
-                let meap3 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples3.png",1);
-                let meap4 = new LosetaTrabajador(1,1,1,1,"./IMG/Meaples3.png",1);
                 meaplesMazo1.unshift(meap1);
-                meaplesMazo2.unshift(meap2);
-                meaplesMazo3.unshift(meap3);
-                meaplesMazo4.unshift(meap4);
+                meaplesMazo2.unshift(meap1);
+                meaplesMazo3.unshift(meap1);
+                meaplesMazo4.unshift(meap1);
                 URLS.unshift("./IMG/Meaples3.png");
             }
         
@@ -512,163 +503,168 @@ function cargarMazos(cantidad){
 
       switch(cantidad) {
           case "2": //llena los 2 mazos con 11 locetas c/u
+           var randSelvas =[];
+           var randMeaplesUno = [];
+           var randMeaplesDos = [];
+           var randMeaplesTres = [];
+           var randMeaplesCuatro = [];
+           var x;
+           var y;
+           selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
               for(let i = 0; i<28; i++){ //
                     //-----------------------------
                     //Locetas
-                    let rand1 = Math.floor(Math.random()*28);
-                    selvasObjects1[i] = losetasMazo[rand1];//OBJETOS                      
+                x =  desordenarSelvas(selvasArr);
+                randSelvas = x;
+                let rand = randSelvas[i];
+                selvasObjects1[i] = losetasMazo[rand];//OBJETOS                      
               }
               contenedorSelvasUno.setPieza(selvasObjects1[cont1]);
               contenedorSelvasDos.setPieza(selvasObjects1[cont1]);
-
+              numeros = [0,1,2,3,4,5,6,7,8,9,10];
+              numeros2 = [0,1,2,3,4,5,6,7,8,9,10];
+            
               for(let i = 0; i<11; i++){
                     //-----------------------------
-                    //meaples       
-                   let rand1 = Math.floor(Math.random()*11);
-                   let rand2 = Math.floor(Math.random()*11);
-                    trabajadoresObjects1[i] = meaplesMazo1[rand1];
-                    trabajadoresObjects2[i] = meaplesMazo2[rand2];
+                    //meaples  
+                    x = desordenarTrabajadores(numeros);
+                    y = desordenarTrabajadores(numeros2);
+                    randMeaplesUno =  x;
+                    randMeaplesDos = y;
+                    let rand1 = randMeaplesUno[i] ;
+                    let rand2 = randMeaplesDos[i];
+                     trabajadoresObjects1[i] = meaplesMazo1[rand1];
+                     trabajadoresObjects2[i] = meaplesMazo2[rand2];      
               }
+              //console.log(numeros);
+              console.log(randMeaplesUno);
+             // console.log(numeros2);
+              console.log(randMeaplesDos);
               contenedorTrabajadoresUno.setPieza(trabajadoresObjects1[10]);
               contenedorTrabajadoresDos.setPieza(trabajadoresObjects2[10]);
             break;
           case "3":
-            for(let i = 0; i<28; i++){ //
-                //-----------------------------
-                //Locetas
-                let rand1 = Math.floor(Math.random()*28);
-                selvasObjects1[i] = losetasMazo[rand1];//OBJETOS                      
-            }
+            selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
+              for(let i = 0; i<28; i++){ //
+                    //-----------------------------
+                    //Locetas
+                x =  desordenarSelvas(selvasArr);
+                randSelvas = x;
+                let rand = randSelvas[i];
+                selvasObjects1[i] = losetasMazo[rand];//OBJETOS                      
+              }
                 contenedorSelvasUno.setPieza(selvasObjects1[10]);
                 contenedorSelvasDos.setPieza(selvasObjects1[10]);
 
-            for(let i = 0; i<11; i++){ 
-                //-----------------------------
-                //Locetas
-                    let rand1 = Math.floor(Math.random()*11);
-                    let rand2 = Math.floor(Math.random()*11);
-                    let rand3 = Math.floor(Math.random()*11);
-                    trabajadoresObjects1[i] = meaplesMazo1[rand1];
-                    trabajadoresObjects2[i] = meaplesMazo2[rand2];
-                    trabajadoresObjects3[i] = meaplesMazo3[rand3];
-            }
+                numeros = [0,1,2,3,4,5,6,7,8,9,10];
+                numeros2 = [0,1,2,3,4,5,6,7,8,9,10];
+                numeros3 = [0,1,2,3,4,5,6,7,8,9,10]; 
+                // randMeaplesUno =  desordenarTrabajadores(numeros);
+                // randMeaplesDos = desordenarTrabajadores(numeros2);
+                // randMeaplesTres =  desordenarTrabajadores(numeros3);
+            for(let i = 0; i<11; i++){
+                    //-----------------------------
+                    //meaples  
+                    x = desordenarTrabajadores(numeros);
+                    randMeaplesUno =  x;
+                    y = desordenarTrabajadores(numeros2);
+                    randMeaplesDos = y;
+                    x = desordenarTrabajadores(numeros3)
+                    randMeaplesTres =  x;  
+                    rand1 = randMeaplesUno[i] ;
+                    rand2 = randMeaplesDos[i];
+                    let rand3 = randMeaplesTres[i];
+                     trabajadoresObjects1[i] = meaplesMazo1[rand1];
+                     trabajadoresObjects2[i] = meaplesMazo2[rand2];
+                     trabajadoresObjects3[i] = meaplesMazo3[rand3];
+              }
+                console.log(randMeaplesUno);
+                console.log(randMeaplesDos);
+                console.log(randMeaplesTres);
                 contenedorTrabajadoresUno.setPieza(trabajadoresObjects1[10]);
                 contenedorTrabajadoresDos.setPieza(trabajadoresObjects2[10]);
                 contenedorTrabajadoresTres.setPieza(trabajadoresObjects3[10]);
-
             break;
           case "4":
-                for(let i = 0; i<28; i++){ //
-                    //-----------------------------
-                    //Locetas
-                    let rand1 = Math.floor(Math.random()*28);
-                    selvasObjects1[i] = losetasMazo[rand1];//OBJETOS                      
-                }
+            selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
+            for(let i = 0; i<28; i++){ //
+                  //-----------------------------
+                  //Locetas
+              x =  desordenarSelvas(selvasArr);
+              randSelvas = x;
+              let rand = randSelvas[i];
+              selvasObjects1[i] = losetasMazo[rand];//OBJETOS                      
+            }
                     contenedorSelvasUno.setPieza(selvasObjects1[10]);
                     contenedorSelvasDos.setPieza(selvasObjects1[10]);
-    
-                for(let i = 0; i<11; i++){ 
+                    numeros = [0,1,2,3,4,5,6,7,8,9,10];
+                    numeros2 = [0,1,2,3,4,5,6,7,8,9,10];
+                    numeros3 = [0,1,2,3,4,5,6,7,8,9,10]; 
+                    numeros4 = [0,1,2,3,4,5,6,7,8,9,10]
+                    // randMeaplesUno =  desordenarTrabajadores(numeros);
+                    // randMeaplesDos = desordenarTrabajadores(numeros2);
+                    // randMeaplesTres =  desordenarTrabajadores(numeros3);
+                    // randMeaplesCuatro = desordenarTrabajadores(numeros4);
+                for(let i = 0; i<11; i++){
                     //-----------------------------
-                    //Locetas
-                        let rand1 = Math.floor(Math.random()*11);
-                        let rand2 = Math.floor(Math.random()*11);
-                        let rand3 = Math.floor(Math.random()*11);
-                        let rand4 = Math.floor(Math.random()*11);
-
-                       trabajadoresObjects1[i] = meaplesMazo1[rand1];
-                       trabajadoresObjects2[i] = meaplesMazo2[rand2];
-                       trabajadoresObjects3[i] = meaplesMazo3[rand3];
-                       trabajadoresObjects4[i] = meaplesMazo3[rand4];
-
-                }
+                    //meaples  
+                    x = desordenarTrabajadores(numeros);
+                    randMeaplesUno =  x;
+                    y = desordenarTrabajadores(numeros2);
+                    randMeaplesDos = y;
+                    x = desordenarTrabajadores(numeros3)
+                    randMeaplesTres =  x;
+                    y = desordenarTrabajadores(numeros4);
+                    randMeaplesCuatro = y; 
+                    rand1 = randMeaplesUno[i] ;
+                    rand2 = randMeaplesDos[i];
+                    rand3 = randMeaplesTres[i];
+                    let rand4 = randMeaplesCuatro[i];
+                     trabajadoresObjects1[i] = meaplesMazo1[rand1];
+                     trabajadoresObjects2[i] = meaplesMazo2[rand2];
+                     trabajadoresObjects3[i] = meaplesMazo3[rand3];
+                     trabajadoresObjects4[i] = meaplesMazo4[rand4];
+              }
+              console.log(randMeaplesUno);
+              console.log(randMeaplesDos);
+              console.log(randMeaplesTres);
+              console.log(randMeaplesCuatro);
+ 
                     contenedorTrabajadoresUno.setPieza(trabajadoresObjects1[10]);
                     contenedorTrabajadoresDos.setPieza(trabajadoresObjects2[10]);
                     contenedorTrabajadoresTres.setPieza(trabajadoresObjects3[10]);
                     contenedorTrabajadoresCuatro.setPieza(trabajadoresObjects4[10]);
-            }     
+     }     
   }
-  function eventosClick(){ 
+  function prepareMazo(idImage,url,value,contenedor,locetaId){
+    let piezaAux = new LosetaSelva();
+    var image = document.getElementById(idImage);//get imagen del tablero
+    piezaAux.setImage(image);//Set la imagen en una pieza
+    piezaAux.asignaImagen(url, idImage);//set a parte Gráfica
+    piezaAux.setValorLogico(value);//Set valor lógico
+    //CONTENEDOR
+    contenedor.setPieza(piezaAux);
+    contenedor.ficha.img.addEventListener("click", function (e) {
+            contenedor.setEstado(true);
+            document.getElementById(locetaId).style.backgroundColor = 'red'; 
+        });
+  }
+  function eventosClick(cant){ 
     var auxPieza = new LosetaSelva();
 
-    //MAZO 1 LOCETAS
-    let piezaAux = new LosetaSelva();
-    var imageLosetas1 = document.getElementById('LocId1');//get imagen del tablero
-    piezaAux.setImage(imageLosetas1);//Set la imagen en una pieza
-    piezaAux.asignaImagen(selvasObjects1[cont1].url, "LocId1");//set a parte Gráfica
-    piezaAux.setValorLogico(selvasObjects1[cont1].value);//Set valor lógico
-    //CONTENEDOR
-    contenedorSelvasUno.setPieza(piezaAux);
-    contenedorSelvasUno.ficha.img.addEventListener("click", function (e) {
-            contenedorSelvasUno.setEstado(true);
-            document.getElementById("LocetasUno").style.backgroundColor = 'red'; 
-            listenForGrid();
-        });
-
-    //MAZO 2 LOCETAS
-    var imageLosetas2 = document.getElementById('LocId2');
-    piezaAux.setImage(imageLosetas2);//Set la imagen en una pieza
-    piezaAux.asignaImagen(selvasObjects1[cont1].url, "LocId2");//  set a parte Gráfica
-    piezaAux.setValorLogico(selvasObjects1[cont1].value);
-    //CONTENEDOR
-    contenedorSelvasDos.setPieza(piezaAux);//Set la pieza en el contenendor
-    contenedorSelvasDos.ficha.img.addEventListener("click", function (e) {
-            contenedorSelvasDos.setEstado(true);
-            document.getElementById("LocetasDos").style.backgroundColor = 'red'; 
-            listenForGrid();
-    });
+    prepareMazo('LocId1',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasUno,"LocetasUno");
+    prepareMazo('LocId2',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasDos,"LocetasDos");
+    prepareMazo('mazo1',trabajadoresObjects1[cont3].url,trabajadoresObjects1[cont3].value,contenedorTrabajadoresUno,"MeaplesUno");
+    prepareMazo('mazo2',trabajadoresObjects2[cont4].url,trabajadoresObjects2[cont4].value,contenedorTrabajadoresDos,"MeaplesDos");
+    if(cant =="3"){
+        prepareMazo('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres");
+    }
+    if(cant == "4"){
+        prepareMazo('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres");
+        prepareMazo('mazo4',trabajadoresObjects4[cont6].url,trabajadoresObjects4[cont6].value,contenedorTrabajadoresCuatro,"MeaplesCuatro");
+    }
     
-    //MAZO 1 MEAPLES
-    piezaAux = new LosetaSelva();
-    var imageMeaples1 = document.getElementById('mazo1');//get imagen del tablero
-    piezaAux.setImage(imageMeaples1);//Set la imagen en una pieza
-    piezaAux.asignaImagen(trabajadoresObjects1[cont3].url, "mazo1");//  set a parte Gráfica
-    piezaAux.setValorLogico(trabajadoresObjects1[cont3].value);
-    //CONTENEDOR
-    contenedorTrabajadoresUno.setPieza(piezaAux);
-    contenedorTrabajadoresUno.ficha.img.addEventListener("click", function (e) {
-            contenedorTrabajadoresUno.setEstado(true);
-            document.getElementById("MeaplesUno").style.backgroundColor ='Chartreuse' ; 
-            listenForGrid();
-    });
-    
-    //MAZO 2 MEAPLES
-    
-    var imageMeaples2 = document.getElementById('mazo2');
-    piezaAux.setImage(imageMeaples2);//Set la imagen en una pieza
-    setTimeout(piezaAux.asignaImagen(trabajadoresObjects2[cont3].url, "mazo2"),10000);//  set a parte Gráfica
-    setTimeout(piezaAux.setValorLogico(trabajadoresObjects2[cont3].value),10000);
-    //CONTENEDOR
-    contenedorTrabajadoresDos.setPieza(piezaAux);
-    contenedorTrabajadoresDos.ficha.img.addEventListener("click", function (e) {
-            contenedorTrabajadoresDos.setEstado(true);
-            document.getElementById("MeaplesDos").style.backgroundColor ='gold' ; 
-            listenForGrid();
-    });
-    //Mazo 3 meaples
-    var imageMeaples3 = document.getElementById('mazo3');
-    piezaAux.setImage(imageMeaples3);//Set la imagen en una pieza
-    setTimeout(piezaAux.asignaImagen(trabajadoresObjects3[cont3].url, "mazo3"),10000);//  set a parte Gráfica
-    setTimeout(piezaAux.setValorLogico(trabajadoresObjects3[cont3].value),10000);
-    //CONTENEDOR
-    contenedorTrabajadoresTres.setPieza(piezaAux);
-    contenedorTrabajadoresTres.ficha.img.addEventListener("click", function (e) {
-            contenedorTrabajadoresTres.setEstado(true);
-            document.getElementById("MeaplesTres").style.backgroundColor ='red' ; 
-            listenForGrid();
-    });
-    //MAZO 4 Meaples
-    var imageMeaples4 = document.getElementById('mazo4');
-    piezaAux.setImage(imageMeaples4);//Set la imagen en una pieza
-    setTimeout(piezaAux.asignaImagen(trabajadoresObjects4[cont3].url, "mazo4"),10000);//  set a parte Gráfica
-    setTimeout(piezaAux.setValorLogico(trabajadoresObjects4[cont3].value),10000);
-    //CONTENEDOR
-    contenedorTrabajadoresCuatro.setPieza(piezaAux);
-    contenedorTrabajadoresCuatro.ficha.img.addEventListener("click", function (e) {
-            contenedorTrabajadoresCuatro.setEstado(true);
-            document.getElementById("MeaplesCuatro").style.backgroundColor ='blue' ; 
-            listenForGrid();   
-        });
-    //listenForGrid(auxPieza,int);//al final asuxPieza no es necesario
+    listenForGrid();//al final asuxPieza no es necesario
 }
   
 function listenForGrid(){
@@ -682,7 +678,8 @@ function listenForGrid(){
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
                  //--VALIDACIONES--
-                 validarMeaplesCercanos(x,y);
+                 validarMeaplesCercanos(x,y,selvasObjects1[cont1].tipo);
+                 
                  //----------------
                  setLogic(x,y,2);// --valor lógico 2 ---
                  printMatrix();
@@ -703,63 +700,70 @@ function listenForGrid(){
              }
              if(contenedorTrabajadoresUno.selected){
                  //document.getElementById(i).src = pieza.url;
-                 document.getElementById(i).src = trabajadoresObjects1[cont3].url;
-                 casilla = i;
-                 var x = i.toString().slice(0,-1);
-                 var y = i.toString().slice(1);
-                 console.log("Lados: top-"+ trabajadoresObjects1[cont3].top + " down-" + trabajadoresObjects1[cont3].down + " left-" + trabajadoresObjects1[cont3].left + " right-" +trabajadoresObjects1[cont3].right);
-                 setMeapleMatrix(x,y,cont3);
-                 printMeapleMatrix();
- 
-                 document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
-                 contenedorTrabajadoresUno.setEstado(false);
-                 cont3 = cont3 - 1;
-                 rem.remplazar(1,trabajadoresObjects1[cont3].url);
+                document.getElementById(i).src = trabajadoresObjects1[cont3].url;
+                var x = i.toString().slice(0,-1);
+                var y = i.toString().slice(1);
+                if(validarEspacioVacio(x,y)){
+                    console.log("Lados: top-"+ trabajadoresObjects1[cont3].top + " down-" + trabajadoresObjects1[cont3].down + " left-" + trabajadoresObjects1[cont3].left + " right-" + trabajadoresObjects1[cont3].right);
+                    casilla = i;
+                    setTrabajadoresMatrix(x,y,cont3);
+                    printTrabajadoresMatrix();
+                    document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
+                    contenedorTrabajadoresUno.setEstado(false);
+                    cont3 = cont3 - 1;
+                    rem.remplazar(1,trabajadoresObjects1[cont3].url);
+                }if(colocarEncima){
+                    console.log("Lados: top-"+ trabajadoresObjects1[cont3].top + " down-" + trabajadoresObjects1[cont3].down + " left-" + trabajadoresObjects1[cont3].left + " right-" + trabajadoresObjects1[cont3].right);
+                    casilla = i;
+                    setTrabajadoresMatrix(x,y,cont3);
+                    printTrabajadoresMatrix();
+                    document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
+                    contenedorTrabajadoressUno.setEstado(false);
+                    cont3 = cont3 - 1;
+                    rem.remplazar(1,trabajadoresObjects1[cont3].url);
+                }
              }if(contenedorTrabajadoresDos.selected){
-                 document.getElementById(i).src = trabajadoresObjects2[cont3].url;
+                 document.getElementById(i).src = trabajadoresObjects2[cont4].url;
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
-                 console.log("Lados: top-"+ trabajadoresObjects2[cont3].top + " down-" + trabajadoresObjects2[cont3].down + " left-" + trabajadoresObjects2[cont3].left + " right-" +trabajadoresObjects2[cont3].right);
-                 setMeapleMatrix(x,y,cont3);
-                 printMeapleMatrix();
+               //  console.log("Lados: top-"+ trabajadoresObjects2[cont3].top + " down-" + trabajadoresObjects2[cont3].down + " left-" + trabajadoresObjects2[cont3].left + " right-" +trabajadoresObjects2[cont3].right);
+                 setTrabajadoresMatrix(x,y,cont4);
+                 printTrabajadoresMatrix();
  
                  document.getElementById("MeaplesDos").style.backgroundColor = 'black'; 
                  contenedorTrabajadoresDos.setEstado(false);
-                 cont3 = cont3 - 1;
-                 rem.remplazar(2,trabajadoresObjects2[cont3].url);
+                 cont4 = cont4 - 1;
+                 rem.remplazar(2,trabajadoresObjects2[cont4].url);
              }
-             if(contenedorTrabajadores.selected){
-                 document.getElementById(i).src = trabajadoresObjects3[cont3].url;
+             if(contenedorTrabajadoresTres.selected){
+                 document.getElementById(i).src = trabajadoresObjects3[cont5].url;
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
-                 console.log("Lados: top-"+ trabajadoresObjects3[cont3].top + " down-" + trabajadoresObjects3[cont3].down + " left-" + trabajadoresObjects3[cont3].left + " right-" +trabajadoresObjects3[cont3].right);
-                 setMeapleMatrix(x,y,cont3);
-                 printMeapleMatrix();
+                // console.log("Lados: top-"+ trabajadoresObjects3[cont3].top + " down-" + trabajadoresObjects3[cont3].down + " left-" + trabajadoresObjects3[cont3].left + " right-" +trabajadoresObjects3[cont3].right);
+                 setTrabajadoresMatrix(x,y,cont5);
+                 printTrabajadoresMatrix();
                  document.getElementById("MeaplesTres").style.backgroundColor = 'black'; 
                  contenedorTrabajadoresTres.setEstado(false);
-                 cont3 = cont3 - 1;
-                 rem.remplazar(3,trabajadoresObjects3[cont3].url);
+                 cont5 = cont5 - 1;
+                 rem.remplazar(3,trabajadoresObjects3[cont5].url);
              }
              if(contenedorTrabajadoresCuatro.selected){
-                 document.getElementById(i).src = trabajadoresObjects4[cont3].url;
+                 document.getElementById(i).src = trabajadoresObjects4[cont6].url;
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
-                 console.log("Lados: top-"+ trabajadoresObjects4[cont3].top + " down-" + trabajadoresObjects4[cont3].down + " left-" + trabajadoresObjects4[cont3].left + " right-" + trabajadoresObjects4[cont3].right);
-                 setMeapleMatrix(x,y,cont3);
-                 printMeapleMatrix();
- 
+               //  console.log("Lados: top-"+ trabajadoresObjects4[cont3].top + " down-" + trabajadoresObjects4[cont3].down + " left-" + trabajadoresObjects4[cont3].left + " right-" + trabajadoresObjects4[cont3].right);
+                setTrabajadoresMatrix(x,y,cont6);
+                printTrabajadoresMatrix();
                  document.getElementById("MeaplesCuatro").style.backgroundColor = 'black'; 
                  contenedorTrabajadoresCuatro.setEstado(false);
-                 cont3 = cont3 - 1;
-                 rem.remplazar(4,trabajadoresObjects4[cont3].url);
+                 cont6 = cont6 - 1;
+                 rem.remplazar(4,trabajadoresObjects4[cont6].url);
              }
          });
-       
      }
-     
  }
 
 function validarMeaplesCercanos(x,y,tipoSelva){
@@ -768,7 +772,7 @@ function validarMeaplesCercanos(x,y,tipoSelva){
     let yDerecha = parseInt(y) + 1;
     let yIzquierda = parseInt(y) - 1;
     let mep;
-    var tipoSelva;
+    
 
         if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
             mep = matrizTrabajadores[xAbajo][y];
