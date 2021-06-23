@@ -35,6 +35,11 @@
         border: 1px groove yellowgreen;
         margin: 2px;
     }
+ .fill{
+    position:relative;
+    height: 20px;
+    width:  20px;
+ }   
 .fill1{
         cursor:pointer;
         position:relative;
@@ -190,6 +195,12 @@
     width:100px;
     height: 80px;
 }
+ #cacao1{
+    position: relative;
+    margin: auto;
+    width: 25px;
+    height: 10px; 
+} 
 
    .button{
        position: relative;

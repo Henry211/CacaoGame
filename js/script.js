@@ -88,10 +88,12 @@ class LosetaSelva{
         this.value = value;
         this.tipo = tipo;
     }//asigna la imagen del url que recibe al id que recibe
-    asignaImagen(url, ide){
+    asignaImagen(url, ide, ancho, alto){
         document.getElementById(ide).src=url;
-        document.getElementById(ide).style.height='65px';
-        document.getElementById(ide).style.width='80px';
+        document.getElementById(ide).style.height=alto;
+        document.getElementById(ide).style.width= ancho;
+        // document.getElementById(ide).style.height='65px';
+        // document.getElementById(ide).style.width='80px';
 
     }
     setImage(img){
@@ -113,30 +115,29 @@ class Jugador{
         let remplazo = new LosetaSelva(); 
       //  let sacar = Math.floor(Math.random*11);
         if(vali == 1){
-            remplazo.asignaImagen(url,"mazo1");
+            remplazo.asignaImagen(url,"mazo1","75px","80px");
             vali = 0;
         }   
         if(vali == 2){
-            setTimeout(remplazo.asignaImagen(url,"mazo2"),10000);
+            setTimeout(remplazo.asignaImagen(url,"mazo2","75px","80px"),10000);
             vali = 0;
         }
         if(vali == 3){
-            setTimeout(remplazo.asignaImagen(url,"mazo3"),10000);
+            setTimeout(remplazo.asignaImagen(url,"mazo3","75px","80px"),10000);
             vali = 0;
         }
         if(vali == 4){
-            setTimeout(remplazo.asignaImagen(url,"mazo4"),10000);
+            setTimeout(remplazo.asignaImagen(url,"mazo4","75px","80px"),10000);
             vali = 0;
         }
     }
     RemplazarLocetas(param) {
-        let ram = Math.floor(Math.random()*11); 
         let remplazo = new LosetaSelva(); 
         if(param == 1){
-            remplazo.asignaImagen(selvasObjects1[cont1].url, "LocId1");
+            remplazo.asignaImagen(selvasObjects1[cont1].url, "LocId1","75px","80px");
         }
         if(param == 2){
-            setTimeout(remplazo.asignaImagen(selvasObjects1[cont1].url,"LocId2"),10000);
+            setTimeout(remplazo.asignaImagen(selvasObjects1[cont1].url,"LocId2","75px","80px"),10000);
         }
     }
 }
@@ -239,6 +240,7 @@ function verDatosClick(){
     cargarMazos(cant);  //cargar meaples y locetas en un mismo método
     eventosClick(cant);
     actualizarTablero();//imprimir tablero deacuerdo a matriz lógica
+    asiganaMarcadores(cant);
 }
 function actualizarTablero(){
     let srcImage;
@@ -284,7 +286,7 @@ function inicializarTablero(){
     var contenedor = new LosetaSelva();
     for(let i = 0; i<78; i++){
         i = evaluaIndice(i);
-        contenedor.asignaImagen("./IMG/contenedor.png",i);//solo pinta..
+        contenedor.asignaImagen("./IMG/contenedor.png",i,"75px","80px");//solo pinta..
         i = evaluaIndice(i);
     }
 }
@@ -499,6 +501,7 @@ function cargarMazos(cantidad){
         
         }      
     }
+            console.log(losetasMazo);
 
             var randSelvas =[];
             var randMeaplesUno = [];
@@ -559,9 +562,6 @@ function cargarMazos(cantidad){
                 numeros = [0,1,2,3,4,5,6,7,8,9,10];
                 numeros2 = [0,1,2,3,4,5,6,7,8,9,10];
                 numeros3 = [0,1,2,3,4,5,6,7,8,9,10]; 
-                // randMeaplesUno =  desordenarTrabajadores(numeros);
-                // randMeaplesDos = desordenarTrabajadores(numeros2);
-                // randMeaplesTres =  desordenarTrabajadores(numeros3);
             for(let i = 0; i<11; i++){
                     //-----------------------------
                     //meaples  
@@ -601,10 +601,6 @@ function cargarMazos(cantidad){
                     numeros2 = [0,1,2,3,4,5,6,7,8,9,10];
                     numeros3 = [0,1,2,3,4,5,6,7,8,9,10]; 
                     numeros4 = [0,1,2,3,4,5,6,7,8,9,10]
-                    // randMeaplesUno =  desordenarTrabajadores(numeros);
-                    // randMeaplesDos = desordenarTrabajadores(numeros2);
-                    // randMeaplesTres =  desordenarTrabajadores(numeros3);
-                    // randMeaplesCuatro = desordenarTrabajadores(numeros4);
                 for(let i = 0; i<11; i++){
                     //-----------------------------
                     //meaples  
@@ -640,7 +636,7 @@ function cargarMazos(cantidad){
     let piezaAux = new LosetaSelva();
     var image = document.getElementById(idImage);//get imagen del tablero
     piezaAux.setImage(image);//Set la imagen en una pieza
-    piezaAux.asignaImagen(url, idImage);//set a parte Gráfica
+    piezaAux.asignaImagen(url, idImage,"75px","80px");//set a parte Gráfica
     piezaAux.setValorLogico(value);//Set valor lógico
     //CONTENEDOR
     contenedor.setPieza(piezaAux);
@@ -650,8 +646,6 @@ function cargarMazos(cantidad){
         });
   }
   function eventosClick(cant){ 
-    var auxPieza = new LosetaSelva();
-
     prepareMazo('LocId1',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasUno,"LocetasUno");
     prepareMazo('LocId2',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasDos,"LocetasDos");
     prepareMazo('mazo1',trabajadoresObjects1[cont3].url,trabajadoresObjects1[cont3].value,contenedorTrabajadoresUno,"MeaplesUno");
@@ -954,4 +948,17 @@ function  cantidadJugadores(){
             return jug;
          }
 
+}
+
+function asiganaMarcadores(cantidad){
+    let marcadores = new LosetaSelva();
+    
+    if(cantidad == "2"){
+        marcadores.asignaImagen("./IMG/FichaCacao.png","cacao1",'20px','20px')
+        marcadores.asignaImagen("./IMG/Monedas1.png","monedas1",'20px','20px')
+        marcadores.asignaImagen("./IMG/Monedas5.png","monedas5",'20px','20px')
+        marcadores.asignaImagen("./IMG/Monedas10.png","monedas10",'20px','20px')
+        marcadores.asignaImagen("./IMG/Remanso.png","remanso",'20px','20px')
+    }
+    
 }
