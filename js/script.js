@@ -1,5 +1,5 @@
-//import Tablero from "./tablero.js"
-//const tablero = new Tablero()
+
+
 //Array para las urls de los meaplos
 var URLS  = [];
 
@@ -29,6 +29,7 @@ let grados = 0;
 var primerClick = true;
 var casilla;
 var colocarEncima = false;
+var jungleType;
 
 var cabezas;
 var cacaos=0;
@@ -112,11 +113,9 @@ class Jugador{
         let remplazo = new LosetaSelva(); 
       //  let sacar = Math.floor(Math.random*11);
         if(vali == 1){
-           
             remplazo.asignaImagen(url,"mazo1");
             vali = 0;
-        }
-          
+        }   
         if(vali == 2){
             setTimeout(remplazo.asignaImagen(url,"mazo2"),10000);
             vali = 0;
@@ -220,19 +219,22 @@ function girarClick(){
         var y = casilla.toString().slice(1);
         var num = matrizTrabajadores[x][y];
         var meapAux = trabajadoresObjects1[num];//revisar con los otros trabajadores
-        meapAux.girarDerecha()
+        meapAux.girarDerecha();
+        validarSelvasCercanas(x,y,trabajadoresObjects1[num]);
 
         document.getElementById(casilla).style.transform = `rotate(${grados}deg)`;
         if(grados == 360){
             grados = 0;
         }
 }
+function terminarClick(){
+    
+}
 
-//metodo para el botton
 function verDatosClick(){
-    //var x = document.getElementById("button");
     var cant = cantidadJugadores();
     var jugador = new Jugador(); 
+
     inicializarTablero();//llena tablero de imágenes en negro (para setear la nuev imagen) 
     cargarMazos(cant);  //cargar meaples y locetas en un mismo método
     eventosClick(cant);
@@ -245,46 +247,43 @@ function actualizarTablero(){
             console.log(matrizSelvas.toString());
             switch(matrizSelvas[x][y]){
                 case 1: //Plantación Simple
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Semillas1.png";
                     break;
                 case 2: //Plantación Doble
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Semillas2.png";
                     break;
                 case 3: //Mercado de 2
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado2.png";
                     break;
                 case 4: //Mercado de 3
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Merado3.png";
                     break;
                 case 5: //Mercado de 4
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado4.png";
                     break;
                 case 6: //Mina de 1
                     document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
                     break;
                 case 7: //Mina de 2
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina2.png";
                     break;
                 case 8: //Cenotes
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";  
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Lago.png";  
                     break;
                 case 9: //Centro de culto solar
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/MayaSun.png";
                     break;
                 case 10: //Templos
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
                     break;
-                //--------
-                //En el caso de "Meaples", se identifica con un case, pero se aplican métodos aparte para validar el tipo y los lados del meaple
-            }            
+                }            
         }
     }
 }
 function inicializarTablero(){
     var contenedor = new LosetaSelva();
-    for(let i = 0; i<77; i++){
+    for(let i = 0; i<78; i++){
         i = evaluaIndice(i);
-
         contenedor.asignaImagen("./IMG/contenedor.png",i);//solo pinta..
         i = evaluaIndice(i);
     }
@@ -501,16 +500,17 @@ function cargarMazos(cantidad){
         }      
     }
 
+            var randSelvas =[];
+            var randMeaplesUno = [];
+            var randMeaplesDos = [];
+            var randMeaplesTres = [];
+            var randMeaplesCuatro = [];
+            var x;
+            var y;
+            selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
       switch(cantidad) {
-          case "2": //llena los 2 mazos con 11 locetas c/u
-           var randSelvas =[];
-           var randMeaplesUno = [];
-           var randMeaplesDos = [];
-           var randMeaplesTres = [];
-           var randMeaplesCuatro = [];
-           var x;
-           var y;
-           selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
+          case "2": 
+
               for(let i = 0; i<28; i++){ //
                     //-----------------------------
                     //Locetas
@@ -664,84 +664,84 @@ function cargarMazos(cantidad){
         prepareMazo('mazo4',trabajadoresObjects4[cont6].url,trabajadoresObjects4[cont6].value,contenedorTrabajadoresCuatro,"MeaplesCuatro");
     }
     
-    listenForGrid();//al final asuxPieza no es necesario
+    listenForGrid();
 }
   
+function selvaClicked(objetoSelva,i,elementId,contenedor){
+    let rem = new Jugador();
+    document.getElementById(i).src = objetoSelva.url;
+    var x = i.toString().slice(0,-1);
+    var y = i.toString().slice(1);
+
+    validarMeaplesCercanos(x,y,objetoSelva.tipo);
+    setLogic(x,y,objetoSelva.value);
+    printMatrix();
+    document.getElementById(elementId).style.backgroundColor = 'black'; 
+    contenedor.setEstado(false);
+    cont1 = cont1 - 1;
+    rem.RemplazarLocetas(1);
+}
+function meapleClicked(objetoTrabajador,i,elementId,contenedor,cont){
+    document.getElementById(i).src = objetoTrabajador.url;
+    var x = i.toString().slice(0,-1);
+    var y = i.toString().slice(1);
+    validarSelvasCercanas(x,y,objetoTrabajador);
+    casilla = i;
+    setTrabajadoresMatrix(x,y,cont);
+    printTrabajadoresMatrix();
+    document.getElementById(elementId).style.backgroundColor = 'black'; 
+    contenedor.setEstado(false);
+}
 function listenForGrid(){
     let rem = new Jugador();
-     for(let i = 0; i<57; i++){
+     for(let i = 0; i<78; i++){
          i = evaluaIndice(i);     
          let imagen = document.getElementById(i);
          imagen.addEventListener("click", function (e) {
              if(contenedorSelvasUno.selected){
-                 document.getElementById(i).src = selvasObjects1[cont1].url;
-                 var x = i.toString().slice(0,-1);
-                 var y = i.toString().slice(1);
-                 //--VALIDACIONES--
-                 validarMeaplesCercanos(x,y,selvasObjects1[cont1].tipo);
-                 
-                 //----------------
-                 setLogic(x,y,2);// --valor lógico 2 ---
-                 printMatrix();
-                 document.getElementById("LocetasUno").style.backgroundColor = 'black'; 
-                 contenedorSelvasUno.setEstado(false);
-                 cont1 = cont1 - 1;
-                 rem.RemplazarLocetas(1);
-             }
-             if(contenedorSelvasDos.selected){
-                 document.getElementById(i).src = selvasObjects1[cont1].url;
-                 var x = i.toString().slice(0,-1);
-                 var y = i.toString().slice(1);
-                 setLogic(x,y,4);
-                 document.getElementById("LocetasDos").style.backgroundColor = 'black'; 
-                 contenedorSelvasDos.setEstado(false);
-                 cont1 = cont1 - 1;
-                 rem.RemplazarLocetas(2);
-             }
-             if(contenedorTrabajadoresUno.selected){
-                 //document.getElementById(i).src = pieza.url;
-                document.getElementById(i).src = trabajadoresObjects1[cont3].url;
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
                 if(validarEspacioVacio(x,y)){
-                    console.log("Lados: top-"+ trabajadoresObjects1[cont3].top + " down-" + trabajadoresObjects1[cont3].down + " left-" + trabajadoresObjects1[cont3].left + " right-" + trabajadoresObjects1[cont3].right);
-                    casilla = i;
-                    setTrabajadoresMatrix(x,y,cont3);
-                    printTrabajadoresMatrix();
-                    document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
-                    contenedorTrabajadoresUno.setEstado(false);
-                    cont3 = cont3 - 1;
-                    rem.remplazar(1,trabajadoresObjects1[cont3].url);
-                }if(colocarEncima){
-                    console.log("Lados: top-"+ trabajadoresObjects1[cont3].top + " down-" + trabajadoresObjects1[cont3].down + " left-" + trabajadoresObjects1[cont3].left + " right-" + trabajadoresObjects1[cont3].right);
-                    casilla = i;
-                    setTrabajadoresMatrix(x,y,cont3);
-                    printTrabajadoresMatrix();
-                    document.getElementById("MeaplesUno").style.backgroundColor = 'black'; 
-                    contenedorTrabajadoressUno.setEstado(false);
+                    selvaClicked(selvasObjects1[cont1],i,"LocetasUno",contenedorSelvasUno);
+                }
+             }
+             if(contenedorSelvasDos.selected){
+                var x = i.toString().slice(0,-1);
+                var y = i.toString().slice(1);
+                if(validarEspacioVacio(x,y)){
+                    selvaClicked(selvasObjects1[cont1],i,"LocetasDos",contenedorSelvasDos);
+                }
+             }
+             if(contenedorTrabajadoresUno.selected){
+                var x = i.toString().slice(0,-1);
+                var y = i.toString().slice(1);
+                if(validarEspacioVacio(x,y) || colocarEncima){
+                    meapleClicked(trabajadoresObjects1[cont3],i,"MeaplesUno",contenedorTrabajadoresUno,cont3);
                     cont3 = cont3 - 1;
                     rem.remplazar(1,trabajadoresObjects1[cont3].url);
                 }
              }if(contenedorTrabajadoresDos.selected){
-                 document.getElementById(i).src = trabajadoresObjects2[cont4].url;
-                 casilla = i;
-                 var x = i.toString().slice(0,-1);
-                 var y = i.toString().slice(1);
-               //  console.log("Lados: top-"+ trabajadoresObjects2[cont3].top + " down-" + trabajadoresObjects2[cont3].down + " left-" + trabajadoresObjects2[cont3].left + " right-" +trabajadoresObjects2[cont3].right);
-                 setTrabajadoresMatrix(x,y,cont4);
-                 printTrabajadoresMatrix();
- 
-                 document.getElementById("MeaplesDos").style.backgroundColor = 'black'; 
-                 contenedorTrabajadoresDos.setEstado(false);
-                 cont4 = cont4 - 1;
-                 rem.remplazar(2,trabajadoresObjects2[cont4].url);
+                var x = i.toString().slice(0,-1);
+                var y = i.toString().slice(1);
+                if(validarEspacioVacio(x,y) || colocarEncima){
+                    document.getElementById(i).src = trabajadoresObjects2[cont4].url;
+                    casilla = i;
+                    validarSelvasCercanas(x,y,trabajadoresObjects2[cont4]);
+                    setTrabajadoresMatrix(x,y,cont4);
+                    printTrabajadoresMatrix();
+    
+                    document.getElementById("MeaplesDos").style.backgroundColor = 'black'; 
+                    contenedorTrabajadoresDos.setEstado(false);
+                    cont4 = cont4 - 1;
+                    rem.remplazar(2,trabajadoresObjects2[cont4].url);
+                }
              }
              if(contenedorTrabajadoresTres.selected){
                  document.getElementById(i).src = trabajadoresObjects3[cont5].url;
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
-                // console.log("Lados: top-"+ trabajadoresObjects3[cont3].top + " down-" + trabajadoresObjects3[cont3].down + " left-" + trabajadoresObjects3[cont3].left + " right-" +trabajadoresObjects3[cont3].right);
+                 validarSelvasCercanas(x,y,trabajadoresObjects3[cont5]);
                  setTrabajadoresMatrix(x,y,cont5);
                  printTrabajadoresMatrix();
                  document.getElementById("MeaplesTres").style.backgroundColor = 'black'; 
@@ -754,8 +754,8 @@ function listenForGrid(){
                  casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
-               //  console.log("Lados: top-"+ trabajadoresObjects4[cont3].top + " down-" + trabajadoresObjects4[cont3].down + " left-" + trabajadoresObjects4[cont3].left + " right-" + trabajadoresObjects4[cont3].right);
-                setTrabajadoresMatrix(x,y,cont6);
+                 validarSelvasCercanas(x,y,trabajadoresObjects4[cont6]);
+                 setTrabajadoresMatrix(x,y,cont6);
                 printTrabajadoresMatrix();
                  document.getElementById("MeaplesCuatro").style.backgroundColor = 'black'; 
                  contenedorTrabajadoresCuatro.setEstado(false);
@@ -765,7 +765,77 @@ function listenForGrid(){
          });
      }
  }
+ function getTipoSelvaWithId(id){
 
+    switch(id){
+        case 1:
+            jungleType = "PlantacionSimple";
+            break;
+        case 2:
+            jungleType = "PlantacionDoble";
+            break;
+        case 3:
+            jungleType = "Mercado2";
+            break;
+        case 4:
+            jungleType = "Mercado3";
+            break;
+        case 5:
+            jungleType = "Mercado4";
+            break;
+        case 6:
+            jungleType = "Mina1";
+            break;
+        case 7:
+            jungleType = "Mina2";
+            break;
+        case 8:
+            jungleType = "Lago";
+            break;
+        case 9:
+            jungleType = "MayaSun";
+            break;
+        case 10:
+            jungleType = "Templos";
+            break;
+    }
+ }
+
+ function validarSelvasCercanas(x,y,losetaMeaple){
+    let xAbajo = parseInt(x) + 1;
+    let xArriba = parseInt(x) - 1;
+    let yDerecha = parseInt(y) + 1;
+    let yIzquierda = parseInt(y) - 1;
+
+    if(matrizSelvas[xAbajo][y] != 0){   //validar hacia abajo de la losetaMeaple
+        selvaId = matrizSelvas[xAbajo][y]; 
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.down;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+    if(matrizSelvas[xArriba][y] != 0){
+        selvaId = matrizSelvas[xArriba][y];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.top;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+    if(matrizSelvas[x][yIzquierda] != 0){
+        selvaId = matrizSelvas[x][yIzquierda];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.left;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+    if(matrizSelvas[x][yDerecha] != 0){
+        selvaId = matrizSelvas[x][yDerecha];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.right;
+        console.log("Tipo Jungla: " + jungleType.toString());
+        switchTipos(jungleType,cabezas);
+    }
+ }
 function validarMeaplesCercanos(x,y,tipoSelva){
     let xAbajo = parseInt(x) + 1;
     let xArriba = parseInt(x) - 1;
@@ -784,25 +854,27 @@ function validarMeaplesCercanos(x,y,tipoSelva){
             switchTipos(tipoSelva,cabezas);        }
         if(matrizTrabajadores[x][yIzquierda] != 0){  //  IZQUIERDA
             mep = matrizTrabajadores[x][yIzquierda];
-            cabezas = parseInt(trabajadoresObjects1[mep].right);
+            cabezas = parseInt(trabajadoresObjects1[mep].left);
             switchTipos(tipoSelva,cabezas);        }
         if(matrizTrabajadores[x][yDerecha] != 0){ //  DERECHA
             mep = matrizTrabajadores[x][yDerecha];
-            cabezas = parseInt(trabajadoresObjects1[mep]);
+            cabezas = parseInt(trabajadoresObjects1[mep].right);
             switchTipos(tipoSelva,cabezas);        }
 }
 
 function validarEspacioVacio(x,y){
     var xVar = parseInt(x);
     var yVar = parseInt(y);
-    var id = matrizTrabajadores[xVar][yVar];
+    var idTrabajador = matrizTrabajadores[xVar][yVar];
+    var idSelva = matrizSelvas[xVar][yVar];
+    var casillaStatus;
     
-    if(id == 0){
-        return true;
+    if(idTrabajador == 0 && idSelva == 0){
+        casillaStatus = true;
     }else{
-        console.log("ID de casilla = "+ id);
-        return false;
+        casillaStatus =  false;
     }
+    return casillaStatus;
 }
 
 function switchTipos(tipo,jupas){
@@ -820,7 +892,7 @@ function switchTipos(tipo,jupas){
         case "Mercado2":
             if(jupas <= cacaos){
                 monedas = monedas + (2*jupas);
-                console.log("MONEDAS : "+MONEDAs);
+                console.log("MONEDAS : "+ monedas);
                 document.getElementById("Monedas2").textContent = monedas.toString();
                 cacaos = cacaos - jupas;
                 document.getElementById("Cacaos2").textContent = cacaos.toString();

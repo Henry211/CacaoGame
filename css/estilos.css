@@ -13,7 +13,7 @@
         padding: 10px;
         margin:auto;
         width: 720px;
-        height: 600px;
+        height: 610px;
         overflow: auto;
     }
     #cajaMain{
@@ -208,6 +208,15 @@
        background-color: #CB4335;
        width:70px;
        height: 30px;
+   }
+   .btnFinish{
+    position: relative;
+    border-radius: 25px;
+    left:845px;
+     top:-80px;
+    background-color: #CB4335;
+    width:150px;
+    height: 30px;
    }
    #h3{
        color:black;
