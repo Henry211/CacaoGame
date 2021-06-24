@@ -140,6 +140,9 @@ class Jugador{
             setTimeout(remplazo.asignaImagen(selvasObjects1[cont1].url,"LocId2","75px","80px"),10000);
         }
     }
+    enviaValores(valor, identif){
+        document.getElementById(identif).innerHTML = valor;
+    }
 }
 //----------CONTENEDORES DE LOSETAS---------
 var pieza = new LosetaSelva();
@@ -229,7 +232,7 @@ function girarClick(){
         }
 }
 function terminarClick(){
-    
+   
 }
 
 function verDatosClick(){
@@ -240,7 +243,8 @@ function verDatosClick(){
     cargarMazos(cant);  //cargar meaples y locetas en un mismo método
     eventosClick(cant);
     actualizarTablero();//imprimir tablero deacuerdo a matriz lógica
-    asiganaMarcadores(cant);
+    asignaMarcadores(cant);
+    jugador.enviaValores("2",'CacaoJ4');
 }
 function actualizarTablero(){
     let srcImage;
@@ -950,7 +954,7 @@ function  cantidadJugadores(){
 
 }
 
-function asiganaMarcadores(cantidad){
+function asignaMarcadores(cantidad){
     let marcadores = new LosetaSelva();
 
         marcadores.asignaImagen("./IMG/FichaCacao.png","cacao1",'20px','20px');
@@ -987,3 +991,4 @@ function asiganaMarcadores(cantidad){
     }
     
 }
+
