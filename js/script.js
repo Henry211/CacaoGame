@@ -5,7 +5,6 @@ var URLS  = [];
 
 //mano de la locetas
 var LocetasURL  = [];
-//---------Cambios Henry
 var losetasMazo = [];   //Aquí están en orden
 var meaplesMazo1 = [];
 var meaplesMazo2 = [];
@@ -34,6 +33,11 @@ var jungleType;
 var cabezas;
 var cacaos=0;
 var monedas=0;
+
+var meapleTOP = false;
+var meapleDOWN = false;
+var meapleLEFT = false;
+var meapleRIGHT = false;
     
 //Las clases Contenedoras no son totalmente necesarias, puede que se necesiten más adelante
 class contenedorMazoTrabajadores{
@@ -680,10 +684,12 @@ function selvaClicked(objetoSelva,i,elementId,contenedor){
     rem.RemplazarLocetas(1);
 }
 function meapleClicked(objetoTrabajador,i,elementId,contenedor,cont){
+    resetMeaplesBooleans(); //set 'false' en booleanos de los lados
     document.getElementById(i).src = objetoTrabajador.url;
     var x = i.toString().slice(0,-1);
     var y = i.toString().slice(1);
     validarSelvasCercanas(x,y,objetoTrabajador);
+    llenarEspacioMeaple(x,y,objetoTrabajador,cont);
     casilla = i;
     setTrabajadoresMatrix(x,y,cont);
     printTrabajadoresMatrix();
@@ -763,7 +769,106 @@ function listenForGrid(){
          });
      }
  }
- function getTipoSelvaWithId(id){
+ function resetMeaplesBooleans(){
+    meapleTOP = false;
+    meapleDOWN = false;
+    meapleLEFT = false;
+    meapleRIGHT = false;
+ }
+ function llenarEspacioMeaple(x,y,newMeaple,contador){ //llena un espacio con un trabajador AUTOMATICAMENTE si está vacio
+    let xAbajo = parseInt(x) + 1;
+    let xArriba = parseInt(x) - 1;
+    let yDerecha = parseInt(y) + 1;
+    let yIzquierda = parseInt(y) - 1;
+    let idElement;
+    contador = contador - 1;
+
+    if(meapleTOP == true && meapleRIGHT == true){
+        idElement = xArriba.toString() + yDerecha.toString();
+        matrizTrabajadores[xArriba][yDerecha] = contador;
+        document.getElementById(idElement).src = newMeaple.url;
+        setTrabajadoresMatrix(xArriba,yDerecha,contador);
+    }
+    if(meapleTOP && meapleLEFT){
+        idElement = xArriba.toString() + yIzquierda.toString();
+        matrizTrabajadores[xArriba][yIzquierda] = contador;
+        document.getElementById(idElement).src = newMeaple.url;
+        setTrabajadoresMatrix(xArriba,yIzquierda,contador);
+    }
+    if(meapleDOWN && meapleRIGHT){
+        idElement = xAbajo.toString() + yDerecha.toString();
+        matrizTrabajadores[xAbajo][yDerecha] = contador;
+        document.getElementById(idElement).src = newMeaple.url;
+        setTrabajadoresMatrix(xAbajo,yDerecha,contador);
+    }
+    if(meapleDOWN && meapleLEFT){
+        idElement = xAbajo.toString() + yIzquierda.toString();
+        matrizTrabajadores[xAbajo][yIzquierda] = contador;
+        document.getElementById(idElement).src = newMeaple.url;
+        setTrabajadoresMatrix(xAbajo,yIzquierda,contador);
+    }
+ }
+ function validarSelvasCercanas(x,y,losetaMeaple){
+    let xAbajo = parseInt(x) + 1;
+    let xArriba = parseInt(x) - 1;
+    let yDerecha = parseInt(y) + 1;
+    let yIzquierda = parseInt(y) - 1;
+
+    if(matrizSelvas[xAbajo][y] != 0){       //validar ABAJO
+        selvaId = matrizSelvas[xAbajo][y]; 
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.down;
+        switchTipos(jungleType,cabezas);
+        meapleDOWN = true;
+    }
+    if(matrizSelvas[xArriba][y] != 0){      //validar ARRIBA
+        selvaId = matrizSelvas[xArriba][y];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.top;
+        switchTipos(jungleType,cabezas);
+        meapleTOP = true;
+    }
+    if(matrizSelvas[x][yIzquierda] != 0){   //validar IZQUIERDA
+        selvaId = matrizSelvas[x][yIzquierda];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.left;
+        switchTipos(jungleType,cabezas);
+        meapleLEFT = true;
+    }
+    if(matrizSelvas[x][yDerecha] != 0){     //validar DERECHA
+        selvaId = matrizSelvas[x][yDerecha];
+        getTipoSelvaWithId(selvaId);
+        cabezas = losetaMeaple.right;
+        switchTipos(jungleType,cabezas);
+        meapleRIGHT = true;
+    }
+ }
+function validarMeaplesCercanos(x,y,tipoSelva){
+    let xAbajo = parseInt(x) + 1;
+    let xArriba = parseInt(x) - 1;
+    let yDerecha = parseInt(y) + 1;
+    let yIzquierda = parseInt(y) - 1;
+    let mep;
+    
+
+        if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
+            mep = matrizTrabajadores[xAbajo][y];
+            cabezas = parseInt(trabajadoresObjects1[mep].top);
+            switchTipos(tipoSelva,cabezas);        }
+        if(matrizTrabajadores[xArriba][y] != 0){ //  ARRIBA
+            mep = matrizTrabajadores[xArriba][y];
+            cabezas = parseInt(trabajadoresObjects1[mep].down);
+            switchTipos(tipoSelva,cabezas);        }
+        if(matrizTrabajadores[x][yIzquierda] != 0){  //  IZQUIERDA
+            mep = matrizTrabajadores[x][yIzquierda];
+            cabezas = parseInt(trabajadoresObjects1[mep].left);
+            switchTipos(tipoSelva,cabezas);        }
+        if(matrizTrabajadores[x][yDerecha] != 0){ //  DERECHA
+            mep = matrizTrabajadores[x][yDerecha];
+            cabezas = parseInt(trabajadoresObjects1[mep].right);
+            switchTipos(tipoSelva,cabezas);        }
+}
+function getTipoSelvaWithId(id){
 
     switch(id){
         case 1:
@@ -798,67 +903,6 @@ function listenForGrid(){
             break;
     }
  }
-
- function validarSelvasCercanas(x,y,losetaMeaple){
-    let xAbajo = parseInt(x) + 1;
-    let xArriba = parseInt(x) - 1;
-    let yDerecha = parseInt(y) + 1;
-    let yIzquierda = parseInt(y) - 1;
-
-    if(matrizSelvas[xAbajo][y] != 0){   //validar hacia abajo de la losetaMeaple
-        selvaId = matrizSelvas[xAbajo][y]; 
-        getTipoSelvaWithId(selvaId);
-        cabezas = losetaMeaple.down;
-        console.log("Tipo Jungla: " + jungleType.toString());
-        switchTipos(jungleType,cabezas);
-    }
-    if(matrizSelvas[xArriba][y] != 0){
-        selvaId = matrizSelvas[xArriba][y];
-        getTipoSelvaWithId(selvaId);
-        cabezas = losetaMeaple.top;
-        console.log("Tipo Jungla: " + jungleType.toString());
-        switchTipos(jungleType,cabezas);
-    }
-    if(matrizSelvas[x][yIzquierda] != 0){
-        selvaId = matrizSelvas[x][yIzquierda];
-        getTipoSelvaWithId(selvaId);
-        cabezas = losetaMeaple.left;
-        console.log("Tipo Jungla: " + jungleType.toString());
-        switchTipos(jungleType,cabezas);
-    }
-    if(matrizSelvas[x][yDerecha] != 0){
-        selvaId = matrizSelvas[x][yDerecha];
-        getTipoSelvaWithId(selvaId);
-        cabezas = losetaMeaple.right;
-        console.log("Tipo Jungla: " + jungleType.toString());
-        switchTipos(jungleType,cabezas);
-    }
- }
-function validarMeaplesCercanos(x,y,tipoSelva){
-    let xAbajo = parseInt(x) + 1;
-    let xArriba = parseInt(x) - 1;
-    let yDerecha = parseInt(y) + 1;
-    let yIzquierda = parseInt(y) - 1;
-    let mep;
-    
-
-        if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
-            mep = matrizTrabajadores[xAbajo][y];
-            cabezas = parseInt(trabajadoresObjects1[mep].top);
-            switchTipos(tipoSelva,cabezas);        }
-        if(matrizTrabajadores[xArriba][y] != 0){ //  ARRIBA
-            mep = matrizTrabajadores[xArriba][y];
-            cabezas = parseInt(trabajadoresObjects1[mep].down);
-            switchTipos(tipoSelva,cabezas);        }
-        if(matrizTrabajadores[x][yIzquierda] != 0){  //  IZQUIERDA
-            mep = matrizTrabajadores[x][yIzquierda];
-            cabezas = parseInt(trabajadoresObjects1[mep].left);
-            switchTipos(tipoSelva,cabezas);        }
-        if(matrizTrabajadores[x][yDerecha] != 0){ //  DERECHA
-            mep = matrizTrabajadores[x][yDerecha];
-            cabezas = parseInt(trabajadoresObjects1[mep].right);
-            switchTipos(tipoSelva,cabezas);        }
-}
 
 function validarEspacioVacio(x,y){
     var xVar = parseInt(x);
@@ -954,6 +998,9 @@ function  cantidadJugadores(){
 
 }
 
+
+
+
 function asignaMarcadores(cantidad){
     let marcadores = new LosetaSelva();
 
@@ -993,7 +1040,5 @@ function asignaMarcadores(cantidad){
         marcadores.asignaImagen("./IMG/Monedas10.png","monedas104",'20px','20px');
         marcadores.asignaImagen("./IMG/FichaSol.png","fichaSol4",'20px','20px');
         marcadores.asignaImagen("./IMG/Remanso.png","remanso4",'20px','20px');
-    }
-    
+    }   
 }
-
