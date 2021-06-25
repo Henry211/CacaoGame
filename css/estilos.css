@@ -1,4 +1,3 @@
-
 .header{
     padding: 0px;
     margin: auto;
@@ -6,6 +5,9 @@
     height:25px;
     background-color: yellowgreen;
 }
+    h2{
+        font-size: 18px;
+    }
 
      #cajadatos {
         position: relative;
@@ -13,7 +15,7 @@
         padding: 10px;
         margin:auto;
         width: 720px;
-        height: 600px;
+        height: 610px;
         overflow: auto;
     }
     #cajaMain{
@@ -35,6 +37,17 @@
         border: 1px groove yellowgreen;
         margin: 2px;
     }
+ .fill{
+    position:relative;
+    height: 20px;
+    width:  20px;
+    margin:auto
+ }   
+ .filling{
+    position:absolute;
+    height: 40px;
+    width:  40px;
+ } 
 .fill1{
         cursor:pointer;
         position:relative;
@@ -63,7 +76,69 @@
     width:80px;
     background-color: blue;
 }
-
+.CacaoTxt{
+    cursor:crosshair;
+    position: absolute;
+    top: 27px;
+    left: 15px;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    font-style: oblique;
+}
+.Monedas1Txt{
+    cursor:crosshair;
+    position: absolute;
+    top: 27px;
+    left: 43px;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    font-style: oblique;
+}
+.Monedas5Txt{
+    cursor:crosshair;
+    position: absolute;
+    top: 27px;
+    left: 67px;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    font-style: oblique;
+}
+.Monedas10Txt{
+    cursor:crosshair;
+    position: absolute;
+    top: 27px;
+    left: 88px;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    font-style: oblique;
+}
+.FichaSolTxt{
+    cursor:crosshair;
+    position: absolute;
+    top: 27px;
+    left: 110px;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    font-style: oblique;
+}
+.RemansoTxt{
+    cursor:crosshair;
+    position: absolute;
+    top: 27px;
+    left: 130px;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    font-style: oblique;
+}
+#TxtJ2{
+    color:ghostwhite;
+}
 
 #LocetasUno{
     position: relative;
@@ -130,7 +205,7 @@
     height: 80px; 
     margin: auto;
     width: 200px;
-    background-color: rgb(33, 40, 46);
+    background-color: rgb(12, 75, 129);
     border: 8px groove yellowgreen;
     float: right;
     left: 20px;
@@ -190,6 +265,12 @@
     width:100px;
     height: 80px;
 }
+ #cacao1{
+    position: relative;
+    margin: auto;
+    width: 25px;
+    height: 10px; 
+} 
 
    .button{
        position: relative;
