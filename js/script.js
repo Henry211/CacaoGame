@@ -17,6 +17,9 @@ const trabajadoresObjects2 = [];
 const trabajadoresObjects3 = [];
 const trabajadoresObjects4 = [];
 var matrizMeaples;
+var JUGADORES = [];
+var turno;
+var numberOfPlayers;
 
 var cont1 = 27; //--losetas1
 var cont3 = 10; //--meaples2
@@ -240,14 +243,14 @@ function terminarClick(){
 }
 
 function verDatosClick(){
-    var cant = cantidadJugadores();
+    numberOfPlayers = cantidadJugadores();
     var jugador = new Jugador(); 
 
     inicializarTablero();//llena tablero de imágenes en negro (para setear la nuev imagen) 
-    cargarMazos(cant);  //cargar meaples y locetas en un mismo método
-    eventosClick(cant);
+    cargarMazos(numberOfPlayers);  //cargar meaples y locetas en un mismo método
+    eventosClick(numberOfPlayers);
     actualizarTablero();//imprimir tablero deacuerdo a matriz lógica
-    asignaMarcadores(cant);
+    asignaMarcadores(numberOfPlayers);
     jugador.enviaValores("2",'CacaoJ4');
 }
 function actualizarTablero(){
@@ -711,6 +714,10 @@ function listenForGrid(){
                     if(cont1 != 0){
                         cont1 = cont1 - 1;
                     }
+                    turno = turno+1;
+                    if(turno == numberOfPlayers){
+                        turno =0;
+                    }
                     rem.RemplazarLocetas(1);
                 }
              }
@@ -942,19 +949,19 @@ function switchTipos(tipo,jupas){
     switch(tipo){
         case "PlantacionSimple":
             cacaos = cacaos + (1*jupas);
-            console.log("CACAOS : "+cacaos);
+            JUGADORES[turno].cacao = cacaos;
             document.getElementById("Cacaos2").textContent = cacaos.toString();
             break;
         case "PlantacionDoble":
             cacaos = cacaos+ (2*jupas);
-            console.log("CACAOS : "+cacaos);
+            JUGADORES[turno].cacao = cacaos;
             document.getElementById("Cacaos2").textContent = cacaos.toString();
             break;
         case "Mercado2":
             if(jupas <= cacaos){
                 monedas = monedas + (2*jupas);
-                console.log("MONEDAS : "+ monedas);
-                document.getElementById("Monedas2").textContent = monedas.toString();
+                JUGADORES[turno].monedas = monedas;
+                document.getElementById("Monedas1J1").textContent = monedas.toString();
                 cacaos = cacaos - jupas;
                 document.getElementById("Cacaos2").textContent = cacaos.toString();
             }
@@ -962,8 +969,8 @@ function switchTipos(tipo,jupas){
         case "Mercado3":
             if(jupas <= cacaos){
             monedas = monedas + (3*jupas);
-            console.log("MONEDAS : "+monedas);
-            document.getElementById("Monedas2").textContent = monedas.toString();
+            JUGADORES[turno].monedas = monedas;
+            document.getElementById("Monedas1J1").textContent = monedas.toString();
             cacaos = cacaos - jupas;
             document.getElementById("Cacaos2").textContent = cacaos.toString();
             }
@@ -971,21 +978,21 @@ function switchTipos(tipo,jupas){
         case "Mercado4":
             if(jupas <= cacaos){
             monedas = monedas + (4*jupas);
-            console.log("MONEDAS : "+monedas);
-            document.getElementById("Monedas2").textContent = monedas.toString();
+            JUGADORES[turno].monedas = monedas;
+            document.getElementById("Monedas1J1").textContent = monedas.toString();
             cacaos = cacaos - jupas;
             document.getElementById("Cacaos2").textContent = cacaos.toString();
             }
             break;
         case "Mina1":
             monedas = monedas + (1*jupas);
-            console.log("MONEDAS : "+monedas);
-            document.getElementById("Monedas2").textContent = monedas.toString();
+            JUGADORES[turno].monedas = monedas;
+            document.getElementById("Monedas1J1").textContent = monedas.toString();
             break;
         case "Mina2":
             monedas = monedas + (2*jupas);
-            console.log("MONEDAS : "+monedas);
-            document.getElementById("Monedas2").textContent = monedas.toString();
+            JUGADORES[turno].monedas = monedas;
+            document.getElementById("Monedas1J1").textContent = monedas.toString();
             break;
     }
     document.getElementById("Cabezas2").textContent = jupas.toString();
@@ -996,7 +1003,12 @@ function switchTipos(tipo,jupas){
 function  cantidadJugadores(){
         console.log(window);
         var jug = window.prompt("Digite la cantidad de Jugadores");
-      
+        turno = 0;
+        var player = new Jugador();
+        for(let i=0; i<jug; i++){
+            JUGADORES.unshift(player);
+        }
+
         if(jug == "1" || jug >"4"){
             window.alert("El tamanio de la partida no es el permitido que es de maximo 4 minimo 1");
             jug = window.prompt("Digite la cantidad de Jugadores");
