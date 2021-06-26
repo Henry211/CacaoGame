@@ -1050,7 +1050,7 @@ function resetSelvasBooleans(){
     console.log("(monedas 5=" +JUGADORES[dueño].monedas5);
     if(JUGADORES[dueño].monedas5>1){
         JUGADORES[dueño].monedas10 = JUGADORES[dueño].monedas10 + 1;
-        JUGADORES[dueño].monedas = JUGADORES[dueño].monedas5 -1;
+        JUGADORES[dueño].monedas = 0;
     }
     document.getElementById(monedas1).textContent = JUGADORES[dueño].monedas.toString();
     document.getElementById(monedas5).textContent = JUGADORES[dueño].monedas5.toString();
@@ -1144,9 +1144,10 @@ function switchTipos(tipo,jupas,dueño){
         case "Lago":
             remanso = +(1*jupas);
             aguador(remanso,dueño)
-        case "templos": 
-            tmpl =0;       
-            break;
+        case "Templos": 
+             tmpl = (1*jupas);
+             return tmpl, dueño;       
+            
     }
 }
 
