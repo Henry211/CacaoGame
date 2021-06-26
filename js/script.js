@@ -75,7 +75,7 @@ class LosetaTrabajador{   // logic = 12
         this.left = left;
         this.right = right;
         this.url = url;
-        this.player = player;
+        this.dueño = "404";
     }
     girarDerecha(){
         let auxLeft = this.left;
@@ -86,6 +86,17 @@ class LosetaTrabajador{   // logic = 12
         this.right = auxTop;
         this.down = auxRigth;
         this.left = auxDown;
+    }
+    setImage(img){
+        this.img = img;
+    }
+    setValorLogico(value){//valor que representará a la ficha en la matriz lógica
+        this.value = value;
+    }  
+    asignaImagen(url, ide, ancho, alto){
+        document.getElementById(ide).src=url;
+        document.getElementById(ide).style.height=alto;
+        document.getElementById(ide).style.width= ancho;
     }
 }
 //clase de cada ficha
@@ -112,10 +123,11 @@ class LosetaSelva{
       
 }//clase jugador
 class Jugador{
-    constructor(cacao, monedas, remancio){
-        this.cacao = cacao;
-        this.monedas = monedas;
-        this.remancio = remancio;
+    constructor(){
+        this.cacao = 0;
+        this.monedas = 0;
+        this.remancio = 0;
+        this.color = "red";
     }
       //metodo para remplazar la baraja a la hora de mover la ficha al tablero
       remplazar(vali,url){
@@ -239,7 +251,7 @@ function girarClick(){
         }
 }
 function terminarClick(){
-   
+
 }
 
 function verDatosClick(){
@@ -643,7 +655,7 @@ function cargarMazos(cantidad){
                     contenedorTrabajadoresCuatro.setPieza(trabajadoresObjects4[10]);
      }     
   }
-  function prepareMazo(idImage,url,value,contenedor,locetaId){
+  function prepareMazoSelvas(idImage,url,value,contenedor,locetaId){
     let piezaAux = new LosetaSelva();
     var image = document.getElementById(idImage);//get imagen del tablero
     piezaAux.setImage(image);//Set la imagen en una pieza
@@ -656,17 +668,52 @@ function cargarMazos(cantidad){
             document.getElementById(locetaId).style.backgroundColor = 'red'; 
         });
   }
+  function prepareMazoTrabajadores(idImage,url,value,contenedor,locetaId,playerID){
+    let piezaAux = new LosetaTrabajador();
+    var image = document.getElementById(idImage);//get imagen del tablero
+    piezaAux.setImage(image);//Set la imagen en una pieza
+    piezaAux.asignaImagen(url, idImage,"75px","80px");//set a parte Gráfica
+    piezaAux.setValorLogico(value);//Set valor lógico
+    //CONTENEDOR
+    contenedor.setPieza(piezaAux);
+    switch(playerID){
+        case 1:
+            contenedor.ficha.img.addEventListener("click", function (e) {
+                contenedor.setEstado(true);
+                document.getElementById(locetaId).style.backgroundColor = JUGADORES[1].color; 
+            });
+            break;
+        case 2:
+            contenedor.ficha.img.addEventListener("click", function (e) {
+                contenedor.setEstado(true);
+                document.getElementById(locetaId).style.backgroundColor = JUGADORES[2].color; 
+            });
+            break;
+        case 3:
+            contenedor.ficha.img.addEventListener("click", function (e) {
+                contenedor.setEstado(true);
+                document.getElementById(locetaId).style.backgroundColor = JUGADORES[3].color; 
+            });
+            break;
+        case 4:
+            contenedor.ficha.img.addEventListener("click", function (e) {
+                contenedor.setEstado(true);
+                document.getElementById(locetaId).style.backgroundColor = JUGADORES[4].color; 
+            });
+            break;
+    }
+  }
   function eventosClick(cant){ 
-    prepareMazo('LocId1',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasUno,"LocetasUno");
-    prepareMazo('LocId2',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasDos,"LocetasDos");
-    prepareMazo('mazo1',trabajadoresObjects1[cont3].url,trabajadoresObjects1[cont3].value,contenedorTrabajadoresUno,"MeaplesUno");
-    prepareMazo('mazo2',trabajadoresObjects2[cont4].url,trabajadoresObjects2[cont4].value,contenedorTrabajadoresDos,"MeaplesDos");
+    prepareMazoSelvas('LocId1',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasUno,"LocetasUno");
+    prepareMazoSelvas('LocId2',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasDos,"LocetasDos");
+    prepareMazoTrabajadores('mazo1',trabajadoresObjects1[cont3].url,trabajadoresObjects1[cont3].value,contenedorTrabajadoresUno,"MeaplesUno",1);
+    prepareMazoTrabajadores('mazo2',trabajadoresObjects2[cont4].url,trabajadoresObjects2[cont4].value,contenedorTrabajadoresDos,"MeaplesDos",2);
     if(cant =="3"){
-        prepareMazo('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres");
+        prepareMazoTrabajadores('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres",3);
     }
     if(cant == "4"){
-        prepareMazo('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres");
-        prepareMazo('mazo4',trabajadoresObjects4[cont6].url,trabajadoresObjects4[cont6].value,contenedorTrabajadoresCuatro,"MeaplesCuatro");
+        prepareMazoTrabajadores('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres",3);
+        prepareMazoTrabajadores('mazo4',trabajadoresObjects4[cont6].url,trabajadoresObjects4[cont6].value,contenedorTrabajadoresCuatro,"MeaplesCuatro",4);
     }
     
     listenForGrid();
@@ -678,7 +725,7 @@ function selvaClicked(objetoSelva,i,elementId,contenedor){
     var x = i.toString().slice(0,-1);
     var y = i.toString().slice(1);
 
-    validarMeaplesCercanos(x,y,objetoSelva[cont1].tipo);
+    validarMeaplesCercanos(x,y,objetoSelva[cont1]);
     setLogic(x,y,objetoSelva[cont1].value);
     if(llenarEspacioSelva(x,y,objetoSelva[cont1-1],cont1) == true){
         if(cont1 != 0){
@@ -690,7 +737,9 @@ function selvaClicked(objetoSelva,i,elementId,contenedor){
     contenedor.setEstado(false);
 }
 function meapleClicked(objetoTrabajador,i,elementId,contenedor,cont){
+    document.getElementById(i).style.backgroundColor = JUGADORES[turno].color;
     document.getElementById(i).src = objetoTrabajador.url;
+    console.log("DUEÑO = " + objetoTrabajador.dueño.toString());
     var x = i.toString().slice(0,-1);
     var y = i.toString().slice(1);
     validarSelvasCercanas(x,y,objetoTrabajador);
@@ -699,6 +748,19 @@ function meapleClicked(objetoTrabajador,i,elementId,contenedor,cont){
     printTrabajadoresMatrix();
     document.getElementById(elementId).style.backgroundColor = 'black'; 
     contenedor.setEstado(false);
+}
+function updateTurno(){
+    let limitTurns = parseInt(numberOfPlayers) + 1;
+    turno = turno + 1;
+    if(turno == limitTurns){
+        turno = 1;
+    }
+}
+function updateCont(contador){
+    if(contador != 0){
+        contador = contador - 1;
+    }
+    return contador;
 }
 function listenForGrid(){
     let rem = new Jugador();
@@ -711,13 +773,8 @@ function listenForGrid(){
                 var y = i.toString().slice(1);
                 if(validarEspacioVacio(x,y)){
                     selvaClicked(selvasObjects1,i,"LocetasUno",contenedorSelvasUno);
-                    if(cont1 != 0){
-                        cont1 = cont1 - 1;
-                    }
-                    turno = turno+1;
-                    if(turno == numberOfPlayers){
-                        turno =0;
-                    }
+                    cont1 = updateCont(cont1);
+                    updateTurno();
                     rem.RemplazarLocetas(1);
                 }
              }
@@ -726,9 +783,8 @@ function listenForGrid(){
                 var y = i.toString().slice(1);
                 if(validarEspacioVacio(x,y)){
                     selvaClicked(selvasObjects1,i,"LocetasDos",contenedorSelvasDos);
-                    if(cont1 != 0){
-                        cont1 = cont1 - 1;
-                    }
+                    cont1 = updateCont(cont1);
+                    updateTurno();
                     rem.RemplazarLocetas(1);
                 }
              }
@@ -736,51 +792,44 @@ function listenForGrid(){
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
                 if(validarEspacioVacio(x,y) || colocarEncima){
+                    trabajadoresObjects1[cont3].dueño = 1;
                     meapleClicked(trabajadoresObjects1[cont3],i,"MeaplesUno",contenedorTrabajadoresUno,cont3);
-                    cont3 = cont3 - 1;
+                    cont3 = updateCont(cont3);
+                    updateTurno();
                     rem.remplazar(1,trabajadoresObjects1[cont3].url);
                 }
              }if(contenedorTrabajadoresDos.selected){
                 var x = i.toString().slice(0,-1);
                 var y = i.toString().slice(1);
                 if(validarEspacioVacio(x,y) || colocarEncima){
-                    document.getElementById(i).src = trabajadoresObjects2[cont4].url;
-                    casilla = i;
-                    validarSelvasCercanas(x,y,trabajadoresObjects2[cont4]);
-                    setTrabajadoresMatrix(x,y,cont4);
-                    printTrabajadoresMatrix();
-    
-                    document.getElementById("MeaplesDos").style.backgroundColor = 'black'; 
-                    contenedorTrabajadoresDos.setEstado(false);
-                    cont4 = cont4 - 1;
+                    trabajadoresObjects2[cont4].dueño = 2;
+                    meapleClicked(trabajadoresObjects2[cont4],i,"MeaplesDos",contenedorTrabajadoresDos,cont4);
+                    cont4 = updateCont(cont4);
+                    updateTurno();
                     rem.remplazar(2,trabajadoresObjects2[cont4].url);
                 }
              }
              if(contenedorTrabajadoresTres.selected){
-                 document.getElementById(i).src = trabajadoresObjects3[cont5].url;
-                 casilla = i;
-                 var x = i.toString().slice(0,-1);
-                 var y = i.toString().slice(1);
-                 validarSelvasCercanas(x,y,trabajadoresObjects3[cont5]);
-                 setTrabajadoresMatrix(x,y,cont5);
-                 printTrabajadoresMatrix();
-                 document.getElementById("MeaplesTres").style.backgroundColor = 'black'; 
-                 contenedorTrabajadoresTres.setEstado(false);
-                 cont5 = cont5 - 1;
-                 rem.remplazar(3,trabajadoresObjects3[cont5].url);
+                var x = i.toString().slice(0,-1);
+                var y = i.toString().slice(1);
+                if(validarEspacioVacio(x,y) || colocarEncima){
+                    trabajadoresObjects3[cont5].dueño = 3;
+                    meapleClicked(trabajadoresObjects3[cont5],i,"MeaplesTres",contenedorTrabajadoresTres,cont5);
+                    cont5 = updateCont(cont5);
+                    updateTurno();
+                    rem.remplazar(3,trabajadoresObjects3[cont5].url);
+                }
              }
              if(contenedorTrabajadoresCuatro.selected){
-                 document.getElementById(i).src = trabajadoresObjects4[cont6].url;
-                 casilla = i;
                  var x = i.toString().slice(0,-1);
                  var y = i.toString().slice(1);
-                 validarSelvasCercanas(x,y,trabajadoresObjects4[cont6]);
-                 setTrabajadoresMatrix(x,y,cont6);
-                printTrabajadoresMatrix();
-                 document.getElementById("MeaplesCuatro").style.backgroundColor = 'black'; 
-                 contenedorTrabajadoresCuatro.setEstado(false);
-                 cont6 = cont6 - 1;
-                 rem.remplazar(4,trabajadoresObjects4[cont6].url);
+                 if(validarEspacioVacio(x,y) || colocarEncima){
+                    trabajadoresObjects4[cont6].dueño = 4;
+                    meapleClicked(trabajadoresObjects4[cont6],i,"MeaplesTres",contenedorTrabajadoresCuatro,cont6);
+                    cont6 = updateCont(cont6);
+                    updateTurno();
+                    rem.remplazar(4,trabajadoresObjects4[cont6].url);
+                }
              }
          });
      }
@@ -794,32 +843,40 @@ function listenForGrid(){
     contador = contador - 1;
 
     if(selvaTOP == true && selvaRIGHT == true){
-        idElement = xArriba.toString() + yDerecha.toString();
-        matrizSelvas[xArriba][yDerecha] = contador;
-        document.getElementById(idElement).src = newSelva.url;
-        setLogic(xArriba,yDerecha,contador);
-        return true;
+        if(validarEspacioVacio(xArriba,yDerecha)){
+            idElement = xArriba.toString() + yDerecha.toString();
+            matrizSelvas[xArriba][yDerecha] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xArriba,yDerecha,contador);
+            return true;
+        }
     }
     if(selvaTOP && selvaLEFT){
-        idElement = xArriba.toString() + yIzquierda.toString();
-        matrizSelvas[xArriba][yIzquierda] = contador;
-        document.getElementById(idElement).src = newSelva.url;
-        setLogic(xArriba,yIzquierda,contador);
-        return true;
+        if(validarEspacioVacio(xArriba,yIzquierda)){
+            idElement = xArriba.toString() + yIzquierda.toString();
+            matrizSelvas[xArriba][yIzquierda] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xArriba,yIzquierda,contador);
+            return true;
+        }
     }
     if(selvaDOWN && selvaRIGHT){
-        idElement = xAbajo.toString() + yDerecha.toString();
-        matrizSelvas[xAbajo][yDerecha] = contador;
-        document.getElementById(idElement).src = newSelva.url;
-        setLogic(xAbajo,yDerecha,contador);
-        return true;
+        if(validarEspacioVacio(xAbajo,yDerecha)){
+            idElement = xAbajo.toString() + yDerecha.toString();
+            matrizSelvas[xAbajo][yDerecha] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xAbajo,yDerecha,contador);
+            return true;
+        }
     }
     if(selvaDOWN && selvaLEFT){
-        idElement = xAbajo.toString() + yIzquierda.toString();
-        matrizSelvas[xAbajo][yIzquierda] = contador;
-        document.getElementById(idElement).src = newSelva.url;
-        setLogic(xAbajo,yIzquierda,contador);
-        return true;
+        if(validarEspacioVacio(xAbajo,yIzquierda)){
+            idElement = xAbajo.toString() + yIzquierda.toString();
+            matrizSelvas[xAbajo][yIzquierda] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xAbajo,yIzquierda,contador);
+            return true;
+        }
     }
     else{
         return false;
@@ -835,57 +892,57 @@ function listenForGrid(){
         selvaId = matrizSelvas[xAbajo][y]; 
         getTipoSelvaWithId(selvaId);
         cabezas = losetaMeaple.down;
-        switchTipos(jungleType,cabezas);
+        switchTipos(jungleType,cabezas,losetaMeaple.dueño);
     }
     if(matrizSelvas[xArriba][y] != 0){      //validar ARRIBA
         selvaId = matrizSelvas[xArriba][y];
         getTipoSelvaWithId(selvaId);
         cabezas = losetaMeaple.top;
-        switchTipos(jungleType,cabezas);
+        switchTipos(jungleType,cabezas,losetaMeaple.dueño);
         selvaTOP = true;
     }
     if(matrizSelvas[x][yIzquierda] != 0){   //validar IZQUIERDA
         selvaId = matrizSelvas[x][yIzquierda];
         getTipoSelvaWithId(selvaId);
         cabezas = losetaMeaple.left;
-        switchTipos(jungleType,cabezas);
+        switchTipos(jungleType,cabezas,losetaMeaple.dueño);
         selvaLEFT = true;
     }
     if(matrizSelvas[x][yDerecha] != 0){     //validar DERECHA
         selvaId = matrizSelvas[x][yDerecha];
         getTipoSelvaWithId(selvaId);
         cabezas = losetaMeaple.right;
-        switchTipos(jungleType,cabezas);
+        switchTipos(jungleType,cabezas,losetaMeaple.dueño);
         selvaRIGHT = true;
     }
  }
-function validarMeaplesCercanos(x,y,tipoSelva){
+function validarMeaplesCercanos(x,y,losetaSelva){
     let xAbajo = parseInt(x) + 1;
     let xArriba = parseInt(x) - 1;
     let yDerecha = parseInt(y) + 1;
     let yIzquierda = parseInt(y) - 1;
     let mep;
-    
-
+    //APARTE DE VALIDAR SI HAY UN MEAPLE EN LA MATRIZ,, hay que validar a quién pertenece
+    //en este caso, siempre se premia a jugador 1
         if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
             mep = matrizTrabajadores[xAbajo][y];
             cabezas = parseInt(trabajadoresObjects1[mep].top);
-            switchTipos(tipoSelva,cabezas); 
+            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño); 
             selvaDOWN = true;       }
         if(matrizTrabajadores[xArriba][y] != 0){ //  ARRIBA
             mep = matrizTrabajadores[xArriba][y];
             cabezas = parseInt(trabajadoresObjects1[mep].down);
-            switchTipos(tipoSelva,cabezas);
+            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño);
             selvaTOP = true;     }
         if(matrizTrabajadores[x][yIzquierda] != 0){  //  IZQUIERDA
             mep = matrizTrabajadores[x][yIzquierda];
             cabezas = parseInt(trabajadoresObjects1[mep].left);
-            switchTipos(tipoSelva,cabezas);
+            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño);
             selvaLEFT = true;         }
         if(matrizTrabajadores[x][yDerecha] != 0){ //  DERECHA
             mep = matrizTrabajadores[x][yDerecha];
             cabezas = parseInt(trabajadoresObjects1[mep].right);
-            switchTipos(tipoSelva,cabezas);
+            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño);
             selvaRIGHT = true;         }
 }
 function getTipoSelvaWithId(id){
@@ -945,68 +1002,101 @@ function resetSelvasBooleans(){
     selvaRIGHT = false;
  }
 
-function switchTipos(tipo,jupas){
+ function premiarCacao(cacaosWIN,dueño){
+     console.log("DUEÑO =" + dueño);
+    JUGADORES[dueño].cacao = JUGADORES[dueño].cacao + cacaosWIN;
+
+    switch(dueño){
+        case 1:
+            document.getElementById("CacaoJ1").textContent = JUGADORES[dueño].cacao.toString();
+            break;
+        case 2:
+            document.getElementById("CacaoJ2").textContent = JUGADORES[dueño].cacao.toString();
+            break;
+        case 3:
+            document.getElementById("CacaoJ3").textContent = JUGADORES[dueño].cacao.toString();
+            break;
+        case 4:
+            document.getElementById("CacaoJ4").textContent = JUGADORES[dueño].cacao.toString();
+            break;
+    }
+ }
+ function premiarMonedas(monedasWIN,dueño){
+    console.log("DUEÑO =" + dueño);
+    JUGADORES[dueño].monedas = JUGADORES[dueño].monedas + monedasWIN;
+
+    switch(dueño){
+        case 1:
+            document.getElementById("Monedas1J1").textContent = JUGADORES[dueño].monedas.toString();
+            break;
+        case 2:
+            document.getElementById("Monedas1J2").textContent = JUGADORES[dueño].monedas.toString();
+            break;
+        case 3:
+            document.getElementById("Monedas1J3").textContent = JUGADORES[dueño].monedas.toString();
+            break;
+        case 4:
+            document.getElementById("Monedas1J4").textContent = JUGADORES[dueño].monedas.toString();
+            break;
+    }
+ }
+
+function switchTipos(tipo,jupas,dueño){
     switch(tipo){
         case "PlantacionSimple":
-            cacaos = cacaos + (1*jupas);
-            JUGADORES[turno].cacao = cacaos;
-            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            cacaos = (1*jupas);
+            premiarCacao(cacaos,dueño);
             break;
         case "PlantacionDoble":
-            cacaos = cacaos+ (2*jupas);
-            JUGADORES[turno].cacao = cacaos;
-            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            cacaos = (2*jupas);
+            premiarCacao(cacaos,dueño);
             break;
         case "Mercado2":
             if(jupas <= cacaos){
-                monedas = monedas + (2*jupas);
-                JUGADORES[turno].monedas = monedas;
-                document.getElementById("Monedas1J1").textContent = monedas.toString();
-                cacaos = cacaos - jupas;
-                document.getElementById("Cacaos2").textContent = cacaos.toString();
+                monedas = (2*jupas);
+                premiarMonedas(monedas,dueño);
+                cacaos = -jupas;
+                premiarCacao(cacaos,dueño);
             }
             break;
         case "Mercado3":
             if(jupas <= cacaos){
-            monedas = monedas + (3*jupas);
-            JUGADORES[turno].monedas = monedas;
-            document.getElementById("Monedas1J1").textContent = monedas.toString();
-            cacaos = cacaos - jupas;
-            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            monedas = (3*jupas);
+            premiarMonedas(monedas,dueño);
+            cacaos = -jupas;
+            premiarCacao(cacaos,dueño);
             }
             break;
         case "Mercado4":
             if(jupas <= cacaos){
-            monedas = monedas + (4*jupas);
-            JUGADORES[turno].monedas = monedas;
-            document.getElementById("Monedas1J1").textContent = monedas.toString();
-            cacaos = cacaos - jupas;
-            document.getElementById("Cacaos2").textContent = cacaos.toString();
+            monedas = (4*jupas);
+            premiarMonedas(monedas,dueño);
+            cacaos = -jupas;
+            premiarCacao(monedas,dueño);
             }
             break;
         case "Mina1":
-            monedas = monedas + (1*jupas);
-            JUGADORES[turno].monedas = monedas;
-            document.getElementById("Monedas1J1").textContent = monedas.toString();
+            monedas = (1*jupas);
+            premiarMonedas(monedas,dueño);
             break;
         case "Mina2":
-            monedas = monedas + (2*jupas);
-            JUGADORES[turno].monedas = monedas;
-            document.getElementById("Monedas1J1").textContent = monedas.toString();
+            monedas = (2*jupas);
+            premiarMonedas(monedas,dueño);
             break;
     }
-    document.getElementById("Cabezas2").textContent = jupas.toString();
 }
 
 
            //metodo que define la cantidad de jugadores
 function  cantidadJugadores(){
-        console.log(window);
         var jug = window.prompt("Digite la cantidad de Jugadores");
-        turno = 0;
-        var player = new Jugador();
-        for(let i=0; i<jug; i++){
-            JUGADORES.unshift(player);
+        turno = 1;
+        var colores = ["null","chartreuse","gold","red","blue"];
+        for(let i=0; i<parseInt(jug)+1; i++){
+            var player = new Jugador();
+            player.color = colores[i];
+            console.log("COLOR-"+i.toString() + " = " +  colores[i]);
+            JUGADORES.push(player);
         }
 
         if(jug == "1" || jug >"4"){

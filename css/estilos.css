@@ -14,17 +14,17 @@
         border: 5px solid #ccc;
         padding: 10px;
         margin:auto;
-        width: 720px;
-        height: 610px;
+        width: 730px;
+        height: 710px;
         overflow: auto;
     }
     #cajaMain{
         position: relative;
         border: 1px solid #ccc;
         padding: 10px;  
-        height: 640px; 
+        height: 730px; 
         margin: auto;
-        width: 750px;
+        width: 770px;
         background-color: rgb(65, 65, 60);
         border: 8px groove yellowgreen;
         top:-370px;
