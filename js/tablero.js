@@ -20,8 +20,6 @@ imgArray[4].stc = '../IMG/Semillas2.png';
 imgArray[5] = new Image();
 imgArray[5].stc = '../IMG/Mercado2.png';
 
-var person = prompt("Please enter your name", "Naruto Uzumaki");
-
 //if (person != null) {
   //document.getElementById("marcador1").innerHTML =
   //"Hello " + person + "! How are you today?";

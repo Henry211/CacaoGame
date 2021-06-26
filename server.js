@@ -36,7 +36,7 @@ console.log(__dirname)
 app.use(express.static(path.join(__dirname)));
 
 //
-var username = ['IAN','HENRY','DARIO','KENDALL'];
+var username = [];
 
 
 io.on('connection', (socket) => {
@@ -66,6 +66,7 @@ io.on('connection', (socket) => {
      
     socket.on('name', (name) => {
         let val =  true;
+        console.log(name);
         for(let i = 0;i < users.length;i++){
             if(name==users[i]){
                 val = false;
