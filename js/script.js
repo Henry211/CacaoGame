@@ -1,12 +1,5 @@
 const socket = io();
-
-var person = prompt("Please enter your name", "pepe");
-/*document.getElementById("j1").textContent = person;
-document.getElementById("j1").style.fontSize = "26px";
-document.getElementById("j1").style.marginTop = "30px";*/
-socket.emit('name',person);
-
-
+socket.emit('name',"HENRY");
 //Array para las urls de los meaplos
 var URLS  = [];
 
@@ -267,29 +260,12 @@ function girarClick(){
         }
 }
 
-function setName(j,val){
-    document.getElementById(j).textContent = val;
-    document.getElementById(j).style.fontSize = "26px";
-    document.getElementById(j).style.marginTop = "30px";
-}
-
 function verDatosClick(){
-    socket.on('nombres',(nombres)=>{
-        setName("j1",nombres[0]);
-        console.log(nombres[0]);
-        setName("j2",nombres[1]);
-        setName("j3",nombres[2]);
-        setName("j4",nombres[4]);
-
-        numberOfPlayers = nombres.length;
-        setName("j1",nombres[0]);
-        console.log(nombres[0]);
-    });
-    //numberOfPlayers = cantidadJugadores();
+    numberOfPlayers = cantidadJugadores();
     var jugador = new Jugador(); 
 
     inicializarTablero();//llena tablero de imágenes en negro (para setear la nuev imagen) 
-  cargarMazos(numberOfPlayers);  //cargar meaples y locetas en un mismo método
+    cargarMazos(numberOfPlayers);  //cargar meaples y locetas en un mismo método
     eventosClick(numberOfPlayers);
     actualizarTablero();//imprimir tablero deacuerdo a matriz lógica
     asignaMarcadores(numberOfPlayers);
