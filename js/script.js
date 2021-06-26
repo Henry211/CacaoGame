@@ -1,4 +1,5 @@
 const socket = io();
+socket.emit('name',"HENRY");
 //Array para las urls de los meaplos
 var URLS  = [];
 
