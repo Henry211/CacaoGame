@@ -18,6 +18,8 @@ const trabajadoresObjects3 = [];
 const trabajadoresObjects4 = [];
 var matrizMeaples;
 var JUGADORES = [];
+var GANADOR;
+var empate;
 var turno;
 var numberOfPlayers;
 
@@ -133,6 +135,7 @@ class Jugador{
         this.remanso = -10;
         this.sol = 0;
         this.tmpl = 0;
+        this.puntos = 0;
         this.color = "red";
     }
       //metodo para remplazar la baraja a la hora de mover la ficha al tablero
@@ -255,9 +258,6 @@ function girarClick(){
         if(grados == 360){
             grados = 0;
         }
-}
-function terminarClick(){
-
 }
 
 function verDatosClick(){
@@ -671,32 +671,10 @@ function cargarMazos(cantidad){
     piezaAux.setValorLogico(value);//Set valor lógico
     //CONTENEDOR
     contenedor.setPieza(piezaAux);
-    switch(playerID){
-        case 1:
-            contenedor.ficha.img.addEventListener("click", function (e) {
-                contenedor.setEstado(true);
-                document.getElementById(locetaId).style.backgroundColor = JUGADORES[1].color; 
-            });
-            break;
-        case 2:
-            contenedor.ficha.img.addEventListener("click", function (e) {
-                contenedor.setEstado(true);
-                document.getElementById(locetaId).style.backgroundColor = JUGADORES[2].color; 
-            });
-            break;
-        case 3:
-            contenedor.ficha.img.addEventListener("click", function (e) {
-                contenedor.setEstado(true);
-                document.getElementById(locetaId).style.backgroundColor = JUGADORES[3].color; 
-            });
-            break;
-        case 4:
-            contenedor.ficha.img.addEventListener("click", function (e) {
-                contenedor.setEstado(true);
-                document.getElementById(locetaId).style.backgroundColor = JUGADORES[4].color; 
-            });
-            break;
-    }
+    contenedor.ficha.img.addEventListener("click", function (e) {
+        contenedor.setEstado(true);
+        document.getElementById(locetaId).style.backgroundColor = JUGADORES[playerID].color; 
+    });
   }
   function eventosClick(cant){ 
     prepareMazoSelvas('LocId1',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasUno,"LocetasUno");
@@ -713,14 +691,27 @@ function cargarMazos(cantidad){
     
     listenForGrid();
 }
-  
+  /*
+function detectarDueño(){
+    switch(turno){
+        case 1:
+            return trabajadoresObjects1;
+        case 2:
+            return trabajadoresObjects2;
+        case 3:
+            return trabajadoresObjects3;
+        case 4:
+            return trabajadoresObjects4;
+    }
+}*/
 function selvaClicked(objetoSelva,i,elementId,contenedor){
     resetSelvasBooleans();
     document.getElementById(i).src = objetoSelva[cont1].url;
     var x = i.toString().slice(0,-1);
     var y = i.toString().slice(1);
-
-    validarMeaplesCercanos(x,y,objetoSelva[cont1]);
+    //var dueñoDeMeaple = detectarDueño();
+    var dueñoDeMeaple = trabajadoresObjects1 //--no queda de otra--
+    validarMeaplesCercanos(x,y,objetoSelva[cont1],dueñoDeMeaple);
     setLogic(x,y,objetoSelva[cont1].value);
     if(llenarEspacioSelva(x,y,objetoSelva[cont1-1],cont1) == true){
         if(cont1 != 0){
@@ -911,33 +902,33 @@ function listenForGrid(){
         selvaRIGHT = true;
     }
  }
-function validarMeaplesCercanos(x,y,losetaSelva){
+function validarMeaplesCercanos(x,y,losetaSelva,trabajador){
     let xAbajo = parseInt(x) + 1;
     let xArriba = parseInt(x) - 1;
     let yDerecha = parseInt(y) + 1;
     let yIzquierda = parseInt(y) - 1;
     let mep;
-    //APARTE DE VALIDAR SI HAY UN MEAPLE EN LA MATRIZ,, hay que validar a quién pertenece
-    //en este caso, siempre se premia a jugador 1
+    //--NO se puede validar a quén pertenece el meaple adyacente
+    //en este caso, siempre se premia al jugador que tiene el TURNO
         if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
             mep = matrizTrabajadores[xAbajo][y];
-            cabezas = parseInt(trabajadoresObjects1[mep].top);
-            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño); 
+            cabezas = parseInt(trabajador.top);
+            switchTipos(losetaSelva.tipo,cabezas,trabajador[mep].dueño); 
             selvaDOWN = true;       }
         if(matrizTrabajadores[xArriba][y] != 0){ //  ARRIBA
             mep = matrizTrabajadores[xArriba][y];
-            cabezas = parseInt(trabajadoresObjects1[mep].down);
-            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño);
+            cabezas = parseInt(trabajador[mep].down);
+            switchTipos(losetaSelva.tipo,cabezas,trabajador[mep].dueño);
             selvaTOP = true;     }
         if(matrizTrabajadores[x][yIzquierda] != 0){  //  IZQUIERDA
             mep = matrizTrabajadores[x][yIzquierda];
-            cabezas = parseInt(trabajadoresObjects1[mep].left);
-            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño);
+            cabezas = parseInt(trabajador[mep].left);
+            switchTipos(losetaSelva.tipo,cabezas,trabajador[mep].dueño);
             selvaLEFT = true;         }
         if(matrizTrabajadores[x][yDerecha] != 0){ //  DERECHA
             mep = matrizTrabajadores[x][yDerecha];
-            cabezas = parseInt(trabajadoresObjects1[mep].right);
-            switchTipos(losetaSelva.tipo,cabezas,trabajadoresObjects1[mep].dueño);
+            cabezas = parseInt(trabajador[mep].right);
+            switchTipos(losetaSelva.tipo,cabezas,trabajador[mep].dueño);
             selvaRIGHT = true;         }
 }
 function getTipoSelvaWithId(id){
@@ -998,8 +989,8 @@ function resetSelvasBooleans(){
  }
 
  function premiarCacao(cacaosWIN,dueño){
-     console.log("DUEÑO =" + dueño);
-    JUGADORES[dueño].cacao = JUGADORES[dueño].cacao + cacaosWIN;
+    JUGADORES[dueño].cacao = JUGADORES[dueño].cacao + cacaosWIN; 
+    // aveces da error en esta línea de arriba. (991)
 
     switch(dueño){
         case 1:
@@ -1018,6 +1009,7 @@ function resetSelvasBooleans(){
  }
  function premiarMonedas(monedasWIN,dueño){
     console.log("DUEÑO =" + dueño);
+    let monedas1, monedas5, monedas10;
     JUGADORES[dueño].monedas = JUGADORES[dueño].monedas + monedasWIN;
 
     switch(dueño){
@@ -1027,30 +1019,30 @@ function resetSelvasBooleans(){
             monedas10 ="Monedas10J1";
             break;
         case 2:
-            monedas1 ="Monedas1J1";
-            monedas5 ="Monedas5J1";
-            monedas10 ="Monedas10J1";
+            monedas1 ="Monedas1J2";
+            monedas5 ="Monedas5J2";
+            monedas10 ="Monedas10J2";
             break;
         case 3:
-            monedas1 ="Monedas1J1";
-            monedas5 ="Monedas5J1";
-            monedas10 ="Monedas10J1";
+            monedas1 ="Monedas1J3";
+            monedas5 ="Monedas5J3";
+            monedas10 ="Monedas10J3";
             break;
         case 4:
-            monedas1 ="Monedas1J1";
-            monedas5 ="Monedas5J1";
-            monedas10 ="Monedas10J1";
+            monedas1 ="Monedas1J4";
+            monedas5 ="Monedas5J4";
+            monedas10 ="Monedas10J4";
             break;
     }
     console.log("(monedas=" +JUGADORES[dueño].monedas);
-    if(JUGADORES[dueño].monedas>4){
+    if(JUGADORES[dueño].monedas>5){
         JUGADORES[dueño].monedas5 = JUGADORES[dueño].monedas5 + 1;
-        JUGADORES[dueño].monedas = 0;
+        JUGADORES[dueño].monedas = JUGADORES[dueño].monedas - 5;
     }
     console.log("(monedas 5=" +JUGADORES[dueño].monedas5);
     if(JUGADORES[dueño].monedas5>1){
         JUGADORES[dueño].monedas10 = JUGADORES[dueño].monedas10 + 1;
-        JUGADORES[dueño].monedas = 0;
+        JUGADORES[dueño].monedas5 = JUGADORES[dueño].monedas5 - 1;
     }
     document.getElementById(monedas1).textContent = JUGADORES[dueño].monedas.toString();
     document.getElementById(monedas5).textContent = JUGADORES[dueño].monedas5.toString();
@@ -1115,18 +1107,18 @@ function switchTipos(tipo,jupas,dueño){
             break;
         case "Mercado3":
             if(jupas <= cacaos){
-            monedas = (3*jupas);
-            premiarMonedas(monedas,dueño);
-            cacaos = -jupas;
-            premiarCacao(cacaos,dueño);
+                cacaos = -jupas;
+                premiarCacao(cacaos,dueño);
+                monedas = (3*jupas);
+                premiarMonedas(monedas,dueño);
             }
             break;
         case "Mercado4":
             if(jupas <= cacaos){
-            monedas = (4*jupas);
-            premiarMonedas(monedas,dueño);
-            cacaos = -jupas;
-            premiarCacao(monedas,dueño);
+                cacaos = -jupas;
+                premiarCacao(cacaos,dueño);
+                monedas = (4*jupas);
+                premiarMonedas(monedas,dueño);
             }
             break;
         case "Mina1":
@@ -1146,8 +1138,7 @@ function switchTipos(tipo,jupas,dueño){
             aguador(remanso,dueño)
         case "Templos": 
              tmpl = (1*jupas);
-             return tmpl, dueño;       
-            
+             return tmpl, dueño;   //--- ???    
     }
 }
 
@@ -1224,4 +1215,52 @@ function asignaMarcadores(cantidad){
         marcadores.asignaImagen("./IMG/FichaSol.png","fichaSol4",'20px','20px');
         marcadores.asignaImagen("./IMG/Remanso.png","remanso4",'20px','20px');
     }   
+}
+
+function terminarClick(){
+    let puntosP1, puntosP2, puntosP3, puntosP4;
+    puntosP1 = JUGADORES[1].puntos;
+    puntosP2 = JUGADORES[2].puntos;
+    cacaosP1 = JUGADORES[1].cacao;
+    cacaosP2 = JUGADORES[2].cacao
+    for(let x=0; x<numberOfPlayers; x++){
+        contarPuntosFinales(JUGADORES[x]);
+    }
+
+    switch(numberOfPlayers){
+        case 2:
+            if(puntosP1 > puntosP2){
+                GANADOR = JUGADORES[1];
+            }
+            if(puntosP2 > puntosP1){
+                GANADOR = JUGADORES[2];
+            }
+            if(puntosP1 == puntosP2){
+
+                if(cacaosP1 > cacaosP2){
+                    GANADOR = JUGADORES[1];
+                }
+                if(cacaosP2 > cacaosP1){
+                    GANADOR = JUGADORES[2];
+                }
+                if(cacaosP1 == cacaosP2){
+                    empate = true;                    
+                }
+            }
+            break;
+    }
+}
+
+function contarPuntosFinales(player){
+    let points;
+    points = player.monedas + player.monedas5 + player.monedas10;
+    points = points + player.remancio;
+    points = points + player.piedraSolar;
+    points = points + validarTemplos(player);
+
+    player.puntos = points;
+}
+
+function validarTemplos(){
+    return 1; //HACER
 }

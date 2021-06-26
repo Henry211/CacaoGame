@@ -15,19 +15,20 @@
         padding: 10px;
         margin:auto;
         width: 730px;
-        height: 710px;
+        height: 600px;
         overflow: auto;
+        top: -50px;
     }
     #cajaMain{
         position: relative;
         border: 1px solid #ccc;
         padding: 10px;  
-        height: 730px; 
+        height: 630px; 
         margin: auto;
         width: 770px;
         background-color: rgb(65, 65, 60);
         border: 8px groove yellowgreen;
-        top:-370px;
+        top:-70px;
         left: -20px;
     }
     #casilla{
@@ -293,8 +294,8 @@
    .btnFinish{
     position: relative;
     border-radius: 25px;
-    left:845px;
-     top:-80px;
+    left:-210px;
+    top:300px;
     background-color: #CB4335;
     width:150px;
     height: 30px;
