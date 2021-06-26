@@ -1,5 +1,4 @@
-
-
+const socket = io();
 //Array para las urls de los meaplos
 var URLS  = [];
 
