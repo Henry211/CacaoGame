@@ -36,6 +36,8 @@ var jungleType;
 var cabezas;
 var cacaos=0;
 var monedas=0;
+var sun =0;
+var remanso = -10;
 
 var selvaTOP = false;
 var selvaDOWN = false;
@@ -126,7 +128,11 @@ class Jugador{
     constructor(){
         this.cacao = 0;
         this.monedas = 0;
-        this.remancio = 0;
+        this.monedas5 =0;
+        this.monedas10 =0;
+        this.remanso = -10;
+        this.sol = 0;
+        this.tmpl = 0;
         this.color = "red";
     }
       //metodo para remplazar la baraja a la hora de mover la ficha al tablero
@@ -187,7 +193,7 @@ var matrizSelvas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 3, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -263,7 +269,7 @@ function verDatosClick(){
     eventosClick(numberOfPlayers);
     actualizarTablero();//imprimir tablero deacuerdo a matriz lógica
     asignaMarcadores(numberOfPlayers);
-    jugador.enviaValores("2",'CacaoJ4');
+    //jugador.enviaValores("2",'CacaoJ4');
 }
 function actualizarTablero(){
     let srcImage;
@@ -531,8 +537,8 @@ function cargarMazos(cantidad){
             var randMeaplesDos = [];
             var randMeaplesTres = [];
             var randMeaplesCuatro = [];
-            var x;
-            var y;
+            var x,y;
+            var rand,rand1,rand2,rand3,rand4;
             selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
       switch(cantidad) {
           case "2": 
@@ -542,7 +548,7 @@ function cargarMazos(cantidad){
                     //Locetas
                 x =  desordenarSelvas(selvasArr);
                 randSelvas = x;
-                let rand = randSelvas[i];
+                rand = randSelvas[i];
                 selvasObjects1[i] = losetasMazo[rand];//OBJETOS                      
               }
               contenedorSelvasUno.setPieza(selvasObjects1[cont1]);
@@ -557,26 +563,22 @@ function cargarMazos(cantidad){
                     y = desordenarTrabajadores(numeros2);
                     randMeaplesUno =  x;
                     randMeaplesDos = y;
-                    let rand1 = randMeaplesUno[i] ;
-                    let rand2 = randMeaplesDos[i];
+                    rand1 = randMeaplesUno[i] ;
+                    rand2 = randMeaplesDos[i];
                      trabajadoresObjects1[i] = meaplesMazo1[rand1];
                      trabajadoresObjects2[i] = meaplesMazo2[rand2];      
               }
-              //console.log(numeros);
-              console.log(randMeaplesUno);
-             // console.log(numeros2);
-              console.log(randMeaplesDos);
+             
               contenedorTrabajadoresUno.setPieza(trabajadoresObjects1[10]);
               contenedorTrabajadoresDos.setPieza(trabajadoresObjects2[10]);
             break;
           case "3":
-            selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
               for(let i = 0; i<28; i++){ //
                     //-----------------------------
                     //Locetas
                 x =  desordenarSelvas(selvasArr);
                 randSelvas = x;
-                let rand = randSelvas[i];
+                rand = randSelvas[i];
                 selvasObjects1[i] = losetasMazo[rand];//OBJETOS                      
               }
                 contenedorSelvasUno.setPieza(selvasObjects1[10]);
@@ -596,20 +598,18 @@ function cargarMazos(cantidad){
                     randMeaplesTres =  x;  
                     rand1 = randMeaplesUno[i] ;
                     rand2 = randMeaplesDos[i];
-                    let rand3 = randMeaplesTres[i];
+                    rand3 = randMeaplesTres[i];
                      trabajadoresObjects1[i] = meaplesMazo1[rand1];
                      trabajadoresObjects2[i] = meaplesMazo2[rand2];
                      trabajadoresObjects3[i] = meaplesMazo3[rand3];
               }
-                console.log(randMeaplesUno);
-                console.log(randMeaplesDos);
-                console.log(randMeaplesTres);
+              
                 contenedorTrabajadoresUno.setPieza(trabajadoresObjects1[10]);
                 contenedorTrabajadoresDos.setPieza(trabajadoresObjects2[10]);
                 contenedorTrabajadoresTres.setPieza(trabajadoresObjects3[10]);
             break;
           case "4":
-            selvasArr = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27];
+            
             for(let i = 0; i<28; i++){ //
                   //-----------------------------
                   //Locetas
@@ -638,17 +638,12 @@ function cargarMazos(cantidad){
                     rand1 = randMeaplesUno[i] ;
                     rand2 = randMeaplesDos[i];
                     rand3 = randMeaplesTres[i];
-                    let rand4 = randMeaplesCuatro[i];
+                    rand4 = randMeaplesCuatro[i];
                      trabajadoresObjects1[i] = meaplesMazo1[rand1];
                      trabajadoresObjects2[i] = meaplesMazo2[rand2];
                      trabajadoresObjects3[i] = meaplesMazo3[rand3];
                      trabajadoresObjects4[i] = meaplesMazo4[rand4];
               }
-              console.log(randMeaplesUno);
-              console.log(randMeaplesDos);
-              console.log(randMeaplesTres);
-              console.log(randMeaplesCuatro);
- 
                     contenedorTrabajadoresUno.setPieza(trabajadoresObjects1[10]);
                     contenedorTrabajadoresDos.setPieza(trabajadoresObjects2[10]);
                     contenedorTrabajadoresTres.setPieza(trabajadoresObjects3[10]);
@@ -1027,20 +1022,79 @@ function resetSelvasBooleans(){
 
     switch(dueño){
         case 1:
-            document.getElementById("Monedas1J1").textContent = JUGADORES[dueño].monedas.toString();
+            monedas1 ="Monedas1J1";
+            monedas5 ="Monedas5J1";
+            monedas10 ="Monedas10J1";
             break;
         case 2:
-            document.getElementById("Monedas1J2").textContent = JUGADORES[dueño].monedas.toString();
+            monedas1 ="Monedas1J1";
+            monedas5 ="Monedas5J1";
+            monedas10 ="Monedas10J1";
             break;
         case 3:
-            document.getElementById("Monedas1J3").textContent = JUGADORES[dueño].monedas.toString();
+            monedas1 ="Monedas1J1";
+            monedas5 ="Monedas5J1";
+            monedas10 ="Monedas10J1";
             break;
         case 4:
-            document.getElementById("Monedas1J4").textContent = JUGADORES[dueño].monedas.toString();
+            monedas1 ="Monedas1J1";
+            monedas5 ="Monedas5J1";
+            monedas10 ="Monedas10J1";
+            break;
+    }
+    console.log("(monedas=" +JUGADORES[dueño].monedas);
+    if(JUGADORES[dueño].monedas>4){
+        JUGADORES[dueño].monedas5 = JUGADORES[dueño].monedas5 + 1;
+        JUGADORES[dueño].monedas = JUGADORES[dueño].monedas5 -5;
+    }
+    console.log("(monedas 5=" +JUGADORES[dueño].monedas5);
+    if(JUGADORES[dueño].monedas5>1){
+        JUGADORES[dueño].monedas10 = JUGADORES[dueño].monedas10 + 1;
+        JUGADORES[dueño].monedas = JUGADORES[dueño].monedas5 -1;
+    }
+    document.getElementById(monedas1).textContent = JUGADORES[dueño].monedas.toString();
+    document.getElementById(monedas5).textContent = JUGADORES[dueño].monedas5.toString();
+    document.getElementById(monedas10).textContent = JUGADORES[dueño].monedas10.toString();
+
+ }
+ function mayaSun(ficha,dueño){
+    console.log("DUEÑO =" + dueño);
+    JUGADORES[dueño].sol = JUGADORES[dueño].sol + ficha;
+
+    switch(dueño){
+        case 1:
+            document.getElementById("solVal").textContent = JUGADORES[dueño].sol.toString();
+            break;
+        case 2:
+            document.getElementById("solVal2").textContent = JUGADORES[dueño].sol.toString();
+            break;
+        case 3:
+            document.getElementById("solVal3").textContent = JUGADORES[dueño].sol.toString();
+            break;
+        case 4:
+            document.getElementById("solVal4").textContent = JUGADORES[dueño].sol.toString();
             break;
     }
  }
+ function aguador(cenote,dueño){
+    console.log("DUEÑO =" + dueño);
+    JUGADORES[dueño].remanso = JUGADORES[dueño].remanso + cenote;
 
+    switch(dueño){
+        case 1:
+            document.getElementById("RemansoJ1").textContent = JUGADORES[dueño].remanso.toString();
+            break;
+        case 2:
+            document.getElementById("RemansoJ2").textContent = JUGADORES[dueño].remanso.toString();
+            break;
+        case 3:
+            document.getElementById("RemansoJ3").textContent = JUGADORES[dueño].remanso.toString();
+            break;
+        case 4:
+            document.getElementById("RemansoJ4").textContent = JUGADORES[dueño].remanso.toString();
+            break;
+    }
+ }
 function switchTipos(tipo,jupas,dueño){
     switch(tipo){
         case "PlantacionSimple":
@@ -1053,10 +1107,10 @@ function switchTipos(tipo,jupas,dueño){
             break;
         case "Mercado2":
             if(jupas <= cacaos){
-                monedas = (2*jupas);
-                premiarMonedas(monedas,dueño);
                 cacaos = -jupas;
                 premiarCacao(cacaos,dueño);
+                monedas = (2*jupas);
+                premiarMonedas(monedas,dueño);
             }
             break;
         case "Mercado3":
@@ -1082,6 +1136,16 @@ function switchTipos(tipo,jupas,dueño){
         case "Mina2":
             monedas = (2*jupas);
             premiarMonedas(monedas,dueño);
+            break;
+        case "MayaSun":
+            sun = (1*jupas);
+            mayaSun(sun,dueño);
+            break;
+        case "Lago":
+            remanso = +(1*jupas);
+            aguador(remanso,dueño)
+        case "templos": 
+            tmpl =0;       
             break;
     }
 }
@@ -1118,9 +1182,6 @@ function  cantidadJugadores(){
          }
 
 }
-
-
-
 
 function asignaMarcadores(cantidad){
     let marcadores = new LosetaSelva();
