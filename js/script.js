@@ -1045,7 +1045,7 @@ function resetSelvasBooleans(){
     console.log("(monedas=" +JUGADORES[dueño].monedas);
     if(JUGADORES[dueño].monedas>4){
         JUGADORES[dueño].monedas5 = JUGADORES[dueño].monedas5 + 1;
-        JUGADORES[dueño].monedas = JUGADORES[dueño].monedas5 -5;
+        JUGADORES[dueño].monedas = 0;
     }
     console.log("(monedas 5=" +JUGADORES[dueño].monedas5);
     if(JUGADORES[dueño].monedas5>1){
