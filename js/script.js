@@ -1,10 +1,10 @@
-const socket = io();
+// const socket = io();
 
-var person = prompt("Please enter your name", "pepe");
+// var person = prompt("Please enter your name", "pepe");
 /*document.getElementById("j1").textContent = person;
 document.getElementById("j1").style.fontSize = "26px";
 document.getElementById("j1").style.marginTop = "30px";*/
-socket.emit('name',person);
+// socket.emit('name',person);
 
 
 //Array para las urls de los meaplos
@@ -274,18 +274,18 @@ function setName(j,val){
 }
 
 function verDatosClick(){
-    socket.on('nombres',(nombres)=>{
-        setName("j1",nombres[0]);
-        console.log(nombres[0]);
-        setName("j2",nombres[1]);
-        setName("j3",nombres[2]);
-        setName("j4",nombres[4]);
+    // socket.on('nombres',(nombres)=>{
+    //     setName("j1",nombres[0]);
+    //     console.log(nombres[0]);
+    //     setName("j2",nombres[1]);
+    //     setName("j3",nombres[2]);
+    //     setName("j4",nombres[4]);
 
-        numberOfPlayers = nombres.length;
-        setName("j1",nombres[0]);
-        console.log(nombres[0]);
-    });
-    //numberOfPlayers = cantidadJugadores();
+    //     numberOfPlayers = nombres.length;
+    //     setName("j1",nombres[0]);
+    //     console.log(nombres[0]);
+    // });
+    numberOfPlayers = cantidadJugadores();
     var jugador = new Jugador(); 
 
     inicializarTablero();//llena tablero de imágenes en negro (para setear la nuev imagen) 
@@ -311,7 +311,7 @@ function actualizarTablero(){
                     document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado2.png";
                     break;
                 case 4: //Mercado de 3
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Merado3.png";
+                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado3.png";
                     break;
                 case 5: //Mercado de 4
                     document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado4.png";
