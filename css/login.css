@@ -105,6 +105,16 @@ main{
     cursor: pointer;
     outline: none;
 }
+.Box2 nav{
+    padding:10px 40px;
+    margin-top: 40px;
+    border:none;
+    font-size: 14px;
+    background: white;
+    color:white;
+    cursor: pointer;
+    outline: none; 
+}
 .RegisterForm{
     display: none;
 }

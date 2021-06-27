@@ -7157,3 +7157,9 @@ a.text-dark:hover, a.text-dark:focus {
   color:sienna;
   position: absolute;
 }
+body nav{
+  position: absolute;
+  left: 650px;
+  width: 110px;
+  height: 80px;
+}

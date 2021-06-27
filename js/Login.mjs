@@ -18,9 +18,11 @@ function getUser() {
     let pass=document.querySelector("#ILoginPass").value;
     let color=document.querySelector('#Color').value;
     const Jugador={ Name:us,Password:pass,Color:color};
-    // alert("Usenarme: "+Jugador.Name+"\nPassword: "+Jugador.Password+"\nColor: "+Jugador.Color);
+    
+    alert("Ha iniciado sesion satisfactoriamente\n\nPuede proseguir a la sala de espera gracias");
+    alert("Usenarme: "+Jugador.Name+"\nPassword: "+Jugador.Password+"\nColor: "+Jugador.Color);
     // alert("Username: "+us+"\nColor: "+color+"\nPassword: "+pass);
-    socket.emit('name',Jugador);
+    // socket.emit('name',Jugador);
 }
 function AddUser() {
     let us=document.querySelector('#RNombreUsuario').value;
