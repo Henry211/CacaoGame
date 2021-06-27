@@ -1202,19 +1202,19 @@ function  cantidadJugadores(){
 function asignaMarcadores(cantidad){
     let marcadores = new LosetaSelva();
 
-        marcadores.asignaImagen("./IMG/FichaCacao.png","cacao1",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas1.png","monedas1",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas5.png","monedas5",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas10.png","monedas10",'20px','20px');
-        marcadores.asignaImagen("./IMG/FichaSol.png","fichaSol1",'20px','20px');
-        marcadores.asignaImagen("./IMG/Remanso.png","remanso",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaCacao.png","cacao1",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas1.png","monedas1",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas5.png","monedas5",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas10.png","monedas10",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaSol.png","fichaSol1",'20px','20px');
+        marcadores.asignaImagen("../IMG/Remanso.png","remanso",'20px','20px');
         //marcadores juagdor 2
-        marcadores.asignaImagen("./IMG/FichaCacao.png","cacao2",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas1.png","monedas12",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas5.png","monedas52",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas10.png","monedas102",'20px','20px');
-        marcadores.asignaImagen("./IMG/FichaSol.png","fichaSol2",'20px','20px');
-        marcadores.asignaImagen("./IMG/Remanso.png","remanso2",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaCacao.png","cacao2",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas1.png","monedas12",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas5.png","monedas52",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas10.png","monedas102",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaSol.png","fichaSol2",'20px','20px');
+        marcadores.asignaImagen("../IMG/Remanso.png","remanso2",'20px','20px');
 
     if(cantidad == "3"){
         marcadores.asignaImagen("./IMG/FichaCacao.png","cacao3",'20px','20px');
@@ -1225,19 +1225,19 @@ function asignaMarcadores(cantidad){
         marcadores.asignaImagen("./IMG/Remanso.png","remanso3",'20px','20px');
     }
     if(cantidad =="4"){
-        marcadores.asignaImagen("./IMG/FichaCacao.png","cacao3",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas1.png","monedas13",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas5.png","monedas53",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas10.png","monedas103",'20px','20px');
-        marcadores.asignaImagen("./IMG/FichaSol.png","fichaSol3",'20px','20px');
-        marcadores.asignaImagen("./IMG/Remanso.png","remanso3",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaCacao.png","cacao3",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas1.png","monedas13",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas5.png","monedas53",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas10.png","monedas103",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaSol.png","fichaSol3",'20px','20px');
+        marcadores.asignaImagen("../IMG/Remanso.png","remanso3",'20px','20px');
 
-        marcadores.asignaImagen("./IMG/FichaCacao.png","cacao4",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas1.png","monedas14",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas5.png","monedas54",'20px','20px');
-        marcadores.asignaImagen("./IMG/Monedas10.png","monedas104",'20px','20px');
-        marcadores.asignaImagen("./IMG/FichaSol.png","fichaSol4",'20px','20px');
-        marcadores.asignaImagen("./IMG/Remanso.png","remanso4",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaCacao.png","cacao4",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas1.png","monedas14",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas5.png","monedas54",'20px','20px');
+        marcadores.asignaImagen("../IMG/Monedas10.png","monedas104",'20px','20px');
+        marcadores.asignaImagen("../IMG/FichaSol.png","fichaSol4",'20px','20px');
+        marcadores.asignaImagen("../IMG/Remanso.png","remanso4",'20px','20px');
     }   
 }
 

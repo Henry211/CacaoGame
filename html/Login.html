@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login Cacao</title>
+        <link rel="stylesheet" href="../css/login.css">
+        <link rel="shorcut icon" href="../IMG/logo.jpg">
+    </head>
+    <body background="../IMG/FondoLogin.jpg">
+        <main id="Login" >
+            <div class="Boxes">
+                <div class= "Box1">
+                    <div class= "Box1_Login">
+                        <h3>¿Ya tienes alguna cuenta?</h3>
+                        <p>Inicia sesion para ingresar a Cacao</p>
+                        <button id="Loginbtn">Iniciar Sesion</button>
+                    </div>
+                    <div class="Box1_Register">
+                        <h3>Aun no posees una cuenta?</h3>
+                        <p>Registrate para poder continuar</p>
+                        <button id="Registerbtn">Registrarse</button>
+                    </div>
+                </div>
+                <div class="Box2">
+                    <form action="" class="RegisterForm">
+                        <h2>Registrate</h2>
+                        <input id="RNombreUsuario" type="text" placeholder="Nombre de Usuario">
+                        <input id="Edad" type="number" placeholder="Edad">
+                        <input id="RContra"type="password" placeholder="Contraseña">
+                        <input id="RCContra" type="password" placeholder="Comprobacion de Contraseña">
+                        <button id="Regbtn" onclick="AddUser()">Registrarse</button>
+                    </form>
+                    <form action="" class="LoginForm">
+                        <h2>Inicio de Sesion</h2>
+                        <input id="ILoginUser" name="ILoginUser" step="1" value="" type="text" placeholder="Nombre de Usuario"/>
+                        <input id="Color" name="Color" type="color"/>
+                        <input id="ILoginPass" name="ILoginPass"type="password" placeholder="Contraseña"/>
+                        <button id="Logbtn" onclick="getUser()">Iniciar Sesion</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <script src="../js/Login.mjs"></script>
+        <script src="../js/script.mjs"></script>
+    </body>
+</html>

@@ -1,358 +1,98 @@
-.header{
-    padding: 0px;
-    margin: auto;
-    width: 200px;
-    height:25px;
-    background-color: yellowgreen;
-}
-    h2{
-        font-size: 18px;
-    }
-
-     #cajadatos {
-        position: relative;
-        border: 5px solid #ccc;
-        padding: 10px;
-        margin:auto;
-        width: 730px;
-        height: 600px;
-        overflow: auto;
-        top: -50px;
-    }
-    #cajaMain{
-        position: relative;
-        border: 1px solid #ccc;
-        padding: 10px;  
-        height: 630px; 
-        margin: auto;
-        width: 770px;
-        background-color: rgb(65, 65, 60);
-        border: 8px groove yellowgreen;
-        top:-70px;
-        left: -20px;
-    }
-    #casilla{
-        width: 80px;
-        height: 68px;
-        text-align: center;
-        border: 1px groove yellowgreen;
-        margin: 2px;
-    }
- .fill{
-    position:relative;
-    height: 20px;
-    width:  20px;
-    margin:auto
- }   
- .filling{
-    position:absolute;
-    height: 40px;
-    width:  40px;
- } 
-.fill1{
-        cursor:pointer;
-        position:relative;
-        height: 68px;
-        width:80px;
-        background-color: chartreuse;
-}
-.fill2{
-    cursor:pointer;
-    position:relative;
-    height: 68px;
-    width:80px;
-    background-color: gold;
-}
-.fill3{
-    cursor:pointer;
-    position:relative;
-    height: 68px;
-    width:80px;
-    background-color: red;
-}
-.fill4{
-    cursor:pointer;
-    position:relative;
-    height: 68px;
-    width:80px;
-    background-color: blue;
-}
-.CacaoTxt{
-    cursor:crosshair;
-    position: absolute;
-    top: 27px;
-    left: 15px;
-    height: 20px;
-    width: 20px;
-    font-size: 16px;
-    font-style: oblique;
-}
-.Monedas1Txt{
-    cursor:crosshair;
-    position: absolute;
-    top: 27px;
-    left: 43px;
-    height: 20px;
-    width: 20px;
-    font-size: 16px;
-    font-style: oblique;
-}
-.Monedas5Txt{
-    cursor:crosshair;
-    position: absolute;
-    top: 27px;
-    left: 67px;
-    height: 20px;
-    width: 20px;
-    font-size: 16px;
-    font-style: oblique;
-}
-.Monedas10Txt{
-    cursor:crosshair;
-    position: absolute;
-    top: 27px;
-    left: 88px;
-    height: 20px;
-    width: 20px;
-    font-size: 16px;
-    font-style: oblique;
-}
-.FichaSolTxt{
-    cursor:crosshair;
-    position: absolute;
-    top: 27px;
-    left: 110px;
-    height: 20px;
-    width: 20px;
-    font-size: 16px;
-    font-style: oblique;
-}
-.RemansoTxt{
-    cursor:crosshair;
-    position: absolute;
-    top: 27px;
-    left: 130px;
-    height: 20px;
-    width: 20px;
-    font-size: 16px;
-    font-style: oblique;
-}
-#TxtJ2{
-    color:ghostwhite;
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-#LocetasUno{
-    position: relative;
-    border: 1px solid #ccc;
-    padding: 10px;  
-    height: 80px; 
-    margin: auto;
-    width: 100px;
-    background-color: rgb(206, 195, 195);
-    border: 8px groove yellowgreen;
-    float: right;
-    right: 920px;
-    top:30px;
+body{
+	background: #D4D4D4;
+	font-family: 'Open sans';
 }
-#LocetasDos{
-    position: relative;
-    border: 1px solid #ccc;
-    padding: 10px;  
-    height: 80px; 
-    margin: auto;
-    width: 100px;
-    background-color: rgb(206, 195, 195);
-    border: 8px groove yellowgreen;
-    float: right;
-    right: 785px;
-    top:150px;
+
+.wrap{
+	width: 800px;
+	height: 50px;
+	max-width: 90%;
+	margin: 0px 0px;
 }
-#espacioLocetas{
-    cursor:pointer;
-    position:relative;
-    height: 68px;
-    width:80px;
+
+ul.tabs{
+	position: absolute;
+	width: 100%;
+	background: #363636;
+	list-style: none;
+	display: flex;
 }
-#LocId1{
-    position: relative;
-    margin: auto;
-    width:100px;
-    height: 80px;
+
+ul.tabs li{
+	width: 100%;
 }
-#LocId2{
-    position: relative;
-    margin: auto;
-    width:100px;
-    height: 80px;
+
+ul.tabs li a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+	text-align: center;
+
+	display: block;
+	padding: 20px 0px;
+}
+.tab-Juego{
+	display: block;
+}
+
+.active{
+	background: #0984CC;
+}
+
+ul.tabs li a .tab-text{
+	margin-left: 8px;
+}
+
+.secciones{
+	width: 100%;
+	margin-top: 50px;
+	position: absolute;
+	height: 100%;
+	background: #fff;
+}
+.secciones iframe{
+	width: 100%;
+	top:0px;
+	left: 0px;
+	height: 750px;
+	padding: 0px;
+}
+
+.secciones article{
+	padding: 0px;
+}
+
+.secciones article p{
+	text-align: justify;
 }
 
 
-   #marcador1{
-    position: relative;
-    border: 1px solid #ccc;
-    padding: 10px;  
-    height: 80px; 
-    margin: auto;
-    width: 200px;
-    background-color: #ffb;
-    border: 8px groove yellowgreen;
-    float: right;
-    
-   }
-   #marcador2{
-    position: relative;
-    border: 1px solid #ccc;
-    padding: 10px;  
-    height: 80px; 
-    margin: auto;
-    width: 200px;
-    background-color: rgb(12, 75, 129);
-    border: 8px groove yellowgreen;
-    float: right;
-    left: 20px;
-   }
-   #marcador3{
-    position: relative;
-    border: 1px solid #ccc;
-    padding: 10px;  
-    height: 80px; 
-    margin: auto;
-    width: 200px;
-    background-color: darkolivegreen;
-    border: 8px groove yellowgreen;
-    float: right;
-    top: 90px;
-    left: 20px;
-   }
-   #marcador4{
-    position: relative;
-    border: 1px solid rgb(204, 204, 204);
-    padding: 10px;  
-    height: 80px; 
-    margin: auto;
-    width: 200px;
-    background-color: rgb(252, 255, 85);
-    border: 8px groove yellowgreen;
-    float: right;
-    top: 180px;
-    left: 20px;
-   }
-   #mazo1{
-       position: relative;
-       margin: auto;
-       top: 0px;
-       width:100px;
-       height: 80px;
-   }
-
-   #mazo2{
-    position: relative;
-    margin: auto;
-    top: 0px;
-    width:100px;
-    height: 80px;
+@media screen and (max-width: 700px){
+	ul.tabs li{
+		width: none;
+		flex-basis: 0;
+		flex-grow: 1;
+	}
 }
-#mazo3{
-    position: relative;
-    margin: auto;
-    top: 0px;
-    width:100px;
-    height: 80px;
-}
-#mazo4{
-    position: relative;
-    margin: auto;
-    top: 0px;
-    width:100px;
-    height: 80px;
-}
- #cacao1{
-    position: relative;
-    margin: auto;
-    width: 25px;
-    height: 10px; 
-} 
 
-   .button{
-       position: relative;
-       border-radius: 25px;
-       left:10px;
-        top:-30px;
-       background-color: #CB4335;
-       width:150px;
-       height: 30px;
-   }
-   .btnGiro{
-        position: relative;
-        border-radius: 25px;
-        left:-105px;
-        top:-70px;
-       background-color: #CB4335;
-       width:70px;
-       height: 30px;
-   }
-   .btnFinish{
-    position: relative;
-    border-radius: 25px;
-    left:-210px;
-    top:300px;
-    background-color: #CB4335;
-    width:150px;
-    height: 30px;
-   }
-   #h3{
-       color:black;
-   }
-                #Cabezas{
-                    position: relative;
-                    color:rgb(206, 195, 195);
-                    size: 40px;
-                    margin-right: 1200px;
-                    top:250px;
-                    background-color: black;
-                }
-                #Cabezas2{
-                    position: relative;
-                    color:rgb(206, 195, 195);
-                    size: 40px;
-                    left:100px;
-                    top: 200px;
-                    margin-right: 1200px;
-                    background-color: black;
-                }
-                #Monedas{
-                    position: relative;
-                    color:rgb(206, 195, 195);
-                    size: 40px;
-                    margin-right: 1200px;
-                    top:250px;
-                    background-color: black;
-                }
-                #Monedas2{
-                    position: relative;
-                    color:rgb(206, 195, 195);
-                    size: 40px;
-                    left:100px;
-                    top: 200px;
-                    margin-right: 1200px;
-                    background-color: black;
-                }
-                #Cacaos{
-                    position: relative;
-                    color:rgb(206, 195, 195);
-                    size: 40px;
-                    margin-right: 1200px;
-                    top:250px;
-                    background-color: black;
-                }
-                #Cacaos2{
-                    position: relative;
-                    color:rgb(206, 195, 195);
-                    size: 40px;
-                    left:100px;
-                    top: 200px;
-                    margin-right: 1200px;
-                    background-color: black;
-                }
+@media screen and (max-width: 450px){
+	ul.tabs li a{
+		padding: 15px 0px;
+	}
 
-  
+	ul.tabs li a .tab-text{
+		display: none;
+	}
+
+	.secciones article{
+		padding: 20px;
+	}
+}
