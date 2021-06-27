@@ -1,10 +1,22 @@
-// const socket = io();
+
+//const { Socket } = require("node:dgram");
+
+//const { Console } = require("node:console");
 
 // var person = prompt("Please enter your name", "pepe");
 /*document.getElementById("j1").textContent = person;
 document.getElementById("j1").style.fontSize = "26px";
 document.getElementById("j1").style.marginTop = "30px";*/
 // socket.emit('name',person);
+console.log("HOLA MUNDO!");
+const socket = io();
+
+socket.emit('nombres',"DARIO");
+
+socket.on('nombres',(data)=>{
+    console.log(data);
+});
+
 
 
 //Array para las urls de los meaplos
@@ -52,7 +64,7 @@ var selvaTOP = false;
 var selvaDOWN = false;
 var selvaLEFT = false;
 var selvaRIGHT = false;
-    
+
 //Las clases Contenedoras no son totalmente necesarias, puede que se necesiten más adelante
 class contenedorMazoTrabajadores{
     constructor(ficha,selected){

@@ -17,7 +17,7 @@ var tablero = [
     [0, 0, 0, 0, 0, 0, 0]
   ];
 
-let users = [];
+let users = ["KENDALL","MARIANO","GRANADOS"];
 
 var njug = 0, nrecolec = 43;
 
@@ -80,8 +80,8 @@ io.on('connection', (socket) => {
 
      });
 
-   //socket.emit('nombres',username)
-   io.sockets.emit('nombres',username);
+   socket.emit('nombres',"juan")
+  // io.sockets.emit('nombres',"JUAN");
 
     socket.on("disconnect", () => {
         users = users.filter(u => u.id !== socket.id);
