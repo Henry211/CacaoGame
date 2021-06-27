@@ -138,3 +138,13 @@ main{
     }
 
 }
+#Waiting_Room{
+    padding: 0px 0px;
+    margin: 0px 0px;
+    display: block;
+    box-align: center;
+    position: relative;
+    /* margin: 0px 0px; */
+    height: 780px;
+    width: 1300px;
+}

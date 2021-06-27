@@ -3,7 +3,7 @@ document.getElementById("Registerbtn").addEventListener("click",register);
 document.getElementById("Loginbtn").addEventListener("click",Login);
 window.addEventListener("resize",widthPage);
 //Variables globales
-
+// const socket=io();
 //Variables Login.html
 var Boxes=document.querySelector(".Boxes");
 var Box2=document.querySelector(".Box2");
@@ -12,30 +12,42 @@ var RegisterForm=document.querySelector(".RegisterForm");
 var Box1Login=document.querySelector(".Box1_Login");
 var Box1Register=document.querySelector(".Box1_Register");
 //Variables script.js
-// function getUser() {
-//     let us=document.querySelector("#ILoginUser").value;
-//     let pass=document.querySelector("#ILoginPass").value;
-//     console.log("Username: "+us+"\nPassword: "+pass);
-    
-// }
-// function AddUser() {
-//     let us=document.querySelector('#RNombreUsuario').value;
-//     let pass=document.querySelector('#RContra').value;
-//     let cpass=document.querySelector('#RCContra').value;
-//     if(cpass==pass){
-//         console.log("User: "+us+"\nPassword: "+pass+"\nPassword Confirm: "+cpass);
+var waiting=false;
+function getUser() {
+    let us=document.querySelector("#ILoginUser").value;
+    let pass=document.querySelector("#ILoginPass").value;
+    let color=document.querySelector('#Color').value;
+    const Jugador={ Name:us,Password:pass,Color:color};
+    // alert("Usenarme: "+Jugador.Name+"\nPassword: "+Jugador.Password+"\nColor: "+Jugador.Color);
+    // alert("Username: "+us+"\nColor: "+color+"\nPassword: "+pass);
+    // socket.emit('name',Jugador);
+    waiting =true; 
+    getIframe();   
+}
+getIframe();
+function getIframe(){
+    if(waiting){
+        document.querySelector("#Waiting_Room").style.display="block";
+    }
+}
+function AddUser() {
+    let us=document.querySelector('#RNombreUsuario').value;
+    let pass=document.querySelector('#RContra').value;
+    let cpass=document.querySelector('#RCContra').value;
+    if(cpass==pass){
+        console.log("User: "+us+"\nPassword: "+pass+"\nPassword Confirm: "+cpass);
         
-//         // <iframe src="Juego.html" frameborder="0"></iframe>
+        // <iframe src="Juego.html" frameborder="0"></iframe>
         
-//         // alert("Ha iniciado sesion de forma satisfactoria!");
-//         // let log=document.querySelector(".Login");
-//         // log.display="none";
-//     }
-//     else{
-//         alert("Las contraseñas no son identicas");
-//     }
+        // alert("Ha iniciado sesion de forma satisfactoria!");
+        // let log=document.querySelector(".Login");
+        // log.display="none";
+    }
+    else{
+        alert("Las contraseñas no son identicas");
+    }
 
-// }
+}
 
 function Autenticar(){
 
