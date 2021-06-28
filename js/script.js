@@ -8,6 +8,7 @@
 document.getElementById("j1").style.fontSize = "26px";
 document.getElementById("j1").style.marginTop = "30px";*/
 // socket.emit('name',person);
+/*
 console.log("HOLA MUNDO!");
 const socket = io();
 
@@ -15,7 +16,7 @@ socket.emit('nombres',"DARIO");
 
 socket.on('nombres',(data)=>{
     console.log(data);
-});
+});*/
 
 
 
@@ -313,7 +314,7 @@ function actualizarTablero(){
         for(let y=0; y<8; y++){
             console.log(matrizSelvas.toString());
             switch(matrizSelvas[x][y]){
-                case 1: //Plantación Simple
+                case 1: //Plantación Simple    
                     document.getElementById(x.toString() + y.toString()).src = "./IMG/Semillas1.png";
                     break;
                 case 2: //Plantación Doble
@@ -686,6 +687,21 @@ function cargarMazos(cantidad){
                     contenedorTrabajadoresCuatro.setPieza(trabajadoresObjects4[10]);
      }     
   }
+  function eventosClick(cant){ 
+    prepareMazoSelvas('LocId1',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasUno,"LocetasUno");
+    prepareMazoSelvas('LocId2',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasDos,"LocetasDos");
+    prepareMazoTrabajadores('mazo1',trabajadoresObjects1[cont3].url,trabajadoresObjects1[cont3].value,contenedorTrabajadoresUno,"MeaplesUno",1);
+    prepareMazoTrabajadores('mazo2',trabajadoresObjects2[cont4].url,trabajadoresObjects2[cont4].value,contenedorTrabajadoresDos,"MeaplesDos",2);
+    if(cant =="3"){
+        prepareMazoTrabajadores('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres",3);
+    }
+    if(cant == "4"){
+        prepareMazoTrabajadores('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres",3);
+        prepareMazoTrabajadores('mazo4',trabajadoresObjects4[cont6].url,trabajadoresObjects4[cont6].value,contenedorTrabajadoresCuatro,"MeaplesCuatro",4);
+    }
+    
+    listenForGrid();
+}
   function prepareMazoSelvas(idImage,url,value,contenedor,locetaId){
     let piezaAux = new LosetaSelva();
     var image = document.getElementById(idImage);//get imagen del tablero
@@ -712,21 +728,7 @@ function cargarMazos(cantidad){
         document.getElementById(locetaId).style.backgroundColor = JUGADORES[playerID].color; 
     });
   }
-  function eventosClick(cant){ 
-    prepareMazoSelvas('LocId1',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasUno,"LocetasUno");
-    prepareMazoSelvas('LocId2',selvasObjects1[cont1].url,selvasObjects1[cont1].value,contenedorSelvasDos,"LocetasDos");
-    prepareMazoTrabajadores('mazo1',trabajadoresObjects1[cont3].url,trabajadoresObjects1[cont3].value,contenedorTrabajadoresUno,"MeaplesUno",1);
-    prepareMazoTrabajadores('mazo2',trabajadoresObjects2[cont4].url,trabajadoresObjects2[cont4].value,contenedorTrabajadoresDos,"MeaplesDos",2);
-    if(cant =="3"){
-        prepareMazoTrabajadores('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres",3);
-    }
-    if(cant == "4"){
-        prepareMazoTrabajadores('mazo3',trabajadoresObjects3[cont5].url,trabajadoresObjects3[cont5].value,contenedorTrabajadoresTres,"MeaplesTres",3);
-        prepareMazoTrabajadores('mazo4',trabajadoresObjects4[cont6].url,trabajadoresObjects4[cont6].value,contenedorTrabajadoresCuatro,"MeaplesCuatro",4);
-    }
-    
-    listenForGrid();
-}
+
   /*
 function detectarDueño(){
     switch(turno){
@@ -740,37 +742,7 @@ function detectarDueño(){
             return trabajadoresObjects4;
     }
 }*/
-function selvaClicked(objetoSelva,i,elementId,contenedor){
-    resetSelvasBooleans();
-    document.getElementById(i).src = objetoSelva[cont1].url;
-    var x = i.toString().slice(0,-1);
-    var y = i.toString().slice(1);
-    //var dueñoDeMeaple = detectarDueño();
-    var dueñoDeMeaple = trabajadoresObjects1 //--no queda de otra--
-    validarMeaplesCercanos(x,y,objetoSelva[cont1],dueñoDeMeaple);
-    setLogic(x,y,objetoSelva[cont1].value);
-    if(llenarEspacioSelva(x,y,objetoSelva[cont1-1],cont1) == true){
-        if(cont1 != 0){
-            cont1 = cont1 - 1;
-        }
-    }
-    printMatrix();
-    document.getElementById(elementId).style.backgroundColor = 'black'; 
-    contenedor.setEstado(false);
-}
-function meapleClicked(objetoTrabajador,i,elementId,contenedor,cont){
-    document.getElementById(i).style.backgroundColor = JUGADORES[turno].color;
-    document.getElementById(i).src = objetoTrabajador.url;
-    console.log("DUEÑO = " + objetoTrabajador.dueño.toString());
-    var x = i.toString().slice(0,-1);
-    var y = i.toString().slice(1);
-    validarSelvasCercanas(x,y,objetoTrabajador);
-    casilla = i;
-    setTrabajadoresMatrix(x,y,cont);
-    printTrabajadoresMatrix();
-    document.getElementById(elementId).style.backgroundColor = 'black'; 
-    contenedor.setEstado(false);
-}
+
 function updateTurno(){
     let limitTurns = parseInt(numberOfPlayers) + 1;
     turno = turno + 1;
@@ -856,55 +828,38 @@ function listenForGrid(){
          });
      }
  }
- function llenarEspacioSelva(x,y,newSelva,contador){ //llena un espacio con un trabajador AUTOMATICAMENTE si está vacio
-    let xAbajo = parseInt(x) + 1;
-    let xArriba = parseInt(x) - 1;
-    let yDerecha = parseInt(y) + 1;
-    let yIzquierda = parseInt(y) - 1;
-    let idElement;
-    contador = contador - 1;
+ function selvaClicked(objetoSelva,i,elementId,contenedor){
+    resetSelvasBooleans();
+    document.getElementById(i).src = objetoSelva[cont1].url;
+    var x = i.toString().slice(0,-1);
+    var y = i.toString().slice(1);
+    //var dueñoDeMeaple = detectarDueño(); 
+    var dueñoDeMeaple = trabajadoresObjects1 //--no queda de otra--
+    validarMeaplesCercanos(x,y,objetoSelva[cont1],dueñoDeMeaple);
+    setLogic(x,y,objetoSelva[cont1].value);
+    if(llenarEspacioSelva(x,y,objetoSelva[cont1-1],cont1) == true){
+        if(cont1 != 0){
+            cont1 = cont1 - 1;
+        }
+    }
+    printMatrix();
+    document.getElementById(elementId).style.backgroundColor = 'black'; 
+    contenedor.setEstado(false);
+}
+function meapleClicked(objetoTrabajador,i,elementId,contenedor,cont){
+    document.getElementById(i).style.backgroundColor = JUGADORES[turno].color;
+    document.getElementById(i).src = objetoTrabajador.url;
 
-    if(selvaTOP == true && selvaRIGHT == true){
-        if(validarEspacioVacio(xArriba,yDerecha)){
-            idElement = xArriba.toString() + yDerecha.toString();
-            matrizSelvas[xArriba][yDerecha] = contador;
-            document.getElementById(idElement).src = newSelva.url;
-            setLogic(xArriba,yDerecha,contador);
-            return true;
-        }
-    }
-    if(selvaTOP && selvaLEFT){
-        if(validarEspacioVacio(xArriba,yIzquierda)){
-            idElement = xArriba.toString() + yIzquierda.toString();
-            matrizSelvas[xArriba][yIzquierda] = contador;
-            document.getElementById(idElement).src = newSelva.url;
-            setLogic(xArriba,yIzquierda,contador);
-            return true;
-        }
-    }
-    if(selvaDOWN && selvaRIGHT){
-        if(validarEspacioVacio(xAbajo,yDerecha)){
-            idElement = xAbajo.toString() + yDerecha.toString();
-            matrizSelvas[xAbajo][yDerecha] = contador;
-            document.getElementById(idElement).src = newSelva.url;
-            setLogic(xAbajo,yDerecha,contador);
-            return true;
-        }
-    }
-    if(selvaDOWN && selvaLEFT){
-        if(validarEspacioVacio(xAbajo,yIzquierda)){
-            idElement = xAbajo.toString() + yIzquierda.toString();
-            matrizSelvas[xAbajo][yIzquierda] = contador;
-            document.getElementById(idElement).src = newSelva.url;
-            setLogic(xAbajo,yIzquierda,contador);
-            return true;
-        }
-    }
-    else{
-        return false;
-    }
- }
- function validarSelvasCercanas(x,y,losetaMeaple){
+    var x = i.toString().slice(0,-1);
+    var y = i.toString().slice(1);
+    validarSelvasCercanas(x,y,objetoTrabajador);
+    casilla = i;
+    setTrabajadoresMatrix(x,y,cont);
+    printTrabajadoresMatrix();
+    document.getElementById(elementId).style.backgroundColor = 'black'; 
+    contenedor.setEstado(false);
+}
+function validarSelvasCercanas(x,y,losetaMeaple){
     let xAbajo = parseInt(x) + 1;
     let xArriba = parseInt(x) - 1;
     let yDerecha = parseInt(y) + 1;
@@ -967,6 +922,55 @@ function validarMeaplesCercanos(x,y,losetaSelva,trabajador){
             switchTipos(losetaSelva.tipo,cabezas,trabajador[mep].dueño);
             selvaRIGHT = true;         }
 }
+ function llenarEspacioSelva(x,y,newSelva,contador){ //llena un espacio con un trabajador AUTOMATICAMENTE si está vacio
+    let xAbajo = parseInt(x) + 1;
+    let xArriba = parseInt(x) - 1;
+    let yDerecha = parseInt(y) + 1;
+    let yIzquierda = parseInt(y) - 1;
+    let idElement;
+    contador = contador - 1;
+
+    if(selvaTOP == true && selvaRIGHT == true){
+        if(validarEspacioVacio(xArriba,yDerecha)){
+            idElement = xArriba.toString() + yDerecha.toString();
+            matrizSelvas[xArriba][yDerecha] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xArriba,yDerecha,contador);
+            return true;
+        }
+    }
+    if(selvaTOP && selvaLEFT){
+        if(validarEspacioVacio(xArriba,yIzquierda)){
+            idElement = xArriba.toString() + yIzquierda.toString();
+            matrizSelvas[xArriba][yIzquierda] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xArriba,yIzquierda,contador);
+            return true;
+        }
+    }
+    if(selvaDOWN && selvaRIGHT){
+        if(validarEspacioVacio(xAbajo,yDerecha)){
+            idElement = xAbajo.toString() + yDerecha.toString();
+            matrizSelvas[xAbajo][yDerecha] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xAbajo,yDerecha,contador);
+            return true;
+        }
+    }
+    if(selvaDOWN && selvaLEFT){
+        if(validarEspacioVacio(xAbajo,yIzquierda)){
+            idElement = xAbajo.toString() + yIzquierda.toString();
+            matrizSelvas[xAbajo][yIzquierda] = contador;
+            document.getElementById(idElement).src = newSelva.url;
+            setLogic(xAbajo,yIzquierda,contador);
+            return true;
+        }
+    }
+    else{
+        return false;
+    }
+ }
+ 
 function getTipoSelvaWithId(id){
 
     switch(id){
@@ -1255,13 +1259,14 @@ function asignaMarcadores(cantidad){
 
 function terminarClick(){
     let puntosP1, puntosP2, puntosP3, puntosP4;
+    for(let x=0; x<numberOfPlayers; x++){
+        contarPuntosFinales(JUGADORES[x]);
+    }
     puntosP1 = JUGADORES[1].puntos;
     puntosP2 = JUGADORES[2].puntos;
     cacaosP1 = JUGADORES[1].cacao;
     cacaosP2 = JUGADORES[2].cacao
-    for(let x=0; x<numberOfPlayers; x++){
-        contarPuntosFinales(JUGADORES[x]);
-    }
+    
 
     switch(numberOfPlayers){
         case 2:
