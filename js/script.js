@@ -1,13 +1,12 @@
 
-//const { Socket } = require("node:dgram");
-
-//const { Console } = require("node:console");
-
-// var person = prompt("Please enter your name", "pepe");
+//----------------------------------------------------------
+//------------LINEAS SOCKET.IO-------------------------------
+//-----------------------------------------------------------
 /*document.getElementById("j1").textContent = person;
 document.getElementById("j1").style.fontSize = "26px";
 document.getElementById("j1").style.marginTop = "30px";*/
 // socket.emit('name',person);
+//------------------------------------------------------------
 /*
 console.log("HOLA MUNDO!");
 const socket = io();
@@ -17,56 +16,60 @@ socket.emit('nombres',"DARIO");
 socket.on('nombres',(data)=>{
     console.log(data);
 });*/
+//------------------------------------------------------------
 
 
-
-//Array para las urls de los meaplos
 var URLS  = [];
 
-//mano de la locetas
+
 var LocetasURL  = [];
-var losetasMazo = [];   //Aquí están en orden
-var meaplesMazo1 = [];
-var meaplesMazo2 = [];
-var meaplesMazo3 = [];
-var meaplesMazo4 = [];
-const selvasObjects1 = [];//--desoreden
+var losetasMazo = [];   //Aquí están en orden, para luego pasarlas aleatorias a otro vector de objetos
+var meaplesMazo1 = [];  // también
+var meaplesMazo2 = [];  // también
+var meaplesMazo3 = [];  // también
+var meaplesMazo4 = [];  // también
+
+const selvasObjects1 = [];//--Aqué están en desorden
 const selvasObjects2 = [];
 const trabajadoresObjects1 = [];
 const trabajadoresObjects2 = [];
 const trabajadoresObjects3 = [];
 const trabajadoresObjects4 = [];
-var matrizMeaples;
-var JUGADORES = [];
-var GANADOR;
+
+var JUGADORES = []; //---Array de Jugadores
+var GANADOR;    //--ganador
 var empate;
-var turno;
-var numberOfPlayers;
 
-var cont1 = 27; //--losetas1
-var cont3 = 10; //--meaples2
-var cont4 = 10;
-var cont5 = 10;
-var cont6 = 10;
+var turno;  //  --  Para interar los turnos
+var numberOfPlayers;    //  --  Numero de Jugadores
 
-let grados = 0;
+var cont1 = 27; //--    Contador de Losetas Selva
+var cont3 = 10; //--    Contador de Losetas Trabajadores de Jugador #1
+var cont4 = 10; //--    Losetas de Jugador #2
+var cont5 = 10; //--    Jugador #3
+var cont6 = 10; //--    Jugador #4
+
+let grados = 0; //--    grados de giro de imagens loseta
+
 var primerClick = true;
 var casilla;
 var colocarEncima = false;
 var jungleType;
 
+//----Variebles de datos de jugador
 var cabezas;
 var cacaos=0;
 var monedas=0;
 var sun =0;
 var remanso = -10;
 
+//----Booleanos para colocación automática de loseta selva si existen meaples adyacentes
 var selvaTOP = false;
 var selvaDOWN = false;
 var selvaLEFT = false;
 var selvaRIGHT = false;
 
-//Las clases Contenedoras no son totalmente necesarias, puede que se necesiten más adelante
+//----CLASES CONTENEDORAS (contienen los mazos de en la parte gráfica)
 class contenedorMazoTrabajadores{
     constructor(ficha,selected){
         this.ficha = ficha;
@@ -91,7 +94,7 @@ class contenedorMazoSelvas{
         this.selected = selected;
     }
 }
-//--clase MEAPLE--
+//-----clase TRABAJADOR loseta
 class LosetaTrabajador{   // logic = 12
     constructor(top,down,left,right,url,player){
         this.top = top;
@@ -123,7 +126,7 @@ class LosetaTrabajador{   // logic = 12
         document.getElementById(ide).style.width= ancho;
     }
 }
-//clase de cada ficha
+//---clase SELVA loseta
 class LosetaSelva{
     constructor(url, value, tipo){
         this.url = url;
@@ -145,7 +148,7 @@ class LosetaSelva{
         this.value = value;
     }                    
       
-}//clase jugador
+}//----clase JUGADOR
 class Jugador{
     constructor(){
         this.cacao = 0;
@@ -192,7 +195,7 @@ class Jugador{
         document.getElementById(identif).innerHTML = valor;
     }
 }
-//----------CONTENEDORES DE LOSETAS---------
+//----------Iinstancias de CONTENEDORES DE LOSETAS---------
 var pieza = new LosetaSelva();
 var contenedorSelvasUno = new contenedorMazoSelvas(pieza,false);
 var contenedorSelvasDos = new contenedorMazoSelvas(pieza,false);
@@ -201,6 +204,12 @@ var contenedorTrabajadoresDos = new contenedorMazoTrabajadores(pieza,false);
 var contenedorTrabajadoresTres = new contenedorMazoTrabajadores(pieza,false);
 var contenedorTrabajadoresCuatro = new contenedorMazoTrabajadores(pieza,false);
 
+//----MATRIZ DE TRABAJADORES-----
+//-Cada vez que un jugador coloca
+//-un meaple, se coloca el valor
+//-del contador de ese meaple.
+//-Por lo que todos los valores 
+//-son diferentes.---------------
 var matrizTrabajadores = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -212,6 +221,11 @@ var matrizTrabajadores = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
+  //-----MATRIZ DE SELVAS--------
+  //-Cada vez que se coloca una 
+  //-selva, se coloca el valor
+  //-(del 1 al 10) que representa
+  //-el tipo de loseta de selva.
 var matrizSelvas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -223,7 +237,9 @@ var matrizSelvas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
-
+//----A CONTINUACIÓN-----
+//-Funciones con "For's" para asignar valores numericos
+//-a la matriz, o para imprimir la matriz.
   function setTrabajadoresMatrix(xData,yData,id){
     for(let x=0; x<8; x++){
         for(let y=0; y<8; y++){
@@ -263,8 +279,12 @@ function printMatrix(){
     }
     console.log(matrizText);
 }
-
-
+//---GIRAR FICHA-----
+//-La variable 'casilla' es actualizada en cada jugada
+//-con el id de la posición que tiene en la matriz de Trabajadores la última losetaTrabajador colocada.
+//-Obtiene el índice que tiene esa posición en la matriz,
+// y con el indice encuentra el trabajador a girar.
+//-Valida si hay selvas cercanas, para premiar al jugador #1 (no pudimos hacer que premie correctamente)
 function girarClick(){
     grados = grados + 90;
         var x = casilla.toString().slice(0,-1);
@@ -285,18 +305,14 @@ function setName(j,val){
     document.getElementById(j).style.fontSize = "26px";
     document.getElementById(j).style.marginTop = "30px";
 }
-
+//----Evento de BOTON JUGAR-----
+//----obtiene numberOfPayers
+//--recorre tablero
+//--carga mazos
+//--asigna eventos Listener 
+//--asigna marcadores
 function verDatosClick(){
     // socket.on('nombres',(nombres)=>{
-    //     setName("j1",nombres[0]);
-    //     console.log(nombres[0]);
-    //     setName("j2",nombres[1]);
-    //     setName("j3",nombres[2]);
-    //     setName("j4",nombres[4]);
-
-    //     numberOfPlayers = nombres.length;
-    //     setName("j1",nombres[0]);
-    //     console.log(nombres[0]);
     // });
     numberOfPlayers = cantidadJugadores();
     var jugador = new Jugador(); 
@@ -317,32 +333,8 @@ function actualizarTablero(){
                 case 1: //Plantación Simple    
                     document.getElementById(x.toString() + y.toString()).src = "./IMG/Semillas1.png";
                     break;
-                case 2: //Plantación Doble
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Semillas2.png";
-                    break;
                 case 3: //Mercado de 2
                     document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado2.png";
-                    break;
-                case 4: //Mercado de 3
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado3.png";
-                    break;
-                case 5: //Mercado de 4
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mercado4.png";
-                    break;
-                case 6: //Mina de 1
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina1.png";
-                    break;
-                case 7: //Mina de 2
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Mina2.png";
-                    break;
-                case 8: //Cenotes
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Lago.png";  
-                    break;
-                case 9: //Centro de culto solar
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/MayaSun.png";
-                    break;
-                case 10: //Templos
-                    document.getElementById(x.toString() + y.toString()).src = "./IMG/Templos.png";
                     break;
                 }            
         }
@@ -893,13 +885,17 @@ function validarSelvasCercanas(x,y,losetaMeaple){
         selvaRIGHT = true;
     }
  }
+ //---NOTA---
+ //--En validar meaples cercanos existe un error, ya que al colocar una loseta de selva junto a una de meaple
+ //--se debería premiar al dueño de la loseta de meaple, pero..
+ //--siempre premia al jugador #1.
+ //--No tuvimos chance de encontrar una solución para identificar el dueño de la loseta de trabajador cercana
 function validarMeaplesCercanos(x,y,losetaSelva,trabajador){
     let xAbajo = parseInt(x) + 1;
     let xArriba = parseInt(x) - 1;
     let yDerecha = parseInt(y) + 1;
     let yIzquierda = parseInt(y) - 1;
     let mep;
-    //--NO se puede validar a quén pertenece el meaple adyacente
     //en este caso, siempre se premia al jugador que tiene el TURNO
         if(matrizTrabajadores[xAbajo][y] != 0){  //  ABAJO
             mep = matrizTrabajadores[xAbajo][y];
@@ -1283,6 +1279,82 @@ function terminarClick(){
                 }
                 if(cacaosP2 > cacaosP1){
                     GANADOR = JUGADORES[2];
+                }
+                if(cacaosP1 == cacaosP2){
+                    empate = true;                    
+                }
+            }
+            break;
+        case 3:
+            puntosP3 = JUGADORES[3].puntos;
+            cacaosP3 = JUGADORES[3].cacao;
+            if(puntosP1 > (puntosP2 && puntosP3)){
+                GANADOR = JUGADORES[1];
+            }
+            if(puntosP2 > (puntosP1 && puntosP3)){
+                GANADOR = JUGADORES[2];
+            }
+            if(puntosP3 > (puntosP1 && puntosP2)){
+                GANADOR = JUGADORES[3];
+            }
+            if(puntosP1 == puntosP2){
+
+                if(cacaosP1 > cacaosP2){
+                    GANADOR = JUGADORES[1];
+                }
+                if(cacaosP2 > cacaosP1){
+                    GANADOR = JUGADORES[2];
+                }
+                if(cacaosP1 == cacaosP2){
+                    empate = true;                    
+                }
+            }
+            if(puntosP1 == puntosP3){
+
+                if(cacaosP1 > cacaosP3){
+                    GANADOR = JUGADORES[1];
+                }
+                if(cacaosP3 > cacaosP1){
+                    GANADOR = JUGADORES[3];
+                }
+                if(cacaosP1 == cacaosP3){
+                    empate = true;                    
+                }
+            }
+            if(puntosP2 == puntosP3){
+
+                if(cacaosP2 > cacaosP3){
+                    GANADOR = JUGADORES[2];
+                }
+                if(cacaosP3 > cacaosP2){
+                    GANADOR = JUGADORES[3];
+                }
+                if(cacaosP2 == cacaosP3){
+                    empate = true;                    
+                }
+            }
+            if(puntosP1 == puntosP2){
+
+                if(cacaosP1 > cacaosP2){
+                    GANADOR = JUGADORES[1];
+                }
+                if(cacaosP2 > cacaosP1){
+                    GANADOR = JUGADORES[2];
+                }
+                if(cacaosP1 == cacaosP2){
+                    empate = true;                    
+                }
+            }
+            if((puntosP1 == puntosP2) && (puntosP3 == puntosP2)){
+
+                if(cacaosP1 > (cacaosP2 && cacaosP3)){
+                    GANADOR = JUGADORES[1];
+                }
+                if(cacaosP2 > (cacaosP1 && cacaosP3)){
+                    GANADOR = JUGADORES[2];
+                }
+                if(cacaosP3 > (cacaosP1 && cacaosP2)){
+                    GANADOR = JUGADORES[3];
                 }
                 if(cacaosP1 == cacaosP2){
                     empate = true;                    
